@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2010-2015, 2018 Andrew M. Bishop
+ This file Copyright 2010-2015, 2018, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -356,13 +356,13 @@ index_t IndexRouteRelX(RelationsX *relationsx,relation_t id)
 
  do
    {
-    mid=(start+end)/2;                  /* Choose mid point */
+    mid=start+(end-start)/2;             /* Choose mid point (avoid overflow) */
 
     if(relationsx->rridata[mid]<id)      /* Mid point is too low */
        start=mid+1;
     else if(relationsx->rridata[mid]>id) /* Mid point is too high */
        end=mid?(mid-1):mid;
-    else                                /* Mid point is correct */
+    else                                 /* Mid point is correct */
        return(mid);
    }
  while((end-start)>1);
@@ -415,7 +415,7 @@ index_t IndexTurnRelX(RelationsX *relationsx,relation_t id)
 
  do
    {
-    mid=(start+end)/2;                   /* Choose mid point */
+    mid=start+(end-start)/2;             /* Choose mid point (avoid overflow) */
 
     if(relationsx->tridata[mid]<id)      /* Mid point is too low */
        start=mid+1;
