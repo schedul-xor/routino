@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -584,7 +584,7 @@ void GetLatLong(Nodes *nodes,index_t index,Node *nodep,double *latitude,double *
 
  do
    {
-    mid=(start+end)/2;                  /* Choose mid point */
+    mid=start+(end-start)/2;            /* Choose mid point (avoid overflow) */
 
     offset=LookupNodeOffset(nodes,mid);
 
