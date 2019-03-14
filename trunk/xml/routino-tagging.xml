@@ -5,7 +5,7 @@
 
      Part of the Routino routing software.
      ============================================================
-     This file Copyright 2010-2015, 2018 Andrew M. Bishop
+     This file Copyright 2010-2015, 2018, 2019 Andrew M. Bishop
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU Affero General Public License as published by
@@ -598,6 +598,70 @@
 
       <if k="highway" v="ferry">
         <output k="highway"/>
+
+        <!-- Heuristics for ferries - only a common vehicle type within its category -->
+
+        <if k="foot" v="yes">
+          <output k="wheelchair" v="yes"/>
+        </if>
+
+        <if k="bicycle" v="yes">
+          <output k="foot" v="yes"/>
+          <output k="wheelchair" v="yes"/>
+        </if>
+
+        <if k="motorcycle" v="yes">
+          <output k="moped" v="yes"/>
+        </if>
+
+        <if k="motorcar" v="yes">
+          <output k="moped" v="yes"/>
+          <output k="motorcycle" v="yes"/>
+        </if>
+
+        <if k="goods" v="yes">
+          <output k="moped" v="yes"/>
+          <output k="motorcycle" v="yes"/>
+          <output k="motorcar" v="yes"/>
+        </if>
+
+        <if k="psv" v="yes">
+          <output k="moped" v="yes"/>
+          <output k="motorcycle" v="yes"/>
+          <output k="motorcar" v="yes"/>
+          <output k="goods" v="yes"/>
+        </if>
+
+        <if k="hgv" v="yes">
+          <output k="moped" v="yes"/>
+          <output k="motorcycle" v="yes"/>
+          <output k="motorcar" v="yes"/>
+          <output k="goods" v="yes"/>
+          <output k="psv" v="yes"/>
+        </if>
+
+        <!-- Heuristics for ferries - tag groups instead of individual vehicle types -->
+
+        <if k="access" v="yes">
+          <output k="foot" v="yes"/>
+          <output k="horse" v="yes"/>
+          <output k="wheelchair" v="yes"/>
+          <set k="vehicle" v="yes"/>
+        </if>
+
+        <if k="vehicle" v="yes">
+          <output k="bicycle" v="yes"/>
+          <set k="motor_vehicle" v="yes"/>
+        </if>
+
+        <if k="motor_vehicle" v="yes">
+          <output k="moped" v="yes"/>
+          <output k="motorcycle" v="yes"/>
+          <output k="motorcar" v="yes"/>
+          <output k="goods" v="yes"/>
+          <output k="hgv" v="yes"/>
+          <output k="psv" v="yes"/>
+        </if>
 
         <unset k="highway"/>
       </if>
