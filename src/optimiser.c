@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2017 Andrew M. Bishop
+ This file Copyright 2008-2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -1107,7 +1107,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
     else
        queue2_empty=1;
 
-    if(queue1_empty && queue2_empty)
+    if(queue1_empty || queue2_empty)
        break;
    }
 
