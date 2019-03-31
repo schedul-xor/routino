@@ -192,7 +192,7 @@ void FreeWayList(WaysX *waysx,int keep)
 void AppendWayList(WaysX *waysx,way_t id,Way *way,node_t *nodes,int nnodes,const char *name)
 {
  WayX wayx;
- unsigned long longsize;
+ uint64_t longsize;
  FILESORT_VARINT size;
  node_t nonode=NO_NODE_ID;
 
@@ -414,7 +414,7 @@ SegmentsX *SplitWays(WaysX *waysx,NodesX *nodesx,int keep)
  index_t i;
  int fd,nfd;
  char *name=NULL;
- int namelen=0;
+ uint32_t namelen=0;
 
  /* Print the start message */
 
@@ -535,7 +535,7 @@ void SortWayNames(WaysX *waysx)
  index_t i;
  int nfd;
  char *names[2]={NULL,NULL};
- int namelen[2]={0,0};
+ uint32_t namelen[2]={0,0};
  int nnames=0;
  uint32_t lastlength=0;
 

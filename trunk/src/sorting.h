@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2012, 2018 Andrew M. Bishop
+ This file Copyright 2008-2012, 2018, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -32,10 +32,11 @@
 
 /*+ The type, size and alignment of variable to store the variable length +*/
 
-#define FILESORT_VARINT   unsigned short
+#define FILESORT_VARINT   uint16_t
 
 #define FILESORT_VARSIZE  sizeof(FILESORT_VARINT)
-#define FILESORT_MAXINT   (1UL<<(8*FILESORT_VARSIZE))
+
+#define FILESORT_MAXINT   ((FILESORT_VARINT)~0)
 
 #define FILESORT_VARALIGN sizeof(void*)
 

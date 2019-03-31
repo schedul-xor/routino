@@ -230,7 +230,7 @@ void AppendRouteRelationList(RelationsX* relationsx,relation_t id,
                              relation_t *relations,int nrelations)
 {
  RouteRelX relationx={0};
- unsigned long longsize;
+ uint64_t longsize;
  FILESORT_VARINT size;
  node_t nonode=NO_NODE_ID;
  way_t noway=NO_WAY_ID;
