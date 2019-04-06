@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2013-2015 Andrew M. Bishop
+ This file Copyright 2013-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -639,7 +639,7 @@ static int lookup_lat_long_relation(RelationsX *relationsx,WaysX *waysx,NodesX *
           node=tempnode;
       }
 
-    if(lookup_lat_long_node(nodesx,node,latitude,longitude))
+    if(count && lookup_lat_long_node(nodesx,node,latitude,longitude))
        return 1;
 
     /* Choose a random way */
@@ -654,7 +654,7 @@ static int lookup_lat_long_relation(RelationsX *relationsx,WaysX *waysx,NodesX *
           way=tempway;
       }
 
-    if(lookup_lat_long_way(waysx,nodesx,way,latitude,longitude,error))
+    if(count && lookup_lat_long_way(waysx,nodesx,way,latitude,longitude,error))
        return 1;
 
     /* Choose a random relation */
@@ -669,7 +669,10 @@ static int lookup_lat_long_relation(RelationsX *relationsx,WaysX *waysx,NodesX *
           relation=temprelation;
       }
 
-    return lookup_lat_long_relation(relationsx,waysx,nodesx,relation,latitude,longitude,error);
+    if(count && lookup_lat_long_relation(relationsx,waysx,nodesx,relation,latitude,longitude,error))
+       return 1;
+
+    return 0;
    }
 }
 
