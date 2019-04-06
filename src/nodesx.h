@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -45,8 +45,9 @@ struct _NodeX
  latlong_t    latitude;         /*+ The node latitude. +*/
  latlong_t    longitude;        /*+ The node longitude. +*/
 
- transports_t allow;            /*+ The node allowed traffic. +*/
- nodeflags_t  flags;            /*+ The node flags. +*/
+ transports_t allow;            /*+ The types of transport that are allowed through the node. +*/
+
+ nodeflags_t  flags;            /*+ Flags containing extra information (e.g. super-node, turn restriction). +*/
 };
 
 /*+ A structure containing a set of nodes (memory format). +*/
