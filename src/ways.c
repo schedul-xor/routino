@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -90,6 +90,7 @@ void DestroyWayList(Ways *ways)
  ways->data=UnmapFile(ways->data);
 
 #else
+ size_t i;
 
  ways->fd=SlimUnmapFile(ways->fd);
 
@@ -97,6 +98,10 @@ void DestroyWayList(Ways *ways)
  log_free(ways->cache);
 #endif
  DeleteWayCache(ways->cache);
+
+ for(i=0;i<sizeof(ways->ncached)/sizeof(ways->ncached[0]);i++)
+    if(ways->ncached[i])
+       free(ways->ncached[i]);
 
 #endif
 

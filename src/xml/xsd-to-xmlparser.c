@@ -5,7 +5,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2010-2015 Andrew M. Bishop
+ This file Copyright 2010-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -155,6 +155,9 @@ static int xmlDeclaration_function(const char *_tag_,int _type_,const char *vers
  attributeType_function("xsd:attribute",XMLPARSE_TAG_START|XMLPARSE_TAG_END,"version",NULL);
  attributeType_function("xsd:attribute",XMLPARSE_TAG_START|XMLPARSE_TAG_END,"encoding",NULL);
  complexType_function("xsd:complexType",XMLPARSE_TAG_END,NULL);
+
+ if(currenttype)
+    free(currenttype);
  currenttype=NULL;
 
  return(0);
