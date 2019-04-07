@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2012-2015, 2017 Andrew M. Bishop
+ This file Copyright 2012-2015, 2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -550,7 +550,7 @@ static void process_way(void)
  int64_t delta_id;
  TagList *tags=NULL,*result=NULL;
  int mode=mode_change;
- unsigned char *refs=NULL,*refs_end;
+ unsigned char *refs=NULL,*refs_end=NULL;
 
  delta_id=o5m_sint64(&buffer_ptr);
  id+=delta_id;
@@ -629,7 +629,7 @@ static void process_relation()
  int64_t delta_id;
  TagList *tags=NULL,*result=NULL;
  int mode=mode_change;
- unsigned char *refs=NULL,*refs_end;
+ unsigned char *refs=NULL,*refs_end=NULL;
 
  delta_id=o5m_sint64(&buffer_ptr);
  id+=delta_id;
