@@ -10,6 +10,11 @@ name=`basename $1 .sh`
 
 shift
 
+# Use suppressions file in case compiled with sanitizer
+
+LSAN_OPTIONS=suppressions=sanitizer-suppressions.txt
+export LSAN_OPTIONS
+
 # Slim or non-slim
 
 if [ "$1" = "slim" ]; then
