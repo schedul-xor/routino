@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2009-2015, 2017 Andrew M. Bishop
+ This file Copyright 2009-2015, 2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -536,6 +536,8 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
  else
     datasize=option_filesort_ramsize/option_filesort_threads;
 
+ datasize=FILESORT_VARALIGN*((datasize+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
+
  threads=(thread_data*)calloc(option_filesort_threads,sizeof(thread_data));
 
  for(i=0;i<option_filesort_threads;i++)
@@ -602,7 +604,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
           ramused+=itemsize;
 
-          ramused =FILESORT_VARALIGN*((ramused+FILESORT_VARSIZE-1)/FILESORT_VARALIGN);
+          ramused =FILESORT_VARALIGN*((ramused+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
           ramused+=FILESORT_VARALIGN-FILESORT_VARSIZE;
 
           total++;
@@ -732,7 +734,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Check that number of files is less than file size */
 
- largestitemsize=FILESORT_VARALIGN*(1+(largestitemsize+FILESORT_VARALIGN-FILESORT_VARSIZE)/FILESORT_VARALIGN);
+ largestitemsize=FILESORT_VARALIGN*((largestitemsize+FILESORT_VARALIGN-FILESORT_VARSIZE+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
 
  logassert((unsigned)nfiles<((datasize-nfiles*sizeof(void*))/largestitemsize),"Too many temporary files (use more sorting memory?)");
 
@@ -1059,7 +1061,7 @@ void filesort_heapsort(void **datap,size_t nitems,int(*compare_function)(const v
  for(item=nitems;item>1;item--)
    {
     size_t index=1;
-    void *temp;
+    void **temp;
 
     temp=datap1[index];
     datap1[index]=datap1[item];
@@ -1070,7 +1072,7 @@ void filesort_heapsort(void **datap,size_t nitems,int(*compare_function)(const v
     while((2*index)<(item-1))
       {
        int newindex;
-       void *temp;
+       void **temp;
 
        newindex=2*index;
 
@@ -1090,7 +1092,7 @@ void filesort_heapsort(void **datap,size_t nitems,int(*compare_function)(const v
     if((2*index)==(item-1))
       {
        int newindex;
-       void *temp;
+       void **temp;
 
        newindex=2*index;
 
