@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2010-2016 Andrew M. Bishop
+ This file Copyright 2010-2016, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -1518,6 +1518,7 @@ void FreeXMLTranslations()
  for(i=0;i<nloaded_translations;i++)
    {
     free(loaded_translations[i]->lang);
+    free(loaded_translations[i]->language);
 
     for(j=0;j<2;j++)
       {
