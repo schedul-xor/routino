@@ -126,11 +126,10 @@ index_t filesort_fixed(int fd_in,int fd_out,size_t itemsize,int (*pre_sort_funct
  int *fds=NULL,*heap=NULL;
  int nfiles=0,ndata=0;
  index_t count_out=0,count_in=0,total=0;
- size_t nitems;
+ size_t nitems,item;
  char *data;
  void **datap;
  thread_data *threads;
- size_t item;
  int i,more=1;
 #if defined(USE_PTHREADS) && USE_PTHREADS
  int nthreads=0;
@@ -138,7 +137,7 @@ index_t filesort_fixed(int fd_in,int fd_out,size_t itemsize,int (*pre_sort_funct
 
  /* Allocate the RAM buffer and other bits */
 
- nitems=SizeFileFD(fd_in)/itemsize;
+ nitems=(size_t)SizeFileFD(fd_in)/itemsize;
 
  if(nitems==0)
     return(0);
@@ -509,12 +508,11 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
  int *fds=NULL,*heap=NULL;
  int nfiles=0,ndata=0;
  index_t count_out=0,count_in=0,total=0;
- size_t datasize;
+ size_t datasize,item;
  FILESORT_VARINT nextitemsize,largestitemsize=0;
  char *data;
  void **datap;
  thread_data *threads;
- size_t item;
  int i,more=1;
 #if defined(USE_PTHREADS) && USE_PTHREADS
  int nthreads=0;
@@ -522,7 +520,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Allocate the RAM buffer and other bits */
 
- datasize=SizeFileFD(fd_in);
+ datasize=(size_t)SizeFileFD(fd_in);
 
  if(datasize==0)
     return(0);
