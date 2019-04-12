@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -57,7 +57,7 @@
 /* Types */
 
 /*+ A 64-bit file offset since a 32-bit off_t (which is signed) is smaller than a
-    32-bit size_t (which is unsigned) that can be writtento or read from a file. +*/
+    32-bit size_t (which is unsigned) that can be written to or read from a file. +*/
 typedef int64_t offset_t;
 
 

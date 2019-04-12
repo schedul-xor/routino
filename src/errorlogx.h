@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2013 Andrew M. Bishop
+ This file Copyright 2013, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -35,8 +35,8 @@ typedef struct _ErrorLogX
  latlong_t latitude;         /*+ The error message latitude. +*/
  latlong_t longitude;        /*+ The error message longitude. +*/
 
- uint32_t  offset;           /*+ The offset of the error message from the beginning of the text file. +*/
- uint32_t  length;           /*+ The length of the error message in the text file. +*/
+ offset_t  offset;           /*+ The offset of the error message from the beginning of the text file. +*/
+ size_t    length;           /*+ The length of the error message in the text file. +*/
 }
  ErrorLogX;
 
