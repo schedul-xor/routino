@@ -732,9 +732,9 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Check that number of files is less than file size */
 
- largestitemsize=FILESORT_VARALIGN*((largestitemsize+FILESORT_VARALIGN+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
+ largestitemsize=FILESORT_VARALIGN*((largestitemsize+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
 
- logassert((unsigned)nfiles<((datasize-nfiles*sizeof(void*))/largestitemsize),"Too many temporary files (use more sorting memory?)");
+ logassert((unsigned)nfiles<((datasize-nfiles*sizeof(void*))/(FILESORT_VARALIGN+largestitemsize)),"Too many temporary files (use more sorting memory?)");
 
  /* Open all of the temporary files */
 
@@ -765,7 +765,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
     int index;
     FILESORT_VARINT itemsize;
 
-    datap[i]=data+i*largestitemsize;
+    datap[i]=data+FILESORT_VARALIGN+i*(largestitemsize+FILESORT_VARALIGN);
 
     ReadFileBuffered(fds[i],&itemsize,FILESORT_VARSIZE);
 
