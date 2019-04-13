@@ -732,7 +732,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Check that number of files is less than file size */
 
- largestitemsize=FILESORT_VARALIGN*((largestitemsize+FILESORT_VARALIGN-FILESORT_VARSIZE+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
+ largestitemsize=FILESORT_VARALIGN*((largestitemsize+FILESORT_VARALIGN+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
 
  logassert((unsigned)nfiles<((datasize-nfiles*sizeof(void*))/largestitemsize),"Too many temporary files (use more sorting memory?)");
 
@@ -765,7 +765,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
     int index;
     FILESORT_VARINT itemsize;
 
-    datap[i]=data+FILESORT_VARALIGN-FILESORT_VARSIZE+i*largestitemsize;
+    datap[i]=data+i*largestitemsize;
 
     ReadFileBuffered(fds[i],&itemsize,FILESORT_VARSIZE);
 
@@ -1059,7 +1059,7 @@ void filesort_heapsort(void **datap,size_t nitems,int(*compare_function)(const v
  for(item=nitems;item>1;item--)
    {
     size_t index=1;
-    void **temp;
+    void *temp;
 
     temp=datap1[index];
     datap1[index]=datap1[item];
@@ -1090,7 +1090,7 @@ void filesort_heapsort(void **datap,size_t nitems,int(*compare_function)(const v
     if((2*index)==(item-1))
       {
        int newindex;
-       void **temp;
+       void *temp;
 
        newindex=2*index;
 
