@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2011-2014 Andrew M. Bishop
+ This file Copyright 2011-2014, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -208,7 +208,7 @@ void PruneIsolatedRegions(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,dista
     const char *transport_str=TransportName(transport);
     transports_t transports=TRANSPORTS(transport);
 
-    if(!(waysx->allow&transports))
+    if(!(waysx->transports&transports))
        continue;
 
     /* Print the start message */

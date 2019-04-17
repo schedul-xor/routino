@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2014 Andrew M. Bishop
+ This file Copyright 2008-2014, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -449,7 +449,7 @@ const char *TransportName(Transport transport);
 const char *PropertyName(Property property);
 
 const char *HighwaysNameList(highways_t highways);
-const char *AllowedNameList(transports_t allowed);
+const char *TransportsNameList(transports_t transports);
 const char *PropertiesNameList(properties_t properties);
 
 const char *HighwayList(void);

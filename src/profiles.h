@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -54,7 +54,7 @@ typedef struct _Profile
 
  /* The derived parts */
 
- transports_t allow;                     /*+ The type of transport expressed as a bitmask. +*/
+ transports_t transports;                /*+ The type of transport expressed as a bitmask. +*/
 
  score_t      props_yes[Property_Count]; /*+ A floating point preference for ways with this attribute. +*/
  score_t      props_no [Property_Count]; /*+ A floating point preference for ways without this attribute. +*/

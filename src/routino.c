@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2015-2017 Andrew M. Bishop
+ This file Copyright 2015-2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -511,7 +511,7 @@ DLL_PUBLIC Routino_Waypoint *Routino_FindWaypoint(Routino_Database *database,Rou
     return(NULL);
    }
 
- if(!profile->allow)
+ if(!profile->transports)
    {
     Routino_errno=ROUTINO_ERROR_NOTVALID_PROFILE;
     return(NULL);
@@ -579,7 +579,7 @@ DLL_PUBLIC Routino_Output *Routino_CalculateRoute(Routino_Database *database,Rou
     return(NULL);
    }
 
- if(!profile->allow)
+ if(!profile->transports)
    {
     Routino_errno=ROUTINO_ERROR_NOTVALID_PROFILE;
     return(NULL);

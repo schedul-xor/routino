@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2016 Andrew M. Bishop
+ This file Copyright 2008-2016, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -61,8 +61,8 @@ typedef struct _WaysFile
  index_t      number;           /*+ The number of ways. +*/
 
  highways_t   highways;         /*+ The types of highways that were seen when parsing. +*/
- transports_t allow;            /*+ The types of traffic that were seen when parsing. +*/
- properties_t props;            /*+ The properties that were seen when parsing. +*/
+ transports_t transports;       /*+ The types of traffic that were seen when parsing. +*/
+ properties_t properties;       /*+ The properties that were seen when parsing. +*/
 }
  WaysFile;
 

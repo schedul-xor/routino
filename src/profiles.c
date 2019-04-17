@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -803,9 +803,9 @@ int UpdateProfile(Profile *profile,Ways *ways)
 
  /* Check the allowed transport type */
 
- profile->allow=TRANSPORTS(profile->transport);
+ profile->transports=TRANSPORTS(profile->transport);
 
- if(!(profile->allow & ways->file.allow))
+ if(!(profile->transports & ways->file.transports))
     return(1);
 
  /* Normalise the highway preferences into the range ~0 -> 1 */
@@ -868,7 +868,7 @@ int UpdateProfile(Profile *profile,Ways *ways)
  /* Find the most preferred property combination */
 
  for(i=1;i<Property_Count;i++)
-    if(ways->file.props & PROPERTIES(i))
+    if(ways->file.properties & PROPERTIES(i))
       {
        if(profile->props_yes[i]>profile->props_no[i])
           profile->max_pref*=profile->props_yes[i];

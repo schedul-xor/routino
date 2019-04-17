@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2017 Andrew M. Bishop
+ This file Copyright 2008-2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -505,7 +505,7 @@ Routino_Output *PrintRoute(Results **results,int nresults,Nodes *nodes,Segments 
 
                       if(profile->oneway && IsOnewayTo(segmentp,result->node))
                         {
-                         if(profile->allow!=Transports_Bicycle)
+                         if(profile->transports!=Transports_Bicycle)
                             canexit=0;
                          else
                            {
@@ -572,7 +572,7 @@ Routino_Output *PrintRoute(Results **results,int nresults,Nodes *nodes,Segments 
 
                 if(profile->oneway && IsOnewayTo(segmentp,result->node))
                   {
-                   if(profile->allow!=Transports_Bicycle)
+                   if(profile->transports!=Transports_Bicycle)
                       cango=0;
                    else
                      {
@@ -587,7 +587,7 @@ Routino_Output *PrintRoute(Results **results,int nresults,Nodes *nodes,Segments 
                   {
                    index_t turnrelation=FindFirstTurnRelation2(relations,result->node,realsegment);
 
-                   if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,result->node,realsegment,seg,profile->allow))
+                   if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,result->node,realsegment,seg,profile->transports))
                       cango=0;
                   }
 

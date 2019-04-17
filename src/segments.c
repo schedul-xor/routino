@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -156,12 +156,12 @@ index_t FindClosestSegmentHeading(Nodes *nodes,Segments *segments,Ways *ways,ind
 
     wayp=LookupWay(ways,segmentp->way,1);
 
-    if(!(wayp->allow&profile->allow))
+    if(!(wayp->allow&profile->transports))
        goto endloop;
 
     if(profile->oneway && IsOnewayFrom(segmentp,node1))
       {
-       if(profile->allow!=Transports_Bicycle)
+       if(profile->transports!=Transports_Bicycle)
           goto endloop;
 
        if(!(wayp->type&Highway_CycleBothWays))

@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -57,7 +57,7 @@ struct _WaysX
  index_t  number;               /*+ The number of extended ways still being considered. +*/
  index_t  knumber;              /*+ The number of extended ways kept for next time. +*/
 
- transports_t allow;            /*+ The types of traffic that were seen when parsing. +*/
+ transports_t transports;       /*+ The types of traffic that were seen when parsing. +*/
 
 #if !SLIM
 
