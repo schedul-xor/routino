@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -423,71 +423,71 @@ const char *HighwaysNameList(highways_t highways)
 
 
 /*++++++++++++++++++++++++++++++++++++++
-  A string containing the names of allowed transports on a way.
+  A string containing the names of transports.
 
-  const char *AllowedNameList Returns the list of names.
+  const char *TransportsNameList Returns the list of names.
 
-  transports_t allowed The allowed type.
+  transports_t transports The transports type.
   ++++++++++++++++++++++++++++++++++++++*/
 
-const char *AllowedNameList(transports_t allowed)
+const char *TransportsNameList(transports_t transports)
 {
  static char string[256]; /* static allocation of return value (set each call) */
 
  string[0]=0;
 
- if(allowed & Transports_Foot)
+ if(transports & Transports_Foot)
     strcat(string,"foot");
 
- if(allowed & Transports_Horse)
+ if(transports & Transports_Horse)
    {
     if(*string) strcat(string,", ");
     strcat(string,"horse");
    }
 
- if(allowed & Transports_Wheelchair)
+ if(transports & Transports_Wheelchair)
    {
     if(*string) strcat(string,", ");
     strcat(string,"wheelchair");
    }
 
- if(allowed & Transports_Bicycle)
+ if(transports & Transports_Bicycle)
    {
     if(*string) strcat(string,", ");
     strcat(string,"bicycle");
    }
 
- if(allowed & Transports_Moped)
+ if(transports & Transports_Moped)
    {
     if(*string) strcat(string,", ");
     strcat(string,"moped");
    }
 
- if(allowed & Transports_Motorcycle)
+ if(transports & Transports_Motorcycle)
    {
     if(*string) strcat(string,", ");
     strcat(string,"motorcycle");
    }
 
- if(allowed & Transports_Motorcar)
+ if(transports & Transports_Motorcar)
    {
     if(*string) strcat(string,", ");
     strcat(string,"motorcar");
    }
 
- if(allowed & Transports_Goods)
+ if(transports & Transports_Goods)
    {
     if(*string) strcat(string,", ");
     strcat(string,"goods");
    }
 
- if(allowed & Transports_HGV)
+ if(transports & Transports_HGV)
    {
     if(*string) strcat(string,", ");
     strcat(string,"hgv");
    }
 
- if(allowed & Transports_PSV)
+ if(transports & Transports_PSV)
    {
     if(*string) strcat(string,", ");
     strcat(string,"psv");

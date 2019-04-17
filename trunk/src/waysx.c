@@ -450,7 +450,7 @@ SegmentsX *SplitWays(WaysX *waysx,NodesX *nodesx,int keep)
 
     ReadFileBuffered(waysx->fd,&wayx,sizeof(WayX));
 
-    waysx->allow|=wayx.way.allow;
+    waysx->transports|=wayx.way.allow;
 
     while(!ReadFileBuffered(waysx->fd,&node,sizeof(node_t)) && node!=NO_NODE_ID)
       {
@@ -888,9 +888,9 @@ void SaveWayList(WaysX *waysx,const char *filename)
 
  waysfile.number =waysx->number;
 
- waysfile.highways=highways;
- waysfile.allow   =allow;
- waysfile.props   =props;
+ waysfile.highways  =highways;
+ waysfile.transports=allow;
+ waysfile.properties=props;
 
  SeekFileBuffered(fd,0);
  WriteFileBuffered(fd,&waysfile,sizeof(WaysFile));

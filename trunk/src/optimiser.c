@@ -321,7 +321,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
    {
     Node *startp=LookupNode(nodes,start_node,1);
 
-    if(!(startp->allow&profile->allow))
+    if(!(startp->allow&profile->transports))
        force_uturn=1;
    }
 
@@ -377,7 +377,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
        /* must obey one-way restrictions (unless profile allows) */
        if(profile->oneway && IsOnewayTo(segment2p,node1))
          {
-          if(profile->allow!=Transports_Bicycle)
+          if(profile->transports!=Transports_Bicycle)
              goto endloop;
 
           way2p=LookupWay(ways,segment2p->way,1);
@@ -409,7 +409,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
              goto endloop;
 
        /* must obey turn relations */
-       if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1r,seg2r,profile->allow))
+       if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1r,seg2r,profile->transports))
           goto endloop;
 
        if(!IsFakeNode(node2))
@@ -422,7 +422,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
        way2p=LookupWay(ways,segment2p->way,1);
 
        /* mode of transport must be allowed on the highway */
-       if(!(way2p->allow&profile->allow))
+       if(!(way2p->allow&profile->transports))
           goto endloop;
 
        /* must obey weight restriction (if exists) */
@@ -442,7 +442,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
           goto endloop;
 
        for(i=1;i<Property_Count;i++)
-          if(ways->file.props & PROPERTIES(i))
+          if(ways->file.properties & PROPERTIES(i))
             {
              if(way2p->props & PROPERTIES(i))
                 segment_pref*=profile->props_yes[i];
@@ -455,7 +455,7 @@ static Results *FindNormalRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
           goto endloop;
 
        /* mode of transport must be allowed through node2 unless it is the final node */
-       if(node2p && node2!=finish_node && !(node2p->allow&profile->allow))
+       if(node2p && node2!=finish_node && !(node2p->allow&profile->transports))
           goto endloop;
 
        /* calculate the score for the segment and cumulative */
@@ -631,7 +631,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
       {
        Node *startp=LookupNode(nodes,begin->start_node,1);
 
-       if(!(startp->allow&profile->allow))
+       if(!(startp->allow&profile->transports))
           force_uturn=1;
       }
    }
@@ -770,7 +770,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
           /* must obey one-way restrictions (unless profile allows) */
           if(profile->oneway && IsOnewayTo(segment2p,node1))
             {
-             if(profile->allow!=Transports_Bicycle)
+             if(profile->transports!=Transports_Bicycle)
                 goto endloop_fwd;
 
              way2p=LookupWay(ways,segment2p->way,1);
@@ -793,13 +793,13 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
                 goto endloop_fwd;
 
           /* must obey turn relations */
-          if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1,seg2,profile->allow))
+          if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1,seg2,profile->transports))
              goto endloop_fwd;
 
           way2p=LookupWay(ways,segment2p->way,1);
 
           /* mode of transport must be allowed on the highway */
-          if(!(way2p->allow&profile->allow))
+          if(!(way2p->allow&profile->transports))
              goto endloop_fwd;
 
           /* must obey weight restriction (if exists) */
@@ -819,7 +819,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
              goto endloop_fwd;
 
           for(i=1;i<Property_Count;i++)
-             if(ways->file.props & PROPERTIES(i))
+             if(ways->file.properties & PROPERTIES(i))
                {
                 if(way2p->props & PROPERTIES(i))
                    segment_pref*=profile->props_yes[i];
@@ -836,7 +836,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
           node2p=LookupNode(nodes,node2,2); /* node2 cannot be a fake node (must be a super-node) */
 
           /* mode of transport must be allowed through node2 unless it is the final node */
-          if(node2!=end->finish_node && !(node2p->allow&profile->allow))
+          if(node2!=end->finish_node && !(node2p->allow&profile->transports))
              goto endloop_fwd;
 
           /* calculate the score for the segment and cumulative */
@@ -936,7 +936,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
        node1p=LookupNode(nodes,node1,1);
 
        /* mode of transport must be allowed through node1 */
-       if(!(node1p->allow&profile->allow))
+       if(!(node1p->allow&profile->transports))
           continue;
 
        way1p=LookupWay(ways,segment1p->way,1);
@@ -944,7 +944,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
        segment1_pref=profile->highway[HIGHWAY(way1p->type)];
 
        for(i=1;i<Property_Count;i++)
-          if(ways->file.props & PROPERTIES(i))
+          if(ways->file.properties & PROPERTIES(i))
             {
              if(way1p->props & PROPERTIES(i))
                 segment1_pref*=profile->props_yes[i];
@@ -989,14 +989,14 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
             {
              index_t turnrelation2=FindFirstTurnRelation2(relations,node1,seg2);
 
-             if(turnrelation2!=NO_RELATION && !IsTurnAllowed(relations,turnrelation2,node1,seg2,seg1,profile->allow))
+             if(turnrelation2!=NO_RELATION && !IsTurnAllowed(relations,turnrelation2,node1,seg2,seg1,profile->transports))
                 goto endloop_rev;
             }
 
           /* must obey one-way restrictions (unless profile allows) */
           if(profile->oneway && IsOnewayFrom(segment2p,node1)) /* working backwards => disallow oneway *from* node1 */
             {
-             if(profile->allow!=Transports_Bicycle)
+             if(profile->transports!=Transports_Bicycle)
                 goto endloop_rev;
 
              way2p=LookupWay(ways,segment2p->way,1);
@@ -1008,7 +1008,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
           way2p=LookupWay(ways,segment2p->way,1);
 
           /* mode of transport must be allowed on the highway */
-          if(!(way2p->allow&profile->allow))
+          if(!(way2p->allow&profile->transports))
              goto endloop_rev;
 
           /* must obey weight restriction (if exists) */
@@ -1028,7 +1028,7 @@ static Results *FindMiddleRoute(Nodes *nodes,Segments *segments,Ways *ways,Relat
              goto endloop_rev;
 
           for(i=1;i<Property_Count;i++)
-             if(ways->file.props & PROPERTIES(i))
+             if(ways->file.properties & PROPERTIES(i))
                {
                 if(way2p->props & PROPERTIES(i))
                    segment_pref*=profile->props_yes[i];
@@ -1334,7 +1334,7 @@ static Results *FindSuperRoute(Nodes *nodes,Segments *segments,Ways *ways,Relati
          {
           Way *way2p;
 
-          if(profile->allow!=Transports_Bicycle)
+          if(profile->transports!=Transports_Bicycle)
              goto endloop;
 
           way2p=LookupWay(ways,segment2p->way,2);
@@ -1464,7 +1464,7 @@ static Results *FindStartRoutes(Nodes *nodes,Segments *segments,Ways *ways,Relat
    {
     Node *startp=LookupNode(nodes,start_node,1);
 
-    if(!(startp->allow&profile->allow))
+    if(!(startp->allow&profile->transports))
        force_uturn=1;
    }
 
@@ -1520,7 +1520,7 @@ static Results *FindStartRoutes(Nodes *nodes,Segments *segments,Ways *ways,Relat
        /* must obey one-way restrictions (unless profile allows) */
        if(profile->oneway && IsOnewayTo(segment2p,node1))
          {
-          if(profile->allow!=Transports_Bicycle)
+          if(profile->transports!=Transports_Bicycle)
              goto endloop;
 
           way2p=LookupWay(ways,segment2p->way,1);
@@ -1552,13 +1552,13 @@ static Results *FindStartRoutes(Nodes *nodes,Segments *segments,Ways *ways,Relat
              goto endloop;
 
        /* must obey turn relations */
-       if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1r,seg2r,profile->allow))
+       if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg1r,seg2r,profile->transports))
           goto endloop;
 
        way2p=LookupWay(ways,segment2p->way,1);
 
        /* mode of transport must be allowed on the highway */
-       if(!(way2p->allow&profile->allow))
+       if(!(way2p->allow&profile->transports))
           goto endloop;
 
        /* must obey weight restriction (if exists) */
@@ -1578,7 +1578,7 @@ static Results *FindStartRoutes(Nodes *nodes,Segments *segments,Ways *ways,Relat
           goto endloop;
 
        for(i=1;i<Property_Count;i++)
-          if(ways->file.props & PROPERTIES(i))
+          if(ways->file.properties & PROPERTIES(i))
             {
              if(way2p->props & PROPERTIES(i))
                 segment_pref*=profile->props_yes[i];
@@ -1594,7 +1594,7 @@ static Results *FindStartRoutes(Nodes *nodes,Segments *segments,Ways *ways,Relat
           node2p=LookupNode(nodes,node2,2);
 
        /* mode of transport must be allowed through node2 unless it is the final node */
-       if(node2p && node2!=finish_node && !(node2p->allow&profile->allow))
+       if(node2p && node2!=finish_node && !(node2p->allow&profile->transports))
           goto endloop;
 
        /* calculate the score for the segment and cumulative */
@@ -1812,7 +1812,7 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
 
     /* mode of transport must be allowed through node1 */
     if(seg1!=NO_SEGMENT)
-       if(node1p && !(node1p->allow&profile->allow))
+       if(node1p && !(node1p->allow&profile->transports))
           continue;
 
     if(seg1!=NO_SEGMENT)
@@ -1822,7 +1822,7 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
        segment1_pref=profile->highway[HIGHWAY(way1p->type)];
 
        for(i=1;i<Property_Count;i++)
-          if(ways->file.props & PROPERTIES(i))
+          if(ways->file.properties & PROPERTIES(i))
             {
              if(way1p->props & PROPERTIES(i))
                 segment1_pref*=profile->props_yes[i];
@@ -1866,7 +1866,7 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
        /* must obey one-way restrictions (unless profile allows) */
        if(profile->oneway && IsOnewayFrom(segment2p,node1)) /* working backwards => disallow oneway *from* node1 */
          {
-          if(profile->allow!=Transports_Bicycle)
+          if(profile->transports!=Transports_Bicycle)
              goto endloop;
 
           way2p=LookupWay(ways,segment2p->way,1);
@@ -1912,14 +1912,14 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
              turnrelation=FindFirstTurnRelation2(relations,node1,seg2r);
 
           /* must obey turn relations */
-          if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg2r,seg1r,profile->allow))
+          if(turnrelation!=NO_RELATION && !IsTurnAllowed(relations,turnrelation,node1,seg2r,seg1r,profile->transports))
              goto endloop;
          }
 
        way2p=LookupWay(ways,segment2p->way,1);
 
        /* mode of transport must be allowed on the highway */
-       if(!(way2p->allow&profile->allow))
+       if(!(way2p->allow&profile->transports))
           goto endloop;
 
        /* must obey weight restriction (if exists) */
@@ -1939,7 +1939,7 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
           goto endloop;
 
        for(i=1;i<Property_Count;i++)
-          if(ways->file.props & PROPERTIES(i))
+          if(ways->file.properties & PROPERTIES(i))
             {
              if(way2p->props & PROPERTIES(i))
                 segment_pref*=profile->props_yes[i];
@@ -1955,7 +1955,7 @@ static Results *FindFinishRoutes(Nodes *nodes,Segments *segments,Ways *ways,Rela
           node2p=LookupNode(nodes,node2,2);
 
        /* mode of transport must be allowed through node2 */
-       if(node2p && !(node2p->allow&profile->allow))
+       if(node2p && !(node2p->allow&profile->transports))
           goto endloop;
 
        cumulative_score=result1->score+segment1_score;

@@ -512,7 +512,7 @@ static int valid_segment_for_profile(Ways *ways,Segment *segmentp,Profile *profi
  int i;
 
  /* mode of transport must be allowed on the highway */
- if(!(wayp->allow&profile->allow))
+ if(!(wayp->allow&profile->transports))
     return(0);
 
  /* must obey weight restriction (if exists) */
@@ -528,7 +528,7 @@ static int valid_segment_for_profile(Ways *ways,Segment *segmentp,Profile *profi
  segment_pref=profile->highway[HIGHWAY(wayp->type)];
 
  for(i=1;i<Property_Count;i++)
-    if(ways->file.props & PROPERTIES(i))
+    if(ways->file.properties & PROPERTIES(i))
       {
        if(wayp->props & PROPERTIES(i))
           segment_pref*=profile->props_yes[i];
