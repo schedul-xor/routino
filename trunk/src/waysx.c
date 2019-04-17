@@ -828,8 +828,8 @@ void SaveWayList(WaysX *waysx,const char *filename)
  WayX wayx;
  WaysFile waysfile={0};
  highways_t   highways=0;
- transports_t allow=0;
- properties_t props=0;
+ transports_t transports=0;
+ properties_t properties=0;
 
  /* Print the start message */
 
@@ -850,9 +850,9 @@ void SaveWayList(WaysX *waysx,const char *filename)
    {
     ReadFileBuffered(waysx->fd,&wayx,sizeof(WayX));
 
-    highways|=HIGHWAYS(wayx.way.type);
-    allow   |=wayx.way.allow;
-    props   |=wayx.way.props;
+    highways  |=HIGHWAYS(wayx.way.type);
+    transports|=wayx.way.allow;
+    properties|=wayx.way.props;
 
     WriteFileBuffered(fd,&wayx.way,sizeof(Way));
 
@@ -889,8 +889,8 @@ void SaveWayList(WaysX *waysx,const char *filename)
  waysfile.number =waysx->number;
 
  waysfile.highways  =highways;
- waysfile.transports=allow;
- waysfile.properties=props;
+ waysfile.transports=transports;
+ waysfile.properties=properties;
 
  SeekFileBuffered(fd,0);
  WriteFileBuffered(fd,&waysfile,sizeof(WaysFile));
