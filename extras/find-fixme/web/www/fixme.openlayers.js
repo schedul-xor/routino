@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -415,15 +415,13 @@ function runDumpSuccess(response)
       {
        var type=types[t];
 
-       var regexp=RegExp(type + " id=&#39;[0-9]+&#39;");
+       var regexp=RegExp(type + " id=&#39;([0-9]+)&#39;");
 
        var match=string.match(regexp);
 
        if(match !== null)
          {
-          match=String(match);
-
-          var id=match.slice(10+type.length,match.length-6);
+          var id=match[1];
 
           string=string.replace(regexp,type + " id=&#39;<a href='" + mapprops.browseurl + "/" + type + "/" + id + "' target='" + type + id + "'>" + id + "</a>&#39;");
          }
