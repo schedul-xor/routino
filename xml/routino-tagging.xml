@@ -183,9 +183,9 @@
     <if v="public"      > <set v="yes"/> </if>
     <if v="official"    > <set v="yes"/> </if>
 
-    <if v="destination" > <set v="yes"/> </if>
-    <if v="customer"    > <set v="yes"/> </if>
-    <if v="customers"   > <set v="yes"/> </if>
+    <if v="destination" > <set v="no"/> </if>
+    <if v="customer"    > <set v="no"/> </if>
+    <if v="customers"   > <set v="no"/> </if>
     <if v="delivery"    > <set v="no"/> </if>
     <if v="residents"   > <set v="no"/> </if>
     <if v="private"     > <set v="no"/> </if>
@@ -693,9 +693,9 @@
       <if v="public"      > <set v="yes"/> </if>
       <if v="official"    > <set v="yes"/> </if>
 
-      <if v="destination" > <set v="yes"/> </if>
-      <if v="customer"    > <set v="yes"/> </if>
-      <if v="customers"   > <set v="yes"/> </if>
+      <if v="destination" > <set v="no"/> </if>
+      <if v="customer"    > <set v="no"/> </if>
+      <if v="customers"   > <set v="no"/> </if>
       <if v="delivery"    > <set v="no"/> </if>
       <if v="residents"   > <set v="no"/> </if>
       <if v="private"     > <set v="no"/> </if>
