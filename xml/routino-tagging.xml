@@ -763,43 +763,6 @@
 
       </if> <!-- k="access" -->
 
-      <!-- Access restrictions for classes of transport types (to subtract from highway specific defaults) -->
-
-      <if k="vehicle">
-
-        <ifnot k="vehicle" v="yes">
-          <output k="bicycle"    v="no"/>
-          <output k="moped"      v="no"/>
-          <output k="motorcycle" v="no"/>
-          <output k="motorcar"   v="no"/>
-          <output k="goods"      v="no"/>
-          <output k="hgv"        v="no"/>
-          <output k="psv"        v="no"/>
-
-          <ifnot k="vehicle" v="no">
-            <logerror k="vehicle" message="using 'no'"/>
-          </ifnot>
-        </ifnot>
-
-      </if> <!-- k="vehicle" -->
-
-      <if k="motor_vehicle">
-
-        <ifnot k="motor_vehicle" v="yes">
-          <output k="moped"      v="no"/>
-          <output k="motorcycle" v="no"/>
-          <output k="motorcar"   v="no"/>
-          <output k="goods"      v="no"/>
-          <output k="hgv"        v="no"/>
-          <output k="psv"        v="no"/>
-
-          <ifnot k="motor_vehicle" v="no">
-            <logerror k="motor_vehicle" message="using 'no'"/>
-          </ifnot>
-        </ifnot>
-
-      </if> <!-- k="motor_vehicle" -->
-
       <!-- Other access permissions (to add to highway specific defaults with generic restrictions) -->
 
       <if k="designation">
@@ -939,6 +902,43 @@
         <output k="bicycle" v="yes"/>
         <output k="cyclebothways" v="yes"/>
       </if>
+
+      <!-- Access restrictions for classes of transport types (to subtract from highway specific defaults and other access permissions) -->
+
+      <if k="vehicle">
+
+        <ifnot k="vehicle" v="yes">
+          <output k="bicycle"    v="no"/>
+          <output k="moped"      v="no"/>
+          <output k="motorcycle" v="no"/>
+          <output k="motorcar"   v="no"/>
+          <output k="goods"      v="no"/>
+          <output k="hgv"        v="no"/>
+          <output k="psv"        v="no"/>
+
+          <ifnot k="vehicle" v="no">
+            <logerror k="vehicle" message="using 'no'"/>
+          </ifnot>
+        </ifnot>
+
+      </if> <!-- k="vehicle" -->
+
+      <if k="motor_vehicle">
+
+        <ifnot k="motor_vehicle" v="yes">
+          <output k="moped"      v="no"/>
+          <output k="motorcycle" v="no"/>
+          <output k="motorcar"   v="no"/>
+          <output k="goods"      v="no"/>
+          <output k="hgv"        v="no"/>
+          <output k="psv"        v="no"/>
+
+          <ifnot k="motor_vehicle" v="no">
+            <logerror k="motor_vehicle" message="using 'no'"/>
+          </ifnot>
+        </ifnot>
+
+      </if> <!-- k="motor_vehicle" -->
 
       <!-- Specific access rules (to override the generic ones) -->
 
