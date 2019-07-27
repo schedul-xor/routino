@@ -71,12 +71,10 @@ NodesX *NewNodeList(int append,int readonly)
 {
  NodesX *nodesx;
 
- nodesx=(NodesX*)calloc(1,sizeof(NodesX));
+ nodesx=(NodesX*)calloc_logassert(1,sizeof(NodesX));
 
- logassert(nodesx,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
-
- nodesx->filename    =(char*)malloc(strlen(option_tmpdirname)+32);
- nodesx->filename_tmp=(char*)malloc(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+ nodesx->filename    =(char*)malloc_logassert(strlen(option_tmpdirname)+32);
+ nodesx->filename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
 
  sprintf(nodesx->filename    ,"%s/nodesx.parsed.mem",option_tmpdirname);
  sprintf(nodesx->filename_tmp,"%s/nodesx.%p.tmp"    ,option_tmpdirname,(void*)nodesx);
@@ -287,10 +285,8 @@ void SortNodeList(NodesX *nodesx)
 
  /* Allocate the array of indexes */
 
- nodesx->idata=(node_t*)malloc(nodesx->number*sizeof(node_t));
+ nodesx->idata=(node_t*)malloc_logassert(nodesx->number*sizeof(node_t));
  log_malloc(nodesx->idata,nodesx->number*sizeof(node_t));
-
- logassert(nodesx->idata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  /* Sort the nodes by ID and index them */
 
@@ -397,8 +393,6 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
  usednode=AllocBitMask(nodesx->number);
  log_malloc(usednode,LengthBitMask(nodesx->number)*sizeof(BitMask));
 
- logassert(usednode,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
-
  /* Re-open the file read-only */
 
  waysx->fd=ReOpenFileBuffered(waysx->filename_tmp);
@@ -459,10 +453,8 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
 
  /* Allocate the array of indexes */
 
- nodesx->idata=(node_t*)malloc(highway*sizeof(node_t));
+ nodesx->idata=(node_t*)malloc_logassert(highway*sizeof(node_t));
  log_malloc(nodesx->idata,highway*sizeof(node_t));
-
- logassert(nodesx->idata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  highway=0;
 
@@ -541,10 +533,8 @@ void RemovePrunedNodes(NodesX *nodesx,SegmentsX *segmentsx)
 
  /* Allocate the array of indexes */
 
- nodesx->pdata=(index_t*)malloc(nodesx->number*sizeof(index_t));
+ nodesx->pdata=(index_t*)malloc_logassert(nodesx->number*sizeof(index_t));
  log_malloc(nodesx->pdata,nodesx->number*sizeof(index_t));
-
- logassert(nodesx->pdata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  /* Re-open the file read-only and a new file writeable */
 
@@ -624,10 +614,8 @@ void SortNodeListGeographically(NodesX *nodesx)
 
  /* Allocate the memory for the geographical index array */
 
- nodesx->gdata=(index_t*)malloc(nodesx->number*sizeof(index_t));
+ nodesx->gdata=(index_t*)malloc_logassert(nodesx->number*sizeof(index_t));
  log_malloc(nodesx->gdata,nodesx->number*sizeof(index_t));
-
- logassert(nodesx->gdata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  /* Re-open the file read-only and a new file writeable */
 
@@ -803,9 +791,7 @@ void SaveNodeList(NodesX *nodesx,const char *filename,SegmentsX *segmentsx)
 
  /* Allocate the memory for the geographical offsets array */
 
- offsets=(index_t*)malloc((nodesx->latbins*nodesx->lonbins+1)*sizeof(index_t));
-
- logassert(offsets,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
+ offsets=(index_t*)malloc_logassert((nodesx->latbins*nodesx->lonbins+1)*sizeof(index_t));
 
  latlonbin=0;
 

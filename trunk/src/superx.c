@@ -71,8 +71,6 @@ void ChooseSuperNodes(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx)
     nodesx->super=AllocBitMask(nodesx->number);
     log_malloc(nodesx->super,LengthBitMask(nodesx->number)*sizeof(BitMask));
 
-    logassert(nodesx->super,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
-
     SetAllBits(nodesx->super,nodesx->number);
    }
 

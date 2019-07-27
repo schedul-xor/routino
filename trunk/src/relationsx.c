@@ -75,15 +75,13 @@ RelationsX *NewRelationList(int append,int readonly)
 {
  RelationsX *relationsx;
 
- relationsx=(RelationsX*)calloc(1,sizeof(RelationsX));
-
- logassert(relationsx,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
+ relationsx=(RelationsX*)calloc_logassert(1,sizeof(RelationsX));
 
 
  /* Route Relations */
 
- relationsx->rrfilename    =(char*)malloc(strlen(option_tmpdirname)+32);
- relationsx->rrfilename_tmp=(char*)malloc(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
+ relationsx->rrfilename    =(char*)malloc_logassert(strlen(option_tmpdirname)+32);
+ relationsx->rrfilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
 
  sprintf(relationsx->rrfilename    ,"%s/relationsx.route.parsed.mem",option_tmpdirname);
  sprintf(relationsx->rrfilename_tmp,"%s/relationsx.route.%p.tmp"    ,option_tmpdirname,(void*)relationsx);
@@ -118,8 +116,8 @@ RelationsX *NewRelationList(int append,int readonly)
 
  /* Turn Restriction Relations */
 
- relationsx->trfilename    =(char*)malloc(strlen(option_tmpdirname)+32);
- relationsx->trfilename_tmp=(char*)malloc(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
+ relationsx->trfilename    =(char*)malloc_logassert(strlen(option_tmpdirname)+32);
+ relationsx->trfilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
 
  sprintf(relationsx->trfilename    ,"%s/relationsx.turn.parsed.mem",option_tmpdirname);
  sprintf(relationsx->trfilename_tmp,"%s/relationsx.turn.%p.tmp"    ,option_tmpdirname,(void*)relationsx);
@@ -762,7 +760,7 @@ void ProcessRouteRelations(RelationsX *relationsx,WaysX *waysx,int keep)
           else if(routes)
             {
              if(nunmatched%256==0)
-                unmatched=(RouteRelX*)realloc((void*)unmatched,(nunmatched+256)*sizeof(RouteRelX));
+                unmatched=(RouteRelX*)realloc_logassert((void*)unmatched,(nunmatched+256)*sizeof(RouteRelX));
 
              unmatched[nunmatched].id=relationid;
              unmatched[nunmatched].routes=routes;

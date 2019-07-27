@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -73,11 +73,9 @@ SegmentsX *NewSegmentList(void)
 {
  SegmentsX *segmentsx;
 
- segmentsx=(SegmentsX*)calloc(1,sizeof(SegmentsX));
+ segmentsx=(SegmentsX*)calloc_logassert(1,sizeof(SegmentsX));
 
- logassert(segmentsx,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
-
- segmentsx->filename_tmp=(char*)malloc(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+ segmentsx->filename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
 
  sprintf(segmentsx->filename_tmp,"%s/segmentsx.%p.tmp",option_tmpdirname,(void*)segmentsx);
 
@@ -405,8 +403,6 @@ void ProcessSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
  segmentsx->usedway=AllocBitMask(waysx->number);
  log_malloc(segmentsx->usedway,LengthBitMask(waysx->number)*sizeof(BitMask));
 
- logassert(segmentsx->usedway,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
-
  /* Re-open the file read-only and a new file writeable */
 
  fd=ReplaceFileBuffered(segmentsx->filename_tmp,&segmentsx->fd);
@@ -523,10 +519,8 @@ void IndexSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
 
  /* Allocate the array of indexes */
 
- segmentsx->firstnode=(index_t*)malloc(nodesx->number*sizeof(index_t));
+ segmentsx->firstnode=(index_t*)malloc_logassert(nodesx->number*sizeof(index_t));
  log_malloc(segmentsx->firstnode,nodesx->number*sizeof(index_t));
-
- logassert(segmentsx->firstnode,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  for(i=0;i<nodesx->number;i++)
     segmentsx->firstnode[i]=NO_SEGMENT;
@@ -538,7 +532,7 @@ void IndexSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
 #else
  segmentsx->fd=SlimMapFileWriteable(segmentsx->filename_tmp);
 
- segmentx_list=(SegmentX*)malloc(1024*sizeof(SegmentX));
+ segmentx_list=(SegmentX*)malloc_logassert(1024*sizeof(SegmentX));
 #endif
 
  /* Read through the segments in reverse order (in chunks to help slim mode) */
@@ -641,8 +635,6 @@ void RemovePrunedSegments(SegmentsX *segmentsx,WaysX *waysx)
 
  segmentsx->usedway=AllocBitMask(waysx->number);
  log_malloc(segmentsx->usedway,LengthBitMask(waysx->number)*sizeof(BitMask));
-
- logassert(segmentsx->usedway,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
 
  /* Re-open the file read-only and a new file writeable */
 

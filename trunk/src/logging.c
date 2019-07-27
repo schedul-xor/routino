@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -604,4 +604,95 @@ void _logassert(const char *message,const char *file,int line)
  fprintf(stderr,"Routino Fatal Error (%s:%d): %s\n",file,line,message);
 
  exit(EXIT_FAILURE);
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++
+  Allocate some memory by calling calloc() and checking for failures.
+
+  void *calloc_logassert Returns the newly allocated pointer.
+
+  size_t nmemb The number of members in the array to allocate.
+
+  size_t size The size of the array to allocate.
+
+  const char *file The file in which the error occured.
+
+  int line The line number in the file at which the error occured.
+  ++++++++++++++++++++++++++++++++++++++*/
+
+void *_calloc_logassert(size_t nmemb,size_t size,const char *file,int line)
+{
+ void *temp=calloc(nmemb,size);
+
+ if(!temp)
+   {
+    char string[64];
+
+    sprintf(string,"Failed to allocate %zu bytes of memory",nmemb*size);
+
+    _logassert(string,file,line);
+   }
+
+ return temp;
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++
+  Allocate some memory by calling malloc() and checking for failures.
+
+  void *malloc_logassert Returns the newly allocated pointer.
+
+  size_t size The size of the memory to allocate.
+
+  const char *file The file in which the error occured.
+
+  int line The line number in the file at which the error occured.
+  ++++++++++++++++++++++++++++++++++++++*/
+
+void *_malloc_logassert(size_t size,const char *file,int line)
+{
+ void *temp=malloc(size);
+
+ if(!temp)
+   {
+    char string[64];
+
+    sprintf(string,"Failed to allocate %zu bytes of memory",size);
+
+    _logassert(string,file,line);
+   }
+
+ return temp;
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++
+  Allocate some memory by calling realloc() and checking for failures.
+
+  void *realloc_logassert Returns the newly allocated pointer.
+
+  void *ptr An existing pointer to be reallocated.
+
+  size_t size The size of the memory to allocate.
+
+  const char *file The file in which the error occured.
+
+  int line The line number in the file at which the error occured.
+  ++++++++++++++++++++++++++++++++++++++*/
+
+void *_realloc_logassert(void *ptr,size_t size,const char *file,int line)
+{
+ void *temp=realloc(ptr,size);
+
+ if(!temp)
+   {
+    char string[64];
+
+    sprintf(string,"Failed to allocate %zu bytes of memory",size);
+
+    _logassert(string,file,line);
+   }
+
+ return temp;
 }

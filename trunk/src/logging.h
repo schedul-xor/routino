@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2017 Andrew M. Bishop
+ This file Copyright 2008-2015, 2017, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -117,6 +117,20 @@ void _logassert(const char *message,const char *file,int line) __attribute__ ((n
 void _logassert(const char *message,const char *file,int line);
 
 #endif
+
+
+/* Memory allocation with logging */
+
+#define calloc_logassert(xx,yy)  _calloc_logassert (xx,yy,__FILE__,__LINE__)
+
+#define malloc_logassert(xx)     _malloc_logassert (xx   ,__FILE__,__LINE__)
+
+#define realloc_logassert(xx,yy) _realloc_logassert(xx,yy,__FILE__,__LINE__)
+
+
+void *_calloc_logassert (size_t nmemb,size_t size,const char *file,int line);
+void *_malloc_logassert (             size_t size,const char *file,int line);
+void *_realloc_logassert(void *ptr,   size_t size,const char *file,int line);
 
 
 #endif /* LOGGING_H */
