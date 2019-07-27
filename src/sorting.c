@@ -147,17 +147,17 @@ index_t filesort_fixed(int fd_in,int fd_out,size_t itemsize,int (*pre_sort_funct
  else
     nitems=option_filesort_ramsize/(option_filesort_threads*(itemsize+sizeof(void*)));
 
- threads=(thread_data*)calloc(option_filesort_threads,sizeof(thread_data));
+ threads=(thread_data*)calloc_logassert(option_filesort_threads,sizeof(thread_data));
 
  for(i=0;i<option_filesort_threads;i++)
    {
-    threads[i].data=malloc(nitems*itemsize);
-    threads[i].datap=malloc(nitems*sizeof(void*));
+    threads[i].data=malloc_logassert(nitems*itemsize);
+    threads[i].datap=malloc_logassert(nitems*sizeof(void*));
 
     log_malloc(threads[i].data ,nitems*itemsize);
     log_malloc(threads[i].datap,nitems*sizeof(void*));
 
-    threads[i].filename=(char*)malloc(strlen(option_tmpdirname)+24);
+    threads[i].filename=(char*)malloc_logassert(strlen(option_tmpdirname)+24);
 
     threads[i].itemsize=itemsize;
     threads[i].compare=compare_function;
@@ -325,7 +325,7 @@ index_t filesort_fixed(int fd_in,int fd_out,size_t itemsize,int (*pre_sort_funct
 
  /* Open all of the temporary files */
 
- fds=(int*)malloc(nfiles*sizeof(int));
+ fds=(int*)malloc_logassert(nfiles*sizeof(int));
 
  for(i=0;i<nfiles;i++)
    {
@@ -340,7 +340,7 @@ index_t filesort_fixed(int fd_in,int fd_out,size_t itemsize,int (*pre_sort_funct
 
  /* Perform an n-way merge using a binary heap */
 
- heap=(int*)malloc((1+nfiles)*sizeof(int));
+ heap=(int*)malloc_logassert((1+nfiles)*sizeof(int));
 
  data =threads[0].data;
  datap=threads[0].datap;
@@ -536,16 +536,16 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  datasize=FILESORT_VARALIGN*((datasize+FILESORT_VARALIGN-1)/FILESORT_VARALIGN);
 
- threads=(thread_data*)calloc(option_filesort_threads,sizeof(thread_data));
+ threads=(thread_data*)calloc_logassert(option_filesort_threads,sizeof(thread_data));
 
  for(i=0;i<option_filesort_threads;i++)
    {
-    threads[i].data=malloc(datasize);
+    threads[i].data=malloc_logassert(datasize);
     threads[i].datap=NULL;
 
     log_malloc(threads[i].data,datasize);
 
-    threads[i].filename=(char*)malloc(strlen(option_tmpdirname)+24);
+    threads[i].filename=(char*)malloc_logassert(strlen(option_tmpdirname)+24);
 
     threads[i].compare=compare_function;
    }
@@ -738,7 +738,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Open all of the temporary files */
 
- fds=(int*)malloc(nfiles*sizeof(int));
+ fds=(int*)malloc_logassert(nfiles*sizeof(int));
 
  for(i=0;i<nfiles;i++)
    {
@@ -753,7 +753,7 @@ index_t filesort_vary(int fd_in,int fd_out,int (*pre_sort_function)(void*,index_
 
  /* Perform an n-way merge using a binary heap */
 
- heap=(int*)malloc((1+nfiles)*sizeof(int));
+ heap=(int*)malloc_logassert((1+nfiles)*sizeof(int));
 
  data=threads[0].data;
  datap=(void**)(data+datasize-nfiles*sizeof(void*));

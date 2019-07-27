@@ -69,9 +69,7 @@ ErrorLogsX *NewErrorLogList(void)
 {
  ErrorLogsX *errorlogsx;
 
- errorlogsx=(ErrorLogsX*)calloc(1,sizeof(ErrorLogsX));
-
- logassert(errorlogsx,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
+ errorlogsx=(ErrorLogsX*)calloc_logassert(1,sizeof(ErrorLogsX));
 
  return(errorlogsx);
 }
@@ -329,7 +327,7 @@ static void reindex_nodes(NodesX *nodesx)
 
  nodesx->number=nodesx->knumber;
 
- nodesx->idata=(node_t*)malloc(nodesx->number*sizeof(node_t));
+ nodesx->idata=(node_t*)malloc_logassert(nodesx->number*sizeof(node_t));
  log_malloc(nodesx->idata,nodesx->number*sizeof(node_t));
 
  /* Get the node id for each node in the file. */
@@ -362,8 +360,8 @@ static void reindex_ways(WaysX *waysx)
 
  waysx->number=waysx->knumber;
 
- waysx->idata=(way_t*)malloc(waysx->number*sizeof(way_t));
- waysx->odata=(offset_t*)malloc(waysx->number*sizeof(offset_t));
+ waysx->idata=(way_t*)   malloc_logassert(waysx->number*sizeof(way_t));
+ waysx->odata=(offset_t*)malloc_logassert(waysx->number*sizeof(offset_t));
 
  log_malloc(waysx->idata,waysx->number*sizeof(way_t));
  log_malloc(waysx->odata,waysx->number*sizeof(offset_t));
@@ -410,8 +408,8 @@ static void reindex_relations(RelationsX *relationsx)
 
  relationsx->rrnumber=relationsx->rrknumber;
 
- relationsx->rridata=(relation_t*)malloc(relationsx->rrnumber*sizeof(relation_t));
- relationsx->rrodata=(offset_t*)malloc(relationsx->rrnumber*sizeof(offset_t));
+ relationsx->rridata=(relation_t*)malloc_logassert(relationsx->rrnumber*sizeof(relation_t));
+ relationsx->rrodata=(offset_t*)  malloc_logassert(relationsx->rrnumber*sizeof(offset_t));
 
  log_malloc(relationsx->rridata,relationsx->rrnumber*sizeof(relation_t));
  log_malloc(relationsx->rrodata,relationsx->rrnumber*sizeof(offset_t));
@@ -445,7 +443,7 @@ static void reindex_relations(RelationsX *relationsx)
 
  relationsx->trnumber=relationsx->trknumber;
 
- relationsx->tridata=(relation_t*)malloc(relationsx->trnumber*sizeof(relation_t));
+ relationsx->tridata=(relation_t*)malloc_logassert(relationsx->trnumber*sizeof(relation_t));
 
  log_malloc(relationsx->tridata,relationsx->trnumber*sizeof(relation_t));
 
@@ -835,9 +833,7 @@ void SaveErrorLogs(ErrorLogsX *errorlogsx,char *filename)
 
  /* Allocate the memory for the geographical offsets array */
 
- offsets=(index_t*)malloc((errorlogsx->latbins*errorlogsx->lonbins+1)*sizeof(index_t));
-
- logassert(offsets,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
+ offsets=(index_t*)malloc_logassert((errorlogsx->latbins*errorlogsx->lonbins+1)*sizeof(index_t));
 
  latlonbin=0;
 

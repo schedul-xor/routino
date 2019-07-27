@@ -76,10 +76,8 @@ void StartPruning(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx)
 
  /* Allocate the array of next segment */
 
- segmentsx->next1=(index_t*)calloc(segmentsx->number,sizeof(index_t));
+ segmentsx->next1=(index_t*)calloc_logassert(segmentsx->number,sizeof(index_t));
  log_malloc(segmentsx->next1,segmentsx->number*sizeof(index_t));
-
- logassert(segmentsx->next1,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
 
  /* Open the file read-only */
 
@@ -190,14 +188,8 @@ void PruneIsolatedRegions(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,dista
  log_malloc(connected,LengthBitMask(segmentsx->number)*sizeof(BitMask));
  log_malloc(region   ,LengthBitMask(segmentsx->number)*sizeof(BitMask));
 
- logassert(connected,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
- logassert(region   ,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
-
- regionsegments=(index_t*)malloc((nallocregionsegments=1024)*sizeof(index_t));
- othersegments =(index_t*)malloc((nallocothersegments =1024)*sizeof(index_t));
-
- logassert(regionsegments,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
- logassert(othersegments ,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
+ regionsegments=(index_t*)malloc_logassert((nallocregionsegments=1024)*sizeof(index_t));
+ othersegments =(index_t*)malloc_logassert((nallocothersegments =1024)*sizeof(index_t));
 
  /* Loop through the transport types */
 
@@ -253,7 +245,7 @@ void PruneIsolatedRegions(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,dista
           thissegment=othersegments[--nothersegments];
 
           if(nregionsegments==nallocregionsegments)
-             regionsegments=(index_t*)realloc(regionsegments,(nallocregionsegments+=1024)*sizeof(index_t));
+             regionsegments=(index_t*)realloc_logassert(regionsegments,(nallocregionsegments+=1024)*sizeof(index_t));
 
           regionsegments[nregionsegments++]=thissegment;
 
@@ -298,7 +290,7 @@ void PruneIsolatedRegions(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,dista
                       if(!IsBitSet(region,segment))
                         {
                          if(nothersegments==nallocothersegments)
-                            othersegments=(index_t*)realloc(othersegments,(nallocothersegments+=1024)*sizeof(index_t));
+                            othersegments=(index_t*)realloc_logassert(othersegments,(nallocothersegments+=1024)*sizeof(index_t));
 
                          othersegments[nothersegments++]=segment;
                          SetBit(region,segment);
@@ -920,19 +912,11 @@ void PruneStraightHighwayNodes(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,
 
  log_malloc(checked,LengthBitMask(nodesx->number)*sizeof(BitMask));
 
- logassert(checked,"Failed to allocate memory (try using slim mode?)"); /* Check AllocBitMask() worked */
+ nodes   =(index_t*)malloc_logassert((nalloc=1024)*sizeof(index_t));
+ segments=(index_t*)malloc_logassert( nalloc      *sizeof(index_t));
 
- nodes   =(index_t*)malloc((nalloc=1024)*sizeof(index_t));
- segments=(index_t*)malloc( nalloc      *sizeof(index_t));
-
- logassert(nodes   ,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
- logassert(segments,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
-
- lats=(double*)malloc(nalloc*sizeof(double));
- lons=(double*)malloc(nalloc*sizeof(double));
-
- logassert(lats,"Failed to allocate memory (try using slim mode?)");    /* Check malloc() worked */
- logassert(lons,"Failed to allocate memory (try using slim mode?)");    /* Check malloc() worked */
+ lats=(double*)malloc_logassert(nalloc*sizeof(double));
+ lons=(double*)malloc_logassert(nalloc*sizeof(double));
 
  /* Loop through the nodes and find stretches of simple highway for possible modification */
 
@@ -1060,11 +1044,11 @@ void PruneStraightHighwayNodes(NodesX *nodesx,SegmentsX *segmentsx,WaysX *waysx,
 
           if(upper==(nalloc-1))
             {
-             nodes   =(index_t*)realloc(nodes   ,(nalloc+=1024)*sizeof(index_t));
-             segments=(index_t*)realloc(segments, nalloc       *sizeof(index_t));
+             nodes   =(index_t*)realloc_logassert(nodes   ,(nalloc+=1024)*sizeof(index_t));
+             segments=(index_t*)realloc_logassert(segments, nalloc       *sizeof(index_t));
 
-             lats=(double*)realloc(lats,nalloc*sizeof(double));
-             lons=(double*)realloc(lons,nalloc*sizeof(double));
+             lats=(double*)realloc_logassert(lats,nalloc*sizeof(double));
+             lons=(double*)realloc_logassert(lons,nalloc*sizeof(double));
             }
 
           if(lower==0)     /* move everything up by one */

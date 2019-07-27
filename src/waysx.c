@@ -73,12 +73,10 @@ WaysX *NewWayList(int append,int readonly)
 {
  WaysX *waysx;
 
- waysx=(WaysX*)calloc(1,sizeof(WaysX));
+ waysx=(WaysX*)calloc_logassert(1,sizeof(WaysX));
 
- logassert(waysx,"Failed to allocate memory (try using slim mode?)"); /* Check calloc() worked */
-
- waysx->filename    =(char*)malloc(strlen(option_tmpdirname)+32);
- waysx->filename_tmp=(char*)malloc(strlen(option_tmpdirname)+32); /* allow %p to be up to 20 bytes */
+ waysx->filename    =(char*)malloc_logassert(strlen(option_tmpdirname)+32);
+ waysx->filename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+32); /* allow %p to be up to 20 bytes */
 
  sprintf(waysx->filename    ,"%s/waysx.parsed.mem",option_tmpdirname);
  sprintf(waysx->filename_tmp,"%s/waysx.%p.tmp"    ,option_tmpdirname,(void*)waysx);
@@ -116,7 +114,7 @@ WaysX *NewWayList(int append,int readonly)
 #endif
 
 
- waysx->nfilename_tmp=(char*)malloc(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+ waysx->nfilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
 
  sprintf(waysx->nfilename_tmp,"%s/waynames.%p.tmp",option_tmpdirname,(void*)waysx);
 
@@ -312,10 +310,8 @@ void SortWayList(WaysX *waysx)
 
  /* Allocate the array of indexes */
 
- waysx->idata=(way_t*)malloc(waysx->number*sizeof(way_t));
+ waysx->idata=(way_t*)malloc_logassert(waysx->number*sizeof(way_t));
  log_malloc(waysx->idata,waysx->number*sizeof(way_t));
-
- logassert(waysx->idata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  /* Sort the ways by ID and index them */
 
@@ -488,7 +484,7 @@ SegmentsX *SplitWays(WaysX *waysx,NodesX *nodesx,int keep)
     size-=sizeof(node_t)+sizeof(WayX);
 
     if(namelen<size)
-       name=(char*)realloc((void*)name,namelen=size);
+       name=(char*)realloc_logassert((void*)name,namelen=size);
 
     ReadFileBuffered(waysx->fd,name,size);
 
@@ -592,7 +588,7 @@ void SortWayNames(WaysX *waysx)
     ReadFileBuffered(waysx->nfd,&size,FILESORT_VARSIZE);
 
     if(namelen[nnames%2]<size)
-       names[nnames%2]=(char*)realloc((void*)names[nnames%2],namelen[nnames%2]=size);
+       names[nnames%2]=(char*)realloc_logassert((void*)names[nnames%2],namelen[nnames%2]=size);
 
     ReadFileBuffered(waysx->nfd,&index,sizeof(index_t));
     ReadFileBuffered(waysx->nfd,names[nnames%2],size-sizeof(index_t));
@@ -686,10 +682,8 @@ void CompactWayList(WaysX *waysx,SegmentsX *segmentsx)
 
  /* Allocate the array of indexes */
 
- waysx->cdata=(index_t*)malloc(waysx->number*sizeof(index_t));
+ waysx->cdata=(index_t*)malloc_logassert(waysx->number*sizeof(index_t));
  log_malloc(waysx->cdata,waysx->number*sizeof(index_t));
-
- logassert(waysx->cdata,"Failed to allocate memory (try using slim mode?)"); /* Check malloc() worked */
 
  /* Re-open the file read-only and a new file writeable */
 
