@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -105,7 +105,7 @@ DIV.attribution
 /* Leaflet base layer selector */
 /*-----------------------------*/
 
-FORM.leaflet-control-layers-list
+DIV.leaflet-control-layers DIV
 {
  text-align: left;
 }
