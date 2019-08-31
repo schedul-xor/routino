@@ -5,7 +5,7 @@
 
 function map_load(callbacks)
 {
- var pending=1;
+ var pending = 1;
  var head = document.getElementsByTagName("head")[0];
 
  /* Call the callbacks when everything is loaded. */
@@ -18,22 +18,25 @@ function map_load(callbacks)
 
  /* Javascript loader */
 
- function load_js(url)
+ function load_js(url, urls)
  {
   var script = document.createElement("script");
   script.src = url;
   script.type = "text/javascript";
 
-  script.onload = call_callbacks;
-
   pending++;
+
+  if( urls === undefined )
+     script.onload = call_callbacks;
+  else
+     script.onload = function() { load_js(urls); call_callbacks(); };
 
   head.appendChild(script);
  }
 
  /* CSS loader */
 
- function load_css(url)
+ function load_css(url, urls)
  {
   var link = document.createElement("link");
   link.href = url;
@@ -41,6 +44,9 @@ function map_load(callbacks)
   link.rel = "stylesheet";
 
   head.appendChild(link);
+
+  if( urls !== undefined )
+     load_css(urls)
  }
 
  /* Load the external library and local code */
@@ -48,9 +54,16 @@ function map_load(callbacks)
  if(mapprops.library == "leaflet")
    {
     load_css("../leaflet/leaflet.css");
-    load_js("../leaflet/leaflet.js");
+    load_js ("../leaflet/leaflet.js");
 
     load_js(location.pathname.replace(/\.html.*/,".leaflet.js"));
+   }
+ else if(mapprops.library == "openlayers")
+   {
+    load_css("../openlayers/ol.css", "../openlayers/ol-layerswitcher.css");
+    load_js ("../openlayers/ol.js",  "../openlayers/ol-layerswitcher.js");
+
+    load_js(location.pathname.replace(/\.html.*/,".openlayers.js"));
    }
  else if(mapprops.library == "openlayers2")
    {
