@@ -51,7 +51,7 @@ Quick Start Guide
    Javascript library to be downloaded and installed and scripts are
    provided for this.
 
-        cd /var/www/routino/www/openlayers
+        cd /var/www/routino/www/openlayers2
         sh -x install.sh
 
         cd /var/www/routino/www/leaflet
@@ -216,11 +216,11 @@ Configuration of web files
     + /www/                    <- The files that must be available to the web
         |                         server are below this level.
         |
-        + /openlayers/         <- A directory to hold the OpenLayers library
+        + /openlayers2/        <- A directory to hold the OpenLayers v2 library
         |                         (optional; leaflet can be used instead).
         |
         + /leaflet/            <- A directory to hold the Leaflet library.
-        |                         (optional; openlayers can be used instead).
+        |                         (optional; openlayers v2 can be used instead).
         |
         + /routino/            <- The main HTML, Javascript, CSS and CGI files.
             |
@@ -252,25 +252,25 @@ Configuration of web files
    The directory 'www' and its sub-directories are the only ones that need
    to be within the web server accessible directory.
 
-   A Javascript map drawing library is required and either OpenLayers or
-   Leaflet can be used. The library is loaded dynamically when the HTML is
-   opened based on the value that is selected in 'mapprops.js'.
+   A Javascript map drawing library is required and either OpenLayers (version
+   2.x) or Leaflet (version 1.x) can be used. The library is loaded dynamically
+   when the HTML is opened based on the value that is selected in 'mapprops.js'.
 
-   The directory 'www/openlayers' is for the OpenLayers Javascript library
-   that can be downloaded from 'http://www.openlayers.org/'.  (This version
-   of Routino has been tested with OpenLayers library versions 2.12 and
-   2.13.1). The file 'www/openlayers/OpenLayers.js' and the directories
-   'www/openlayers/img/' and 'www/openlayers/theme/' must all exist. There
-   is a script in the 'www/openlayers' directory that will automatically
-   download the files, create an optimised 'OpenLayers.js' and copy the
-   files to the required locations.
+   The directory 'www/openlayers2' is for the OpenLayers version 2 Javascript
+   library that can be downloaded from 'http://www.openlayers.org/'.  (This
+   version of Routino has been tested with OpenLayers library version 2.13.1).
+   The file 'www/openlayers2/OpenLayers.js' and the directories
+   'www/openlayers2/img/' and 'www/openlayers2/theme/' must all exist. There is
+   a script in the 'www/openlayers2' directory that will automatically download
+   the files, create an optimised 'OpenLayers.js' and copy the files to the
+   required locations.
 
-   The directory 'www/leaflet' is for the Leaflet Javascript library that
-   can be downloaded from 'http://leafletjs.com/'. (This version of Routino
-   has been tested with Leaflet library versions 0.7.1 and 0.7.2). The files
+   The directory 'www/leaflet' is for the Leaflet Javascript library that can be
+   downloaded from 'http://leafletjs.com/'. (This version of Routino has been
+   tested with Leaflet library version 1.5.1). The files
    'www/leaflet/leaflet.js' and 'www/leaflet/leaflet.css' and the directory
-   'www/leaflet/images/' must all exist. There is a script in the
-   'www/leaflet' directory that will automatically download the files.
+   'www/leaflet/images/' must all exist. There is a script in the 'www/leaflet'
+   directory that will automatically download the files.
 
    The directory 'www/routino' contains the main HTML, Javascript and CSS
    files as well as the CGI scripts that perform the server-side routing
@@ -285,12 +285,12 @@ Configuration of web files
 
    mapprops.js
           The parameters in this file control the Javascript map library
-          (defaults to OpenLayers), the boundary of the visible map
-          (defaults to UK), the minimum and maximum zoom levels (defaults
-          to between 4 and 15 inclusive), the source of map tiles
-          (defaults to the main OpenStreetMap tile server), the data
-          editing and browsing URLs (default to the OpenStreetMap website)
-          and the number of waypoints allowed (defaults to 9).
+          (defaults to Leaflet), the boundary of the visible map (defaults
+          to UK), the minimum and maximum zoom levels (defaults to between
+          4 and 15 inclusive), the source of map tiles (defaults to the
+          main OpenStreetMap tile server), the data editing and browsing
+          URLs (default to the OpenStreetMap website) and the number of
+          waypoints allowed (defaults to 9).
 
    The directory www/routino/documentation contains the HTML version of
    the Routino documentation.
@@ -319,4 +319,4 @@ Configuration of Web Server
 
 --------
 
-Copyright 2008-2018 Andrew M. Bishop.
+Copyright 2008-2019 Andrew M. Bishop.
