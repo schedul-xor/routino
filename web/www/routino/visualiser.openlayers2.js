@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -662,6 +662,25 @@ function displayData(datatype)  // called from visualiser.html
 
 
 //
+// Add a bounding box
+//
+
+function addBox(words)
+{
+ var lat1=words[0];
+ var lon1=words[1];
+ var lat2=words[2];
+ var lon2=words[3];
+
+ var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
+
+ box = new OpenLayers.Marker.Box(bounds);
+
+ layerBoxes.addMarker(box);
+}
+
+
+//
 // Success in getting the junctions.
 //
 
@@ -696,18 +715,7 @@ function runJunctionsSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -756,18 +764,7 @@ function runSuperSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -819,18 +816,7 @@ function runWaytypeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -893,18 +879,7 @@ function runHighwaySuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -952,18 +927,7 @@ function runTransportSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -1011,18 +975,7 @@ function runBarrierSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -1064,18 +1017,7 @@ function runTurnsSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -1134,18 +1076,7 @@ function runLimitSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -1212,18 +1143,7 @@ function runPropertySuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
@@ -1271,18 +1191,7 @@ function runErrorlogSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
