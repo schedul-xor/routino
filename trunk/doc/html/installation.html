@@ -105,12 +105,17 @@ cd /var/www/routino/data
 sh -x create.sh
 </pre>
 
-The routino web pages also requires either the OpenLayers (version 2.x) or
-Leaflet (version 1.x) Javascript library to be downloaded and installed; scripts
-are provided for this.
+The routino web pages also require either the OpenLayers (older version 2 or
+incompatible newer version) or Leaflet (recent version) Javascript library to be
+downloaded and installed; scripts are provided for this.
 
 <pre class="boxed">
 cd /var/www/routino/www/openlayers2
+sh -x install.sh
+</pre>
+
+<pre class="boxed">
+cd /var/www/routino/www/openlayers
 sh -x install.sh
 </pre>
 
@@ -306,11 +311,17 @@ The directory structure is as follows:
     + /www/                    <- The files that must be available to the web
         |                         server are below this level.
         |
-        + /openlayers2/        <- A directory to hold the OpenLayers v2 library
-        |                         (optional; leaflet can be used instead).
+        + /openlayers2/        <- A directory to hold the older OpenLayers v2
+        |                         library (optional; newer openlayers or leaflet
+        |                         can be used instead).
+        |
+        + /openlayers/         <- A directory to hold the newer OpenLayers
+        |                         library (optional; older openlayers v2 or
+        |                         leaflet can be used instead).
         |
         + /leaflet/            <- A directory to hold the Leaflet library.
-        |                         (optional; openlayers v2 can be used instead).
+        |                         (optional; older openlayers v2 or newer
+        |                          openlayers can be used instead).
         |
         + /routino/            <- The main HTML, Javascript, CSS and CGI files.
             |
@@ -350,28 +361,34 @@ to be within the web server accessible directory.
 
 <p>
 
-A Javascript map drawing library is required and either OpenLayers (version 2.x)
-or Leaflet (version 1.x) can be used.  The library is loaded dynamically when
-the HTML is opened based on the value that is selected in <tt>mapprops.js</tt>.
+A Javascript map drawing library is required and either the older OpenLayers
+version 2, newer Openlayers or Leaflet can be used.  The library is loaded
+dynamically when the HTML is opened based on the value that is selected
+in <tt>mapprops.js</tt>.
 
 <p>
 
-The directory <tt>www/openlayers2</tt> is for the OpenLayers version 2
+The directory <tt>www/openlayers2</tt> is for the older OpenLayers version 2
 Javascript library that can be downloaded from http://www.openlayers.org/.
 (This version of Routino has been tested with OpenLayers library version
-2.13.1).  The file <tt>www/openlayers2/OpenLayers.js</tt> and the directories
-<tt>www/openlayers2/img/</tt> and <tt>www/openlayers2/theme/</tt> must all exist.
-There is a script in the <tt>www/openlayers2</tt> directory that will
+2.13.1).  There is a script in the <tt>www/openlayers2</tt> directory that will
 automatically download the files, create an optimised <tt>OpenLayers.js</tt> and
 copy the files to the required locations.
 
 <p>
 
+The directory <tt>www/openlayers</tt> is for the newer version of the
+OpenLayers Javascript library that can be downloaded from
+http://www.openlayers.org/.  (This version of Routino has been tested with
+OpenLayers library version 5.3.0).  There is a script in
+the <tt>www/openlayers</tt> directory that will automatically download the
+files.
+
+<p>
+
 The directory <tt>www/leaflet</tt> is for the Leaflet Javascript library that
 can be downloaded from http://leafletjs.com/.  (This version of Routino has been
-tested with Leaflet library version 1.5.1).  The
-files <tt>www/leaflet/leaflet.js</tt> and <tt>www/leaflet/leaflet.css</tt> and
-the directory <tt>www/leaflet/images/</tt> must all exist.  There is a script in
+tested with Leaflet library version 1.5.1).  There is a script in
 the <tt>www/leaflet</tt> directory that will automatically download the files.
 
 <p>

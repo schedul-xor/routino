@@ -4,12 +4,13 @@
 
 var mapprops={ // contains all properties for the map to be displayed.
 
- // EDIT THIS below to change the map library (either 'openlayers2' or 'leaflet').
+ // EDIT THIS below to change the map library (either 'openlayers2', 'openlayers' or 'leaflet').
 
   //library: "openlayers2",
+  //library: "openlayers",
   library: "leaflet",
 
- // EDIT THIS above to change the map library (either 'openlayers2' or 'leaflet').
+ // EDIT THIS above to change the map library (either 'openlayers2', 'openlayers' or 'leaflet').
 
 
  // EDIT THIS below to change the visible map limits

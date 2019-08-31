@@ -47,9 +47,9 @@ Quick Start Guide
         cd /var/www/routino/data
         sh -x create.sh
 
-   The routino web pages also requires either the OpenLayers or Leaflet
-   Javascript library to be downloaded and installed and scripts are
-   provided for this.
+   The routino web pages also require either the OpenLayers (older version
+   2 or incompatible newer version) or Leaflet (recent version) Javascript
+   library to be downloaded and installed; scripts are provided for this.
 
         cd /var/www/routino/www/openlayers2
         sh -x install.sh
@@ -216,11 +216,17 @@ Configuration of web files
     + /www/                    <- The files that must be available to the web
         |                         server are below this level.
         |
-        + /openlayers2/        <- A directory to hold the OpenLayers v2 library
-        |                         (optional; leaflet can be used instead).
+        + /openlayers2/        <- A directory to hold the older OpenLayers v2
+        |                         library (optional; newer openlayers or leaflet
+        |                         can be used instead).
+        |
+        + /openlayers/         <- A directory to hold the newer OpenLayers
+        |                         library (optional; older openlayers v2 or
+        |                         leaflet can be used instead).
         |
         + /leaflet/            <- A directory to hold the Leaflet library.
-        |                         (optional; openlayers v2 can be used instead).
+        |                         (optional; older openlayers v2 or newer
+        |                          openlayers can be used instead).
         |
         + /routino/            <- The main HTML, Javascript, CSS and CGI files.
             |
@@ -252,25 +258,30 @@ Configuration of web files
    The directory 'www' and its sub-directories are the only ones that need
    to be within the web server accessible directory.
 
-   A Javascript map drawing library is required and either OpenLayers (version
-   2.x) or Leaflet (version 1.x) can be used. The library is loaded dynamically
-   when the HTML is opened based on the value that is selected in 'mapprops.js'.
+   A Javascript map drawing library is required and either the older
+   OpenLayers version 2, newer Openlayers or Leaflet can be used. The
+   library is loaded dynamically when the HTML is opened based on the
+   value that is selected in mapprops.js.
 
-   The directory 'www/openlayers2' is for the OpenLayers version 2 Javascript
-   library that can be downloaded from 'http://www.openlayers.org/'.  (This
-   version of Routino has been tested with OpenLayers library version 2.13.1).
-   The file 'www/openlayers2/OpenLayers.js' and the directories
-   'www/openlayers2/img/' and 'www/openlayers2/theme/' must all exist. There is
-   a script in the 'www/openlayers2' directory that will automatically download
-   the files, create an optimised 'OpenLayers.js' and copy the files to the
-   required locations.
+   The directory www/openlayers2 is for the older OpenLayers version 2
+   Javascript library that can be downloaded from
+   http://www.openlayers.org/. (This version of Routino has been tested
+   with OpenLayers library version 2.13.1). There is a script in the
+   www/openlayers2 directory that will automatically download the files,
+   create an optimised OpenLayers.js and copy the files to the required
+   locations.
 
-   The directory 'www/leaflet' is for the Leaflet Javascript library that can be
-   downloaded from 'http://leafletjs.com/'. (This version of Routino has been
-   tested with Leaflet library version 1.5.1). The files
-   'www/leaflet/leaflet.js' and 'www/leaflet/leaflet.css' and the directory
-   'www/leaflet/images/' must all exist. There is a script in the 'www/leaflet'
-   directory that will automatically download the files.
+   The directory www/openlayers is for the newer version of the OpenLayers
+   Javascript library that can be downloaded from
+   http://www.openlayers.org/. (This version of Routino has been tested
+   with OpenLayers library version 5.3.0). There is a script in the
+   www/openlayers directory that will automatically download the files.
+
+   The directory www/leaflet is for the Leaflet Javascript library that
+   can be downloaded from http://leafletjs.com/. (This version of Routino
+   has been tested with Leaflet library version 1.5.1). There is a script
+   in the www/leaflet directory that will automatically download the
+   files.
 
    The directory 'www/routino' contains the main HTML, Javascript and CSS
    files as well as the CGI scripts that perform the server-side routing
