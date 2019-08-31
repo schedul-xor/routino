@@ -52,11 +52,11 @@ function map_load(callbacks)
 
     load_js(location.pathname.replace(/\.html.*/,".leaflet.js"));
    }
- else
+ else if(mapprops.library == "openlayers2")
    {
-    load_js("../openlayers/OpenLayers.js");
+    load_js("../openlayers2/OpenLayers.js");
 
-    load_js(location.pathname.replace(/\.html.*/,".openlayers.js"));
+    load_js(location.pathname.replace(/\.html.*/,".openlayers2.js"));
    }
 
  call_callbacks();
