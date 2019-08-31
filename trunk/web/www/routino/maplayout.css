@@ -105,6 +105,11 @@ DIV.attribution
 /* Leaflet base layer selector */
 /*-----------------------------*/
 
+FORM.leaflet-control-layers-list
+ {
+  text-align: left;
+ }
+
 DIV.leaflet-control-layers DIV
 {
  text-align: left;
