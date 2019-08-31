@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2018 Andrew M. Bishop
+// This file Copyright 2008-2019 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -599,8 +599,8 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
     document.forms["form"].elements["lon" + marker].value=format5f(lon);
     document.forms["form"].elements["lat" + marker].value=format5f(lat);
 
-    routino.point[marker].lon=lon;
-    routino.point[marker].lat=lat;
+    routino.point[marker].lon=format5f(lon);
+    routino.point[marker].lat=format5f(lat);
     routino.point[marker].used=true;
 
     markerCheckHome(marker);

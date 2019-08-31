@@ -62,7 +62,6 @@ if(location.search.length>1)
 
 var map;
 var layerMap=[], layerHighlights, layerVectors, layerBoxes;
-
 var box;
 
 //
@@ -318,7 +317,7 @@ function drawPopup(html)
 
 
 //
-// Select a feature
+// Select a circleMarker feature
 //
 
 function selectCircleMarkerFeature(feature,dump,event)
@@ -505,6 +504,26 @@ function displayData(datatype)  // called from fixme.html
 
 
 //
+// Add a bounding box
+//
+
+function addBox(words)
+{
+ var lat1=words[0];
+ var lon1=words[1];
+ var lat2=words[2];
+ var lon2=words[3];
+
+ var bounds = L.latLngBounds(L.latLng(lat1,lon1),L.latLng(lat2,lon2));
+
+ layerBoxes.setBounds(bounds);
+
+ layerBoxes.setStyle({stroke: true});
+ box=true;
+}
+
+
+//
 // Success in getting the error log data
 //
 
@@ -517,19 +536,7 @@ function runFixmeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = L.latLngBounds(L.latLng(lat1,lon1),L.latLng(lat2,lon2));
-
-       layerBoxes.setBounds(bounds);
-
-       layerBoxes.setStyle({stroke: true});
-       box=true;
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];

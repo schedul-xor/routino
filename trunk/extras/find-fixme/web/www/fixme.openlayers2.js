@@ -63,7 +63,6 @@ if(location.search.length>1)
 var map;
 var layerMap=[], layerHighlights, layerVectors, layerBoxes;
 var epsg4326, epsg900913;
-
 var box;
 var select;
 
@@ -559,6 +558,25 @@ function displayData(datatype)  // called from fixme.html
 
 
 //
+// Add a bounding box
+//
+
+function addBox(words)
+{
+ var lat1=words[0];
+ var lon1=words[1];
+ var lat2=words[2];
+ var lon2=words[3];
+
+ var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
+
+ box = new OpenLayers.Marker.Box(bounds);
+
+ layerBoxes.addMarker(box);
+}
+
+
+//
 // Success in getting the error log data
 //
 
@@ -577,18 +595,7 @@ function runFixmeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-      {
-       var lat1=words[0];
-       var lon1=words[1];
-       var lat2=words[2];
-       var lon2=words[3];
-
-       var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
-       box = new OpenLayers.Marker.Box(bounds);
-
-       layerBoxes.addMarker(box);
-      }
+       addBox(words);
     else if(words[0] !== "")
       {
        var dump=words[0];
