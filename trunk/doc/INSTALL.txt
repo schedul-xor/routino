@@ -265,7 +265,7 @@ Configuration of web files
 
    The directory www/openlayers2 is for the older OpenLayers version 2
    Javascript library that can be downloaded from
-   http://www.openlayers.org/. (This version of Routino has been tested
+   http://www.openlayers.org/two/. (This version of Routino has been tested
    with OpenLayers library version 2.13.1). There is a script in the
    www/openlayers2 directory that will automatically download the files,
    create an optimised OpenLayers.js and copy the files to the required
