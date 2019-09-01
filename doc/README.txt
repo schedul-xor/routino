@@ -80,7 +80,7 @@ Demonstration
 
    The interactive map is made possible by use of the OpenLayers or
    Leaflet Javascript library from http://www.openlayers.org/ or
-   http://leafletjs.com/.
+   http://www.openlayers.org/two/ or http://leafletjs.com/.
 
 
 Documentation
@@ -189,4 +189,4 @@ Subversion
 
 --------
 
-Copyright 2008-2017 Andrew M. Bishop.
+Copyright 2008-2019 Andrew M. Bishop.
