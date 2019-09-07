@@ -108,6 +108,98 @@
 
   </language>
 
+  <language lang="cs" language="Česky">
+
+    <!-- Copyright of the data being routed, not of this file  -->
+    <copyright>
+      <creator string="Vyvíjí" text="Routino - http://www.routino.org/" />
+      <source  string="Zdroj" text="Postaveno na datech OpenStreetMap na" />
+      <license string="Licence" text="http://www.openstreetmap.org/copyright" />
+    </copyright>
+
+    <!-- Turn directions, 0 = ahead, -2 = left, +/-4 = behind, +2 = right -->
+    <turn direction="-4" string="Velmi ostře vlevo" />
+    <turn direction="-3" string="Ostře vlevo" />
+    <turn direction="-2" string="Vlevo" />
+    <turn direction="-1" string="Lehce vlevo" />
+    <turn direction="0"  string="Přímo" />
+    <turn direction="1"  string="Lehce vpravo" />
+    <turn direction="2"  string="Vpravo" />
+    <turn direction="3"  string="Ostře vpravo" />
+    <turn direction="4"  string="Velmi ostře vpravo" />
+
+    <!-- Heading directions, 0 = North, -2 = West, +/-4 = South, +2 = East -->
+    <heading direction="-4" string="Jih" />
+    <heading direction="-3" string="Jihozápad" />
+    <heading direction="-2" string="Západ" />
+    <heading direction="-1" string="Severozápad" />
+    <heading direction="0"  string="Sever" />
+    <heading direction="1"  string="Severovýchod" />
+    <heading direction="2"  string="Východ" />
+    <heading direction="3"  string="Jihovýchod" />
+    <heading direction="4"  string="Jih" />
+
+    <!-- Ordinals, 1 = first, 2 = second ... -->
+    <ordinal number="1"  string="První" />
+    <ordinal number="2"  string="Druhá" />
+    <ordinal number="3"  string="Třetí" />
+    <ordinal number="4"  string="Čtvrtá" />
+    <ordinal number="5"  string="Pátá" />
+    <ordinal number="6"  string="Šestá" />
+    <ordinal number="7"  string="Sedmá" />
+    <ordinal number="8"  string="Osmá" />
+    <ordinal number="9"  string="Devátá" />
+    <ordinal number="10" string="Desátá" />
+
+    <!-- Highway names -->
+    <highway type="motorway"     string="dálnice" />
+    <!-- TRANSLATION REQUIRED: highway type="trunk"        string="trunk road" / -->
+    <highway type="primary"      string="silnice I. třídy" />
+    <highway type="secondary"    string="silnice II. třídy" />
+    <highway type="tertiary"     string="silnice III. třídy" />
+    <!-- TRANSLATION REQUIRED: highway type="unclassified" string="unclassified road" / -->
+    <!-- TRANSLATION REQUIRED: highway type="residential"  string="residential road" / -->
+    <!-- TRANSLATION REQUIRED: highway type="service"      string="service road" / -->
+    <!-- TRANSLATION REQUIRED: highway type="track"        string="track" / -->
+    <highway type="cycleway"     string="cyklostezka" />
+    <!-- TRANSLATION REQUIRED: highway type="path"         string="path" / -->
+    <highway type="steps"        string="schody" />
+    <highway type="ferry"        string="převoz" />
+
+    <!-- The type of route -->
+    <route type="shortest" string="Nejkratší" /> <!-- For the description and route name -->
+    <route type="quickest" string="Nejrychlejší" /> <!-- For the description and route name -->
+
+    <!-- HTML output -->
+    <output-html>
+      <!-- TRANSLATION REQUIRED: waypoint type="waypoint"   string="Waypoint" / --> <!-- For the chosen waypoints -->
+      <waypoint type="junction"   string="Křižovatka" /> <!-- For the interesting junctions -->
+      <waypoint type="roundabout" string="Kruhový objezd" /> <!-- For roundabouts -->
+
+      <!-- TRANSLATION REQUIRED: title text="%s Route" / --> <!-- %s = [shortest|quickest] -->
+
+      <!-- TRANSLATION REQUIRED: start    text="Start at %s, head %s" / --> <!-- 1st %s = [waypoint|junction], 2nd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: node     text="At %s, go %s heading %s" / --> <!-- 1st %s = [waypoint|junction], 2nd %s = [turn], 3rd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: rbnode   text="Leave %s, take the %s exit heading %s" / --> <!-- 1st %s = [roundabout], 2nd %s = [first|second|...], 3rd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: segment  text="Follow %s for %.3f km, %.1f min" / --> <!-- 1st %s = street name -->
+      <!-- TRANSLATION REQUIRED: stop     text="Stop at %s" / --> <!-- 1st %s = [waypoint|junction] -->
+      <!-- TRANSLATION REQUIRED: total    text="Total %.1f km, %.0f minutes" / -->
+      <!-- TRANSLATION REQUIRED: subtotal text="%.1f km, %.0f minutes" / -->
+    </output-html>
+
+    <!-- GPX output -->
+    <output-gpx>
+      <!-- TRANSLATION REQUIRED: waypoint type="waypt" string="WAYPT" / --> <!-- For the route waypoints -->
+      <!-- TRANSLATION REQUIRED: waypoint type="trip" string="TRIP" / --> <!-- For the other route points -->
+
+      <!-- TRANSLATION REQUIRED: desc  text="%s route between 'start' and 'finish' waypoints" / --> <!-- %s = [shortest|quickest] -->
+      <!-- TRANSLATION REQUIRED: name  text="%s route" / --> <!-- %s = [shortest|quickest] -->
+      <!-- TRANSLATION REQUIRED: step  text="%s on '%s' for %.3f km, %.1f min" / --> <!-- 1st %s = [turn], 2nd %s = street name -->
+      <!-- TRANSLATION REQUIRED: final text="Total Journey %.1f km, %.0f minutes" / -->
+    </output-gpx>
+
+  </language>
+
   <language lang="de" language="Deutsch">
 
     <!-- Copyright of the data being routed, not of this file  -->
