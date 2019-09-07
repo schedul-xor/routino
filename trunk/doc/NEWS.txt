@@ -1,3 +1,51 @@
+Version 3.3 of Routino released : Sat Sep 7 2019
+------------------------------------------------
+
+Bug fixes:
+  Make the openlayers and leaflet zoom to the same level on clicking the route.
+  Add some more memory debug logging (for queue data structure).
+  Fix bug with route calculation that may not give optimum solution.
+  Fix parallel make to not have failed targets due to 'mkdir' race condition.
+  Supress compilation warnings from gcc-7 and gcc-8.
+  Supress compilation warnings from clang-5 and clang-5 static analyser.
+  Suppress runtime warnings from gcc's runtime sanitizer.
+  Bug fix for race condition in multi-threaded sorting algorithm.
+  Bug fix for HTML router when named locations are used.
+  Fix some error messages for consistency.
+  Add extra checks to avoid data overflow and file corruption in planetsplitter.
+  Add more checks for memory allocation success/failure.
+
+planetsplitter:
+  Do not store nodes in route relations (they are not used).
+
+Documentation:
+  Added an extra Perl module that is required.
+
+Translations:
+  Updated German, French and Hungarian translations.
+  Added Italian and Spanish translations.
+  Added incomplete Czech translations.
+
+OSM tagging:
+  Some small changes to access tagging and highway naming (prow_ref).
+  Add heuristics to decide what transport types are allowed on ferrys.
+
+Web pages:
+  Update to use the latest version of Leaflet (1.5.1).
+  Add support for the latest version of OpenLayers (5.3).
+  Default to showing search boxes for locations not lat/long fields.
+
+Python:
+  Created a Python (version 3) interface to the router and routing database.
+
+Extras:
+  Update documentation.
+  Improve log summarisation HTML page formatting.
+
+
+Note: This version is compatible with databases from versions 2.7.1 - 3.2.
+
+
 Version 3.2 of Routino released : Sun Mar 12 2017
 -------------------------------------------------
 
