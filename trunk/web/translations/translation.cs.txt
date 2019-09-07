@@ -1,0 +1,146 @@
+#
+# Czech language translation phrases
+#
+
+#
+# Router output XML definition
+#
+
+%%copyright_creator_string%%	Vyvíjí
+%%copyright_source_string%%	Zdroj
+%%copyright_source_text%%	Postaveno na datech OpenStreetMap na
+%%copyright_license_string%%	Licence
+
+%%turn_-4%%	Velmi ostře vlevo
+%%turn_-3%%	Ostře vlevo
+%%turn_-2%%	Vlevo
+%%turn_-1%%	Lehce vlevo
+%%turn_0%%	Přímo
+%%turn_1%%	Lehce vpravo
+%%turn_2%%	Vpravo
+%%turn_3%%	Ostře vpravo
+%%turn_4%%	Velmi ostře vpravo
+
+%%heading_-4%%	Jih
+%%heading_-3%%	Jihozápad
+%%heading_-2%%	Západ
+%%heading_-1%%	Severozápad
+%%heading_0%%	Sever
+%%heading_1%%	Severovýchod
+%%heading_2%%	Východ
+%%heading_3%%	Jihovýchod
+%%heading_4%%	Jih
+
+%%ordinal_1%%	První
+%%ordinal_2%%	Druhá
+%%ordinal_3%%	Třetí
+%%ordinal_4%%	Čtvrtá
+%%ordinal_5%%	Pátá
+%%ordinal_6%%	Šestá
+%%ordinal_7%%	Sedmá
+%%ordinal_8%%	Osmá
+%%ordinal_9%%	Devátá
+%%ordinal_10%%	Desátá
+
+%%highway_motorway%%	dálnice
+%%highway_primary%%	silnice I. třídy
+%%highway_secondary%%	silnice II. třídy
+%%highway_tertiary%%	silnice III. třídy
+%%highway_cycleway%%	cyklostezka
+%%highway_steps%%	schody
+%%highway_ferry%%	převoz
+
+%%route_shortest%%	Nejkratší
+%%route_quickest%%	Nejrychlejší
+
+%%output-html_waypoint_junction%%	Křižovatka
+%%output-html_waypoint_roundabout%%	Kruhový objezd
+
+#
+# Router (and some shared) translations
+#
+
+@@LANGUAGE@@	Česky
+@@LANGUAGE-WEBPAGE@@	Česky webpage
+
+@@ROUTER-TITLE@@	Plánovač tras pro OpenStreetMap Data
+
+@@OPTION-TAB@@	Možnosti
+@@OPTION-TAB-HELP@@	Nastavit možnosti plánování
+
+@@RESULTS-TAB@@	Výsledky
+@@RESULTS-TAB-HELP@@	Zobrazit výsledky plánování
+
+@@DATA-TAB@@	Data
+@@DATA-TAB-HELP@@	Zobrazit informaci databáze
+
+@@ROUTINO-ROUTER@@	Routino OpenStreetMap Plánovač
+@@ROUTINO-WEBSITE@@	Webová stránka Routino
+@@DOCUMENTATION@@	Dokumentace
+
+@@LANGUAGE-BOX@@	Jazyk
+@@TRANSPORT-TYPE-BOX@@	Typ přepravy
+@@HIGHWAY-PREFERENCES-BOX@@	Předvolby pro dálnice
+@@SPEED-LIMITS-BOX@@	Rychlostní limity
+@@OTHER-RESTRICTIONS-BOX@@	Jiná omezení
+@@FIND-BOX@@	Hledat
+@@LINKS-BOX@@	Odkazy
+@@HELP-BOX@@	Pomoc
+
+@@STATUS-BOX@@	Stav
+@@SHORTEST-ROUTE@@	Nejkratší trasa
+@@QUICKEST-ROUTE@@	Nejrychlejší trasa
+
+@@STATISTICS-BOX@@	Routino statistiky
+@@VISUALISER-BOX@@	Routino vizualizér
+
+@@WAYPOINT-SEARCH@@	Hledat umístění
+@@WAYPOINT-GET@@	Nalézt aktuální umístění
+@@WAYPOINT-CENTRE1@@	Vystředit mapu na tomto bodu
+@@WAYPOINT-UP@@	Posunout tento bod výše
+@@WAYPOINT-ADD@@	Po tomto bodu přidat další
+@@WAYPOINT-HOME@@	Přepnout jako domovské umístění
+
+@@TRANSPORT-FOOT@@	Pěší
+@@TRANSPORT-HORSE@@	Koňmo
+@@TRANSPORT-WHEELCHAIR@@	Vozík
+@@TRANSPORT-BICYCLE@@	Kolo
+@@TRANSPORT-MOPED@@	Moped
+@@TRANSPORT-MOTORCYCLE@@	Motocykl
+
+@@HIGHWAY-PRIMARY@@	První třída
+@@HIGHWAY-SECONDARY@@	Druhá třída
+@@HIGHWAY-TERTIARY@@	Třetí třída
+@@HIGHWAY-UNCLASSIFIED@@	Neoznačená
+
+@@PROPERTY-BRIDGE@@	Most
+@@PROPERTY-TUNNEL@@	Tunel
+
+@@FIND-SHORTEST-ROUTE@@	Nalézt nejkratší cestu
+@@FIND-QUICKEST-ROUTE@@	Nalézt nejrychlejší cestu
+
+@@MAP-VIEW-LINK@@	Odkaz na tuto mapu
+@@EDIT-OSM-DATA@@	Upravit tato OSM data
+
+@@ROUTER-NOT-RUN@@	Trasovač neběží
+@@ROUTER-RUNNING@@	Trasovač běží...
+@@ROUTER-COMPLETED@@	Trasování ukončeno
+@@ROUTER-ERROR@@	Chyba trasování
+@@VIEW-DETAILS@@	Zobrazit detaily
+
+@@NO-INFORMATION@@	Žádné informace
+
+#
+# Visualiser specific translations
+#
+
+@@INSTRUCTIONS-BOX@@	Instrukce
+
+#
+# Multi-line descriptive translations (router)
+#
+
+#
+# Multi-line descriptive translations (visualiser)
+#
+
