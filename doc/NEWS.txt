@@ -1,3 +1,14 @@
+Version 3.3.1 of Routino released : Sun Sep 8 2019
+--------------------------------------------------
+
+Bug fixes:
+  Ensure that 'make clean' in the python directory deletes auto-generated files.
+  Include the python directory in the release file (include in 'FILES').
+
+
+Note: This version is compatible with databases from versions 2.7.1 - 3.3.
+
+
 Version 3.3 of Routino released : Sat Sep 7 2019
 ------------------------------------------------
 
