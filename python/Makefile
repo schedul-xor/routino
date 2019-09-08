@@ -2,7 +2,7 @@
 #
 # Part of the Routino routing software.
 #
-# This file Copyright 2018 Andrew M. Bishop
+# This file Copyright 2018, 2019 Andrew M. Bishop
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +37,7 @@ CC_FILES=$(wildcard src/*.cc)
 
 SWIG_C=src/_router.c
 SWIG_CC=src/_database.cc
+SWIG_PY=src/router.py src/database.py
 
 ifneq ($(HOST),MINGW)
   LIBROUTINO=../src/libroutino.so
@@ -68,7 +69,7 @@ all-if-python: $(BUILD_TIMESTAMP)
 
 ########
 
-$(BUILD_TIMESTAMP): $(SWIG_C) $(SWIG_CC) $(PY_FILES) $(C_FILES) $(CC_FILES) $(LIBROUTINO) setup.py
+$(BUILD_TIMESTAMP): $(SWIG_C) $(SWIG_CC) $(SWIG_PY) $(PY_FILES) $(C_FILES) $(CC_FILES) $(LIBROUTINO) setup.py
 	@rm -f $@
 	$(PYTHON) setup.py build && touch $(BUILD_TIMESTAMP)
 
@@ -108,14 +109,17 @@ clean: clean-local
 
 clean-local:
 	rm -f *~
+	rm -rf build
+	rm -f $(SWIG_C)
+	rm -f $(SWIG_CC)
+	rm -f $(SWIG_PY)
 
 ########
 
 distclean: distclean-local
 	cd test && $(MAKE) $@
 
-distclean-local:
-	rm -rf build
+distclean-local: clean-local
 
 ########
 
