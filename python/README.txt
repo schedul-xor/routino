@@ -51,6 +51,6 @@ Using - Database
 To use the Python module normally it must be installed, the libroutino library
 is not required for the database access functions.
 
-The Python script database.py' is an example of using the Python module for
+The Python script 'database.py' is an example of using the Python module for
 accessing a Routino database (one created by 'make test').  No further
 documentation is provided, all possible features are used in the example script.
