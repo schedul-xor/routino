@@ -76,8 +76,14 @@ $(BUILD_TIMESTAMP): $(SWIG_C) $(SWIG_CC) $(SWIG_PY) $(PY_FILES) $(C_FILES) $(CC_
 src/_router.c : src/router.i ../src/routino.h
 	$(SWIG) -python -o $@ $<
 
+src/router.py : src/_router.c
+	@true # fake rule since src/router.py is created by the same rule as src/_router.c 
+
 src/_database.cc : src/database.i src/database.hh
 	$(SWIG) -c++ -python -o $@ $<
+
+src/database.py : src/_database.cc
+	@true # fake rule since src/database.py is created by the same rule as src/_database.cc 
 
 src/%.o : src/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
