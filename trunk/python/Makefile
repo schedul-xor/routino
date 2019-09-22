@@ -106,7 +106,7 @@ test-if-python: $(BUILD_TIMESTAMP)
 install: $(and $(HAVE_SWIG),$(HAVE_PYTHON),install-if-python)
 
 install-if-python: all
-	$(PYTHON) setup.py install --prefix $(prefix)
+	$(PYTHON) setup.py install --prefix $(DESTDIR)$(prefix)
 
 ########
 
