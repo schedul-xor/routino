@@ -71,7 +71,7 @@ all-if-python: $(BUILD_TIMESTAMP)
 
 $(BUILD_TIMESTAMP): $(SWIG_C) $(SWIG_CC) $(SWIG_PY) $(PY_FILES) $(C_FILES) $(CC_FILES) $(LIBROUTINO) setup.py
 	@rm -f $@
-	CFLAGS= $(PYTHON) setup.py build && touch $(BUILD_TIMESTAMP)
+	CFLAGS= LDFLAGS= $(PYTHON) setup.py build && touch $(BUILD_TIMESTAMP)
 
 src/_router.c : src/router.i ../src/routino.h
 	$(SWIG) -python -o $@ $<
