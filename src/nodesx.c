@@ -103,6 +103,10 @@ NodesX *NewNodeList(int append,int readonly)
  log_malloc(nodesx->cache,sizeof(*nodesx->cache));
 #endif
 
+ nodesx->ifilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+
+ sprintf(nodesx->ifilename_tmp,"%s/nodesx.%p.idx.tmp",option_tmpdirname,(void*)nodesx);
+
  return(nodesx);
 }
 
@@ -125,11 +129,9 @@ void FreeNodeList(NodesX *nodesx,int keep)
  free(nodesx->filename);
  free(nodesx->filename_tmp);
 
- if(nodesx->idata)
-   {
-    log_free(nodesx->idata);
-    free(nodesx->idata);
-   }
+ DeleteFile(nodesx->ifilename_tmp);
+
+ free(nodesx->ifilename_tmp);
 
  if(nodesx->gdata)
    {
@@ -283,10 +285,9 @@ void SortNodeList(NodesX *nodesx)
 
  fd=ReplaceFileBuffered(nodesx->filename_tmp,&nodesx->fd);
 
- /* Allocate the array of indexes */
+ /* Open a file for the index */
 
- nodesx->idata=(node_t*)malloc_logassert(nodesx->number*sizeof(node_t));
- log_malloc(nodesx->idata,nodesx->number*sizeof(node_t));
+ nodesx->ifd=OpenFileBufferedNew(nodesx->ifilename_tmp);
 
  /* Sort the nodes by ID and index them */
 
@@ -304,6 +305,8 @@ void SortNodeList(NodesX *nodesx)
 
  nodesx->fd=CloseFileBuffered(nodesx->fd);
  CloseFileBuffered(fd);
+
+ nodesx->ifd=CloseFileBuffered(nodesx->ifd);
 
  /* Print the final message */
 
@@ -357,7 +360,7 @@ static int deduplicate_and_index_by_id(NodeX *nodex,index_t index)
        return(0);
     else
       {
-       sortnodesx->idata[index]=nodex->id;
+       WriteFileBuffered(sortnodesx->ifd,&nodex->id,sizeof(node_t));
 
        return(1);
       }
@@ -397,6 +400,10 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
 
  waysx->fd=ReOpenFileBuffered(waysx->filename_tmp);
 
+ /* Map the index into memory */
+
+ nodesx->idata=MapFile(nodesx->ifilename_tmp);
+
  /* Loop through the ways and mark the used nodes */
 
  for(i=0;i<waysx->number;i++)
@@ -432,15 +439,13 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
        printf_middle("Checking Ways for unused Nodes: Ways=%"Pindex_t" Highway Nodes=%"Pindex_t,i+1,highway);
    }
 
- /* Free the now-unneeded index */
-
- log_free(nodesx->idata);
- free(nodesx->idata);
- nodesx->idata=NULL;
-
  /* Close the file */
 
  waysx->fd=CloseFileBuffered(waysx->fd);
+
+ /* Unmap the index from memory */
+
+ nodesx->idata=UnmapFile(nodesx->idata);
 
  /* Print the final message */
 
@@ -451,10 +456,9 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
 
  printf_first("Removing unused Nodes: Nodes=0");
 
- /* Allocate the array of indexes */
+ /* Open a file for the index */
 
- nodesx->idata=(node_t*)malloc_logassert(highway*sizeof(node_t));
- log_malloc(nodesx->idata,highway*sizeof(node_t));
+ nodesx->ifd=OpenFileBufferedNew(nodesx->ifilename_tmp);
 
  highway=0;
 
@@ -479,9 +483,9 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
        nothighway++;
     else
       {
-       nodesx->idata[highway]=nodex.id;
-
        WriteFileBuffered(fd,&nodex,sizeof(NodeX));
+
+       WriteFileBuffered(nodesx->ifd,&nodex.id,sizeof(node_t));
 
        highway++;
       }
@@ -498,6 +502,8 @@ void RemoveNonHighwayNodes(NodesX *nodesx,WaysX *waysx,int keep)
 
  nodesx->fd=CloseFileBuffered(nodesx->fd);
  CloseFileBuffered(fd);
+
+ nodesx->ifd=CloseFileBuffered(nodesx->ifd);
 
  /* Free the now-unneeded index */
 

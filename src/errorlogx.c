@@ -142,6 +142,17 @@ void ProcessErrorLogs(ErrorLogsX *errorlogsx,NodesX *nodesx,WaysX *waysx,Relatio
  relationsx->rrfd=ReOpenFileBuffered(relationsx->rrfilename);
  relationsx->trfd=ReOpenFileBuffered(relationsx->trfilename);
 
+ /* Map the index into memory */
+
+ nodesx->idata=MapFile(nodesx->ifilename_tmp);
+
+ waysx->idata=MapFile(waysx->ifilename_tmp);
+ waysx->odata=MapFile(waysx->ofilename_tmp);
+
+ relationsx->rridata=MapFile(relationsx->rrifilename_tmp);
+ relationsx->rrodata=MapFile(relationsx->rrofilename_tmp);
+ relationsx->tridata=MapFile(relationsx->trifilename_tmp);
+
  /* Open the binary log file read-only and a new file writeable */
 
  newfd=ReplaceFileBuffered(errorbinfilename,&oldfd);
@@ -307,6 +318,17 @@ void ProcessErrorLogs(ErrorLogsX *errorlogsx,NodesX *nodesx,WaysX *waysx,Relatio
  CloseFileBuffered(oldfd);
  CloseFileBuffered(newfd);
 
+ /* Unmap the index from memory */
+
+ nodesx->idata=UnmapFile(nodesx->idata);
+
+ waysx->idata=UnmapFile(waysx->idata);
+ waysx->odata=UnmapFile(waysx->odata);
+
+ relationsx->rridata=UnmapFile(relationsx->rridata);
+ relationsx->rrodata=UnmapFile(relationsx->rrodata);
+ relationsx->tridata=UnmapFile(relationsx->tridata);
+
  /* Print the final message */
 
  printf_last("Calculated Coordinates: Errors=%"Pindex_t,errorlogsx->number);
@@ -322,26 +344,26 @@ void ProcessErrorLogs(ErrorLogsX *errorlogsx,NodesX *nodesx,WaysX *waysx,Relatio
 static void reindex_nodes(NodesX *nodesx)
 {
  int fd;
- index_t index=0;
  NodeX nodex;
 
  nodesx->number=nodesx->knumber;
 
- nodesx->idata=(node_t*)malloc_logassert(nodesx->number*sizeof(node_t));
- log_malloc(nodesx->idata,nodesx->number*sizeof(node_t));
+ /* Open a file for the index */
+
+ nodesx->ifd=OpenFileBufferedNew(nodesx->ifilename_tmp);
 
  /* Get the node id for each node in the file. */
 
  fd=ReOpenFileBuffered(nodesx->filename);
 
  while(!ReadFileBuffered(fd,&nodex,sizeof(NodeX)))
-   {
-    nodesx->idata[index]=nodex.id;
+    WriteFileBuffered(nodesx->ifd,&nodex.id,sizeof(node_t));
 
-    index++;
-   }
+ /* Close the files */
 
  CloseFileBuffered(fd);
+
+ nodesx->ifd=CloseFileBuffered(nodesx->ifd);
 }
 
 
@@ -355,16 +377,14 @@ static void reindex_ways(WaysX *waysx)
 {
  FILESORT_VARINT waysize;
  int fd;
- offset_t position=0;
- index_t  index=0;
+ offset_t offset=FILESORT_VARSIZE+sizeof(WayX);
 
  waysx->number=waysx->knumber;
 
- waysx->idata=(way_t*)   malloc_logassert(waysx->number*sizeof(way_t));
- waysx->odata=(offset_t*)malloc_logassert(waysx->number*sizeof(offset_t));
+ /* Open files for the indexes */
 
- log_malloc(waysx->idata,waysx->number*sizeof(way_t));
- log_malloc(waysx->odata,waysx->number*sizeof(offset_t));
+ waysx->ifd=OpenFileBufferedNew(waysx->ifilename_tmp);
+ waysx->ofd=OpenFileBufferedNew(waysx->ofilename_tmp);
 
  /* Get the way id and the offset for each way in the file */
 
@@ -376,17 +396,20 @@ static void reindex_ways(WaysX *waysx)
 
     ReadFileBuffered(fd,&wayx,sizeof(WayX));
 
-    waysx->idata[index]=wayx.id;
-    waysx->odata[index]=position+FILESORT_VARSIZE+sizeof(WayX);
-
-    index++;
+    WriteFileBuffered(waysx->ifd,&wayx.id,sizeof(way_t));
+    WriteFileBuffered(waysx->ofd,&offset,sizeof(offset_t));
 
     SkipFileBuffered(fd,waysize-sizeof(WayX));
 
-    position+=waysize+FILESORT_VARSIZE;
+    offset+=waysize+FILESORT_VARSIZE;
    }
 
+ /* Close the files */
+
  CloseFileBuffered(fd);
+
+ waysx->ifd=CloseFileBuffered(waysx->ifd);
+ waysx->ofd=CloseFileBuffered(waysx->ofd);
 }
 
 
@@ -400,25 +423,21 @@ static void reindex_relations(RelationsX *relationsx)
 {
  FILESORT_VARINT relationsize;
  int fd;
- offset_t position=0;
- index_t index;
+ offset_t offset=FILESORT_VARSIZE+sizeof(RouteRelX);
  TurnRelX turnrelx;
 
  /* Route relations */
 
  relationsx->rrnumber=relationsx->rrknumber;
 
- relationsx->rridata=(relation_t*)malloc_logassert(relationsx->rrnumber*sizeof(relation_t));
- relationsx->rrodata=(offset_t*)  malloc_logassert(relationsx->rrnumber*sizeof(offset_t));
+ /* Open files for the indexes */
 
- log_malloc(relationsx->rridata,relationsx->rrnumber*sizeof(relation_t));
- log_malloc(relationsx->rrodata,relationsx->rrnumber*sizeof(offset_t));
+ relationsx->rrifd=OpenFileBufferedNew(relationsx->rrifilename_tmp);
+ relationsx->rrofd=OpenFileBufferedNew(relationsx->rrofilename_tmp);
 
  /* Get the relation id and the offset for each relation in the file */
 
  fd=ReOpenFileBuffered(relationsx->rrfilename);
-
- index=0;
 
  while(!ReadFileBuffered(fd,&relationsize,FILESORT_VARSIZE))
    {
@@ -426,41 +445,42 @@ static void reindex_relations(RelationsX *relationsx)
 
     ReadFileBuffered(fd,&routerelx,sizeof(RouteRelX));
 
-    relationsx->rridata[index]=routerelx.id;
-    relationsx->rrodata[index]=position+FILESORT_VARSIZE+sizeof(RouteRelX);
-
-    index++;
+    WriteFileBuffered(relationsx->rrifd,&routerelx.id,sizeof(relation_t));
+    WriteFileBuffered(relationsx->rrofd,&offset,sizeof(offset_t));
 
     SkipFileBuffered(fd,relationsize-sizeof(RouteRelX));
 
-    position+=relationsize+FILESORT_VARSIZE;
+    offset+=relationsize+FILESORT_VARSIZE;
    }
 
+ /* Close the files */
+
  CloseFileBuffered(fd);
+
+ relationsx->rrifd=CloseFileBuffered(relationsx->rrifd);
+ relationsx->rrofd=CloseFileBuffered(relationsx->rrofd);
 
 
  /* Turn relations */
 
  relationsx->trnumber=relationsx->trknumber;
 
- relationsx->tridata=(relation_t*)malloc_logassert(relationsx->trnumber*sizeof(relation_t));
+ /* Open files for the indexes */
 
- log_malloc(relationsx->tridata,relationsx->trnumber*sizeof(relation_t));
+ relationsx->trifd=OpenFileBufferedNew(relationsx->trifilename_tmp);
 
- /* Get the relation id and the offset for each relation in the file */
+ /* Get the relation id for each relation in the file */
 
  fd=ReOpenFileBuffered(relationsx->trfilename);
 
- index=0;
-
  while(!ReadFileBuffered(fd,&turnrelx,sizeof(TurnRelX)))
-   {
-    relationsx->tridata[index]=turnrelx.id;
+    WriteFileBuffered(relationsx->trifd,&turnrelx.id,sizeof(relation_t));
 
-    index++;
-   }
+ /* Close the files */
 
  CloseFileBuffered(fd);
+
+ relationsx->trifd=CloseFileBuffered(relationsx->trifd);
 }
 
 

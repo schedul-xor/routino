@@ -72,7 +72,16 @@ struct _WaysX
 
 #endif
 
+ char     *ifilename_tmp;       /*+ The name of the temporary file (for the ID index). +*/
+
+ int       ifd;                 /*+ The file descriptor of the temporary file (for the ID index). +*/
+
  way_t    *idata;               /*+ The extended way IDs (sorted by ID). +*/
+
+ char     *ofilename_tmp;       /*+ The name of the temporary file (for the ID offset index). +*/
+
+ int       ofd;                 /*+ The file descriptor of the temporary file (for the ID offset index). +*/
+
  offset_t *odata;               /*+ The offset of the way in the file (used for error log). +*/
 
  index_t  *cdata;               /*+ The compacted way IDs (same order as sorted ways). +*/

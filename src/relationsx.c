@@ -113,6 +113,12 @@ RelationsX *NewRelationList(int append,int readonly)
  else
     relationsx->rrfd=-1;
 
+ relationsx->rrifilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
+ relationsx->rrofilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
+
+ sprintf(relationsx->rrifilename_tmp,"%s/relationsx.route.%p.idx.tmp",option_tmpdirname,(void*)relationsx);
+ sprintf(relationsx->rrofilename_tmp,"%s/relationsx.route.%p.off.tmp",option_tmpdirname,(void*)relationsx);
+
 
  /* Turn Restriction Relations */
 
@@ -141,6 +147,10 @@ RelationsX *NewRelationList(int append,int readonly)
  else
     relationsx->trfd=-1;
 
+ relationsx->trifilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+48); /* allow %p to be up to 20 bytes */
+
+ sprintf(relationsx->trifilename_tmp,"%s/relationsx.turn.%p.idx.tmp",option_tmpdirname,(void*)relationsx);
+
  return(relationsx);
 }
 
@@ -165,17 +175,9 @@ void FreeRelationList(RelationsX *relationsx,int keep)
  free(relationsx->rrfilename);
  free(relationsx->rrfilename_tmp);
 
- if(relationsx->rridata)
-   {
-    log_free(relationsx->rridata);
-    free(relationsx->rridata);
-   }
+ DeleteFile(relationsx->rrifilename_tmp);
 
- if(relationsx->rrodata)
-   {
-    log_free(relationsx->rrodata);
-    free(relationsx->rrodata);
-   }
+ DeleteFile(relationsx->rrofilename_tmp);
 
 
  /* Turn Restriction relations */
@@ -188,11 +190,7 @@ void FreeRelationList(RelationsX *relationsx,int keep)
  free(relationsx->trfilename);
  free(relationsx->trfilename_tmp);
 
- if(relationsx->tridata)
-   {
-    log_free(relationsx->tridata);
-    free(relationsx->tridata);
-   }
+ DeleteFile(relationsx->trifilename_tmp);
 
 
  free(relationsx);
@@ -645,6 +643,10 @@ void ProcessRouteRelations(RelationsX *relationsx,WaysX *waysx,int keep)
  InvalidateWayXCache(waysx->cache);
 #endif
 
+ /* Map the index into memory */
+
+ waysx->idata =MapFile(waysx->ifilename_tmp);
+
  /* Re-open the file read-only */
 
  relationsx->rrfd=ReOpenFileBuffered(relationsx->rrfilename_tmp);
@@ -791,7 +793,7 @@ void ProcessRouteRelations(RelationsX *relationsx,WaysX *waysx,int keep)
  if(lastunmatched)
     free(lastunmatched);
 
- /* Close the file */
+ /* Close the files */
 
  relationsx->rrfd=CloseFileBuffered(relationsx->rrfd);
 
@@ -805,6 +807,10 @@ void ProcessRouteRelations(RelationsX *relationsx,WaysX *waysx,int keep)
 #else
  waysx->fd=SlimUnmapFile(waysx->fd);
 #endif
+
+ /* Unmap the index from memory */
+
+ waysx->idata =UnmapFile(waysx->idata);
 }
 
 
@@ -849,6 +855,11 @@ void ProcessTurnRelations(RelationsX *relationsx,NodesX *nodesx,SegmentsX *segme
  InvalidateSegmentXCache(segmentsx->cache);
  InvalidateWayXCache(waysx->cache);
 #endif
+
+ /* Map the index into memory */
+
+ nodesx->idata=MapFile(nodesx->ifilename_tmp);
+ waysx->idata =MapFile(waysx->ifilename_tmp);
 
  /* Re-open the file read-only and a new file writeable */
 
@@ -1122,14 +1133,6 @@ void ProcessTurnRelations(RelationsX *relationsx,NodesX *nodesx,SegmentsX *segme
 
  /* Free the now-unneeded indexes */
 
- log_free(nodesx->idata);
- free(nodesx->idata);
- nodesx->idata=NULL;
-
- log_free(waysx->idata);
- free(waysx->idata);
- waysx->idata=NULL;
-
  log_free(segmentsx->firstnode);
  free(segmentsx->firstnode);
  segmentsx->firstnode=NULL;
@@ -1145,6 +1148,11 @@ void ProcessTurnRelations(RelationsX *relationsx,NodesX *nodesx,SegmentsX *segme
  segmentsx->fd=SlimUnmapFile(segmentsx->fd);
  waysx->fd=SlimUnmapFile(waysx->fd);
 #endif
+
+ /* Unmap the index from memory */
+
+ nodesx->idata=UnmapFile(nodesx->idata);
+ waysx->idata =UnmapFile(waysx->idata);
 
  /* Print the final message */
 
