@@ -74,6 +74,10 @@ struct _NodesX
 
 #endif
 
+ char     *ifilename_tmp;       /*+ The name of the temporary file (for the NodesX ID index). +*/
+
+ int       ifd;                 /*+ The file descriptor of the temporary file (for the NodesX ID index). +*/
+
  node_t   *idata;               /*+ The extended node IDs (sorted by ID). +*/
 
  index_t  *pdata;               /*+ The node indexes after pruning. +*/

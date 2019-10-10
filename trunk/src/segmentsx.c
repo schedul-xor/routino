@@ -388,7 +388,7 @@ void ProcessSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
 
  printf_first("Processing Segments: Segments=0 Duplicates=0");
 
- /* Map into memory /  open the file */
+ /* Map into memory / open the file */
 
 #if !SLIM
  nodesx->data=MapFile(nodesx->filename_tmp);
@@ -397,6 +397,11 @@ void ProcessSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
 
  InvalidateNodeXCache(nodesx->cache);
 #endif
+
+ /* Map the index into memory */
+
+ nodesx->idata=MapFile(nodesx->ifilename_tmp);
+ waysx->idata =MapFile(waysx->ifilename_tmp);
 
  /* Allocate the way usage bitmask */
 
@@ -477,6 +482,11 @@ void ProcessSegments(SegmentsX *segmentsx,NodesX *nodesx,WaysX *waysx)
 
  segmentsx->fd=CloseFileBuffered(segmentsx->fd);
  CloseFileBuffered(fd);
+
+ /* Unmap the index from memory */
+
+ nodesx->idata=UnmapFile(nodesx->idata);
+ waysx->idata =UnmapFile(waysx->idata);
 
  /* Unmap from memory / close the file */
 

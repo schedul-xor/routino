@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2010-2015 Andrew M. Bishop
+ This file Copyright 2010-2015, 2019 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -69,7 +69,16 @@ struct _RelationsX
  index_t     rrnumber;         /*+ The number of extended route relations. +*/
  index_t     rrknumber;        /*+ The number of extended route relations kept for next time. +*/
 
+ char       *rrifilename_tmp;  /*+ The name of the temporary file (for the ID index). +*/
+
+ int         rrifd;            /*+ The file descriptor of the temporary file (for the ID index). +*/
+
  relation_t *rridata;          /*+ The extended relation IDs (sorted by ID). +*/
+
+ char       *rrofilename_tmp;  /*+ The name of the temporary file (for the offset index). +*/
+
+ int         rrofd;            /*+ The file descriptor of the temporary file (for the offset index). +*/
+
  offset_t   *rrodata;          /*+ The offset of the route relation in the file (used for error log). +*/
 
  /* Turn restriction relations */
@@ -81,6 +90,10 @@ struct _RelationsX
 
  index_t     trnumber;         /*+ The number of extended turn restriction relations. +*/
  index_t     trknumber;        /*+ The number of extended turn relations kept for next time. +*/
+
+ char       *trifilename_tmp;  /*+ The name of the temporary file (for the ID index). +*/
+
+ int         trifd;            /*+ The file descriptor of the temporary file (for the ID index). +*/
 
  relation_t *tridata;          /*+ The extended relation IDs (sorted by ID). +*/
 };

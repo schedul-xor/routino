@@ -113,6 +113,11 @@ WaysX *NewWayList(int append,int readonly)
  log_malloc(waysx->cache,sizeof(*waysx->cache));
 #endif
 
+ waysx->ifilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+ waysx->ofilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
+
+ sprintf(waysx->ifilename_tmp,"%s/waysx.%p.idx.tmp",option_tmpdirname,(void*)waysx);
+ sprintf(waysx->ofilename_tmp,"%s/waysx.%p.off.tmp",option_tmpdirname,(void*)waysx);
 
  waysx->nfilename_tmp=(char*)malloc_logassert(strlen(option_tmpdirname)+40); /* allow %p to be up to 20 bytes */
 
@@ -140,17 +145,11 @@ void FreeWayList(WaysX *waysx,int keep)
  free(waysx->filename);
  free(waysx->filename_tmp);
 
- if(waysx->idata)
-   {
-    log_free(waysx->idata);
-    free(waysx->idata);
-   }
+ DeleteFile(waysx->ifilename_tmp);
 
- if(waysx->odata)
-   {
-    log_free(waysx->odata);
-    free(waysx->odata);
-   }
+ DeleteFile(waysx->ofilename_tmp);
+
+ free(waysx->ifilename_tmp);
 
  if(waysx->cdata)
    {
@@ -308,10 +307,9 @@ void SortWayList(WaysX *waysx)
 
  fd=ReplaceFileBuffered(waysx->filename_tmp,&waysx->fd);
 
- /* Allocate the array of indexes */
+ /* Open a file for the index */
 
- waysx->idata=(way_t*)malloc_logassert(waysx->number*sizeof(way_t));
- log_malloc(waysx->idata,waysx->number*sizeof(way_t));
+ waysx->ifd=OpenFileBufferedNew(waysx->ifilename_tmp);
 
  /* Sort the ways by ID and index them */
 
@@ -329,6 +327,8 @@ void SortWayList(WaysX *waysx)
 
  waysx->fd=CloseFileBuffered(waysx->fd);
  CloseFileBuffered(fd);
+
+ waysx->ifd=CloseFileBuffered(waysx->ifd);
 
  /* Print the final message */
 
@@ -382,7 +382,7 @@ static int deduplicate_and_index_by_id(WayX *wayx,index_t index)
        return(0);
     else
       {
-       sortwaysx->idata[index]=wayx->id;
+       WriteFileBuffered(sortwaysx->ifd,&wayx->id,sizeof(way_t));
 
        return(1);
       }
@@ -432,6 +432,11 @@ SegmentsX *SplitWays(WaysX *waysx,NodesX *nodesx,int keep)
     fd=ReplaceFileBuffered(waysx->filename_tmp,&waysx->fd);
 
  nfd=OpenFileBufferedNew(waysx->nfilename_tmp);
+
+ /* Map the index into memory */
+
+ nodesx->idata=MapFile(nodesx->ifilename_tmp);
+ waysx->idata =MapFile(waysx->ifilename_tmp);
 
  /* Loop through the ways and create the segments and way names */
 
@@ -511,6 +516,11 @@ SegmentsX *SplitWays(WaysX *waysx,NodesX *nodesx,int keep)
 
  CloseFileBuffered(nfd);
 
+ /* Unmap the index from memory */
+
+ nodesx->idata=UnmapFile(nodesx->idata);
+ waysx->idata =UnmapFile(waysx->idata);
+
  /* Print the final message */
 
  printf_last("Split Ways: Ways=%"Pindex_t" Segments=%"Pindex_t,waysx->number,segmentsx->number);
@@ -565,7 +575,7 @@ void SortWayNames(WaysX *waysx)
 
  printf_first("Updating Ways with Names: Ways=0 Names=0");
 
- /* Map into memory /  open the file */
+ /* Map into memory / open the file */
 
 #if !SLIM
  waysx->data=MapFileWriteable(waysx->filename_tmp);
