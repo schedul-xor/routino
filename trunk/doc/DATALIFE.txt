@@ -7,6 +7,7 @@ Key (memory mapping):
 
 Key (structure parameter usage - memory mapped)
   c = Created   (file created and written)
+  m = Modified  (file read (mapped read-only) then written)
   u = Used      (file mapped read-only)
   d = Destroyed (file deleted)
 
@@ -60,7 +61,7 @@ v                             :      :   .   .   .   :   :   .   .   :   .   .  
 SortNodeList                  :      : c .   .   .   : U :   .   .   :   .   .   :   .   .   : | :   .   .   : | :
 SortWayList                   :      : | .   .   .   : | :   .   .   :   .   .   : c .   .   : U :   .   .   : | :
 SortRelationList              :      : | .   .   .   : | :   .   .   :   .   .   : | .   .   :   :   .   .   : U :
-RemoveNonHighwayNodes         :      : u .   .   .   : U :   .   .   :   .   .   : | .   .   :   :   .   .   : | :
+RemoveNonHighwayNodes         :      : m .   .   .   : U :   .   .   :   .   .   : | .   .   :   :   .   .   : | :
 SplitWays                     :      : u .   .   .   :   :   .   .   : W .   . W : u .   .   :   :   .   .   : | :
 SortWayNames                  :   W  : | .   .   .   :   :   .   .   : | .   . | : | .   .   :   :   .   .   : | :
 SortSegmentList               :      : | .   .   .   :   :   .   .   : U .   . | : | .   .   :   :   .   .   : | :
