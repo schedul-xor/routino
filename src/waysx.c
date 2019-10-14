@@ -803,8 +803,6 @@ static int deduplicate_and_index_by_compact_id(WayX *wayx,index_t index)
 
     sortwaysx->cdata[wayx->id]=index;
 
-    wayx->id=index;
-
     return(1);
    }
  else
