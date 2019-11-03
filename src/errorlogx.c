@@ -149,9 +149,14 @@ void ProcessErrorLogs(ErrorLogsX *errorlogsx,NodesX *nodesx,WaysX *waysx,Relatio
  waysx->idata=MapFile(waysx->ifilename_tmp);
  waysx->odata=MapFile(waysx->ofilename_tmp);
 
- relationsx->rridata=MapFile(relationsx->rrifilename_tmp);
- relationsx->rrodata=MapFile(relationsx->rrofilename_tmp);
- relationsx->tridata=MapFile(relationsx->trifilename_tmp);
+ if(relationsx->rrnumber)
+   {
+    relationsx->rridata=MapFile(relationsx->rrifilename_tmp);
+    relationsx->rrodata=MapFile(relationsx->rrofilename_tmp);
+   }
+
+ if(relationsx->trnumber)
+    relationsx->tridata=MapFile(relationsx->trifilename_tmp);
 
  /* Open the binary log file read-only and a new file writeable */
 
@@ -325,9 +330,14 @@ void ProcessErrorLogs(ErrorLogsX *errorlogsx,NodesX *nodesx,WaysX *waysx,Relatio
  waysx->idata=UnmapFile(waysx->idata);
  waysx->odata=UnmapFile(waysx->odata);
 
- relationsx->rridata=UnmapFile(relationsx->rridata);
- relationsx->rrodata=UnmapFile(relationsx->rrodata);
- relationsx->tridata=UnmapFile(relationsx->tridata);
+ if(relationsx->rrnumber)
+   {
+    relationsx->rridata=UnmapFile(relationsx->rridata);
+    relationsx->rrodata=UnmapFile(relationsx->rrodata);
+   }
+
+ if(relationsx->trnumber)
+    relationsx->tridata=UnmapFile(relationsx->tridata);
 
  /* Print the final message */
 
