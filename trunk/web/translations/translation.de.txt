@@ -239,6 +239,10 @@ $$JUNCTIONS-INFO$$
 @@JUNCTIONS-MORE@@	Aufeinandertreffen von sieben oder mehr Wegen.
 
 @@SUPER-BUTTON@@	Super-Segments anzeigen
+$$SUPER-INFO$$
+Jeder Superknoten und die zugehörigen Supersegmente werden angezeigt (siehe
+Algorithmus-Seite zur Beschreibung).
+$$SUPER-INFO$$
 
 @@WAYTYPE-BUTTON@@	Wegart des Abschnittes anzeigen
 $$WAYTYPE-INFO$$
@@ -254,6 +258,8 @@ $$WAYTYPE-INFO$$
 $$HIGHWAY-INFO$$
 Jeder Abschnitt der ausgewählten Wegart ist gezeichnet.
 $$HIGHWAY-INFO$$
+
+@@TRANSPORT-BUTTON@@	Transport-Segmente anzeigen
 
 $$BARRIER-INFO$$
 Jedes Hindernis welches den gewählten Transporttyp blockiert ist dargestellt.
