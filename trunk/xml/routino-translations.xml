@@ -918,7 +918,7 @@
       <node     text="на %s, %s, на %s" /> <!-- 1st %s = [waypoint|junction], 2nd %s = [turn], 3rd %s = [heading] -->
       <!-- TRANSLATION REQUIRED: rbnode   text="Leave %s, take the %s exit heading %s" / --> <!-- 1st %s = [roundabout], 2nd %s = [first|second|...], 3rd %s = [heading] -->
       <segment  text="Следуйте по %s %.3f км, %.1f мин" /> <!-- 1st %s = street name -->
-      <stop     text="Стоп  %s" /> <!-- 1st %s = [waypoint|junction] -->
+      <stop     text="Стоп %s" /> <!-- 1st %s = [waypoint|junction] -->
       <total    text="Всего %.1f км, %.0f минут" />
       <subtotal text="%.1f км, %.0f минут" />
     </output-html>
@@ -926,7 +926,7 @@
     <!-- GPX output -->
     <output-gpx>
       <waypoint type="waypt" string="ТОЧКА" /> <!-- For the route waypoints -->
-      <!-- TRANSLATION REQUIRED: waypoint type="trip" string="TRIP" / --> <!-- For the other route points -->
+      <waypoint type="trip" string="ПОЕЗДКА" /> <!-- For the other route points -->
 
       <desc  text="%s маршрут от 'Старта' до 'Финиша'" /> <!-- %s = [shortest|quickest] -->
       <name  text="%s маршрут" /> <!-- %s = [shortest|quickest] -->
