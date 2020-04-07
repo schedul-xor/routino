@@ -66,11 +66,12 @@
 %%output-html_start%%	Старт  %s, на %s
 %%output-html_node%%	на %s, %s, на %s
 %%output-html_segment%%	Следуйте по %s %.3f км, %.1f мин
-%%output-html_stop%%	Стоп  %s
+%%output-html_stop%%	Стоп %s
 %%output-html_total%%	Всего %.1f км, %.0f минут
 %%output-html_subtotal%%	%.1f км, %.0f минут
 
 %%output-gpx_waypoint_waypt%%	ТОЧКА
+%%output-gpx_waypoint_trip%%	ПОЕЗДКА
 
 %%output-gpx_desc%%	%s маршрут от 'Старта' до 'Финиша'
 %%output-gpx_name%%	%s маршрут
@@ -82,7 +83,7 @@
 #
 
 @@LANGUAGE@@	Русский
-@@LANGUAGE-WEBPAGE@@	Страница на Русском языке
+@@LANGUAGE-WEBPAGE@@	Страница на русском языке
 
 @@OPTION-TAB@@	Настройки
 @@OPTION-TAB-HELP@@	Задать настройки маршрутизации
@@ -171,7 +172,7 @@
 
 @@EDIT-OSM-DATA@@	Редактировать данные OSM
 
-@@ROUTER-NOT-RUN@@	Роутер не запущен
+@@ROUTER-NOT-RUN@@	Маршрутизатор не запущен
 @@ROUTER-RUNNING@@	Прокладка маршрута...
 @@ROUTER-COMPLETED@@	Прокладка маршрута завершена
 @@ROUTER-ERROR@@	Ошибка прокладки маршрута
@@ -189,6 +190,7 @@
 @@DISPLAY-STATISTICS@@	Показать статистику данных
 
 @@JAVASCRIPT-REQUIRED@@	Javascript <em>обязателен</em> для просмотра данной страницы, так как на ней используется интерактивная карта.
+@@ROUTER@@	Маршрутизатор
 @@GEO-DATA@@	Гео данные
 @@TILES@@	Тайлы
 
@@ -200,6 +202,7 @@
 
 @@NO-DATA-DISPLAYED@@	Нет данных для отображения
 
+@@VISUALISER-NUM-SEGMENTS@@	Обработано # сегментов
 @@VISUALISER-NUM-NODES@@	Обработано # нод
 @@VISUALISER-NUM-TURNS@@	Обработано # ограничений поворотов
 
