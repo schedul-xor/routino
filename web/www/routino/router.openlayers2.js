@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2019 Andrew M. Bishop
+// This file Copyright 2008-2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -577,6 +577,8 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
 
        lon=lonlat.lon;
       }
+    else
+       lon=Number(lon);
 
     if(lon<-180) lon=-180;
     if(lon>+180) lon=+180;
@@ -588,6 +590,8 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
 
        lat=lonlat.lat;
       }
+    else
+       lat=Number(lat);
 
     if(lat<-90 ) lat=-90 ;
     if(lat>+90 ) lat=+90 ;
@@ -891,7 +895,7 @@ function map_init()             // called from router.html
  gpx_style={shortest: new OpenLayers.Style({},{strokeWidth: 3, strokeColor: "#00FF00"}),
             quickest: new OpenLayers.Style({},{strokeWidth: 3, strokeColor: "#0000FF"})};
 
- // Add a vectors layer
+ // Add a markers vectors layer
 
  layerVectors = new OpenLayers.Layer.Vector("Markers",{displayInLayerSwitcher: false});
  map.addLayer(layerVectors);
@@ -962,7 +966,7 @@ function map_init()             // called from router.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    var lonlat = new OpenLayers.LonLat(lon,lat);
+    var lonlat = new OpenLayers.LonLat(Number(lon),Number(lat));
     lonlat.transform(epsg4326,epsg900913);
 
     map.moveTo(lonlat,zoom-map.minZoomLevel);
@@ -1330,8 +1334,8 @@ function markerRecentre(marker) // called from router.html
 
  clearSearchResult(marker);
 
- var lon=routino.point[marker].lon;
- var lat=routino.point[marker].lat;
+ var lon=Number(routino.point[marker].lon);
+ var lat=Number(routino.point[marker].lat);
 
  var lonlat = new OpenLayers.LonLat(lon,lat);
  lonlat.transform(epsg4326,epsg900913);
@@ -1796,7 +1800,7 @@ function highlight(type,line,action)
 
     highlights[type].move(lonlat);
 
-    if(highlights[type].style.display == "none")
+     if(highlights[type].style.display == "none")
        highlights[type].style.display = "";
 
     // Popup

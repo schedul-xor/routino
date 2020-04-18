@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014, 2019 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019, 2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -194,7 +194,7 @@ function map_init()             // called from visualiser.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    map.setView(L.latLng(lat,lon),zoom);
+    map.setView(L.latLng(Number(lat),Number(lon)),zoom);
    }
  else
     map.fitBounds(map.options.maxBounds);
@@ -653,10 +653,10 @@ function displayData(datatype)  // called from visualiser.html
 
 function addBox(words)
 {
- var lat1=words[0];
- var lon1=words[1];
- var lat2=words[2];
- var lon2=words[3];
+ var lat1=Number(words[0]);
+ var lon1=Number(words[1]);
+ var lat2=Number(words[2]);
+ var lon2=Number(words[3]);
 
  var bounds = L.latLngBounds(L.latLng(lat1,lon1),L.latLng(lat2,lon2));
 
@@ -697,8 +697,8 @@ function runJunctionsSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
        var count=words[3];
 
        var lonlat = L.latLng(lat,lon);
@@ -735,8 +735,8 @@ function runSuperSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat = L.latLng(lat,lon);
 
@@ -787,10 +787,10 @@ function runWaytypeSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1 = L.latLng(lat1,lon1);
        var lonlat2 = L.latLng(lat2,lon2);
@@ -844,10 +844,10 @@ function runHighwaySuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1 = L.latLng(lat1,lon1);
        var lonlat2 = L.latLng(lat2,lon2);
@@ -882,10 +882,10 @@ function runTransportSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1 = L.latLng(lat1,lon1);
        var lonlat2 = L.latLng(lat2,lon2);
@@ -920,8 +920,8 @@ function runBarrierSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat = L.latLng(lat,lon);
 
@@ -955,12 +955,12 @@ function runTurnsSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
-       var lat3=words[5];
-       var lon3=words[6];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
+       var lat3=Number(words[5]);
+       var lon3=Number(words[6]);
 
        var lonlat1 = L.latLng(lat1,lon1);
        var lonlat2 = L.latLng(lat2,lon2);
@@ -998,8 +998,8 @@ function runLimitSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
        var number=words[3];
 
        var lonlat = L.latLng(lat,lon);
@@ -1066,10 +1066,10 @@ function runPropertySuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1 = L.latLng(lat1,lon1);
        var lonlat2 = L.latLng(lat2,lon2);
@@ -1104,8 +1104,8 @@ function runErrorlogSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat = L.latLng(lat,lon);
 

@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2019 Andrew M. Bishop
+// This file Copyright 2008-2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -858,7 +858,7 @@ function map_init()             // called from router.html
  gpx_style={shortest: new ol.style.Style({stroke: new ol.style.Stroke({width: 3, color: "#00FF00"})}),
             quickest: new ol.style.Style({stroke: new ol.style.Stroke({width: 3, color: "#0000FF"})})};
 
- // Add a vectors layer
+ // Add a markers vectors layer
 
  layerVectors = new ol.layer.Vector({source: new ol.source.Vector()});
  map.addLayer(layerVectors);
