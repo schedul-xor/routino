@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014, 2019 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019, 2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -399,7 +399,7 @@ function runDumpSuccess(response)
 {
  var string=response.responseText;
 
- if(mapprops.editurl !== undefined && mapprops.editurl !== "")
+ if(mapprops.browseurl !== undefined && mapprops.browseurl !== "")
    {
     var types=["node", "way", "relation"];
     var Types=["Node", "Way", "Relation"];
