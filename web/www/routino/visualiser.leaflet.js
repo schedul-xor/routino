@@ -424,7 +424,7 @@ function runDumpSuccess(response)
 {
  var string=response.responseText;
 
- if(mapprops.editurl !== undefined && mapprops.editurl !== "")
+ if(mapprops.browseurl !== undefined && mapprops.browseurl !== "")
    {
     var types=["node", "way", "relation"];
     var Types=["Node", "Way", "Relation"];
