@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2019 Andrew M. Bishop
+// This file Copyright 2008-2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -576,6 +576,8 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
 
        lon=lonlat.lon;
       }
+    else
+       lon=Number(lon);
 
     if(lon<-180) lon=-180;
     if(lon>+180) lon=+180;
@@ -586,6 +588,8 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
 
        lat=lonlat.lat;
       }
+    else
+       lat=Number(lat);
 
     if(lat<-90 ) lat=-90 ;
     if(lat>+90 ) lat=+90 ;
@@ -906,7 +910,7 @@ function map_init()             // called from router.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    map.setView(L.latLng(lat,lon),zoom);
+    map.setView(L.latLng(Number(lat),Number(lon)),zoom);
    }
  else
     map.fitBounds(map.options.maxBounds);
@@ -936,7 +940,7 @@ function dragMarkerMove(marker,event)
 
 
 //
-// Callback for completing a drag occuring on the map.
+// Callback for completing a marker drag on the map.
 //
 
 function dragMarkerComplete(marker,event)
@@ -965,7 +969,7 @@ function dragMarkerSetForm(marker)
 
 var dragged_waypoint=null,dragged_marker=null;
 var dragged_waypoint_over=null,dragged_marker_over=null;
- var dragged_icon_x,dragged_icon_y;
+var dragged_icon_x,dragged_icon_y;
 
 //
 // Drag a waypoint up or down the list.
@@ -1261,8 +1265,8 @@ function markerRecentre(marker) // called from router.html
 
  clearSearchResult(marker);
 
- var lon=routino.point[marker].lon;
- var lat=routino.point[marker].lat;
+ var lon=Number(routino.point[marker].lon);
+ var lat=Number(routino.point[marker].lat);
 
  var lonlat = L.latLng(lat,lon);
 
@@ -1695,6 +1699,7 @@ var route_dark_colours ={shortest: "#408040", quickest: "#404080"};
 var highlights={shortest: null, quickest: null};
 var popups={shortest: null, quickest: null};
 var routepoints={shortest: {}, quickest: {}};
+
 
 //
 // Highlight a specific item in the route

@@ -3,7 +3,7 @@
 //
 // Part of the Routino routing software.
 //
-// This file Copyright 2008-2014, 2019 Andrew M. Bishop
+// This file Copyright 2008-2014, 2019, 2020 Andrew M. Bishop
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -237,7 +237,7 @@ function map_init()             // called from visualiser.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    var lonlat = new OpenLayers.LonLat(lon,lat);
+    var lonlat = new OpenLayers.LonLat(Number(lon),Number(lat));
     lonlat.transform(epsg4326,epsg900913);
 
     map.moveTo(lonlat,zoom-map.minZoomLevel);
@@ -667,10 +667,10 @@ function displayData(datatype)  // called from visualiser.html
 
 function addBox(words)
 {
- var lat1=words[0];
- var lon1=words[1];
- var lat2=words[2];
- var lon2=words[3];
+ var lat1=Number(words[0]);
+ var lon1=Number(words[1]);
+ var lat2=Number(words[2]);
+ var lon2=Number(words[3]);
 
  var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
 
@@ -719,8 +719,8 @@ function runJunctionsSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
        var count=words[3];
 
        var lonlat= new OpenLayers.LonLat(lon,lat).transform(epsg4326,epsg900913);
@@ -768,8 +768,8 @@ function runSuperSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat= new OpenLayers.LonLat(lon,lat).transform(epsg4326,epsg900913);
 
@@ -820,10 +820,10 @@ function runWaytypeSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1 = new OpenLayers.LonLat(lon1,lat1).transform(epsg4326,epsg900913);
        var lonlat2 = new OpenLayers.LonLat(lon2,lat2).transform(epsg4326,epsg900913);
@@ -883,10 +883,10 @@ function runHighwaySuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1= new OpenLayers.LonLat(lon1,lat1).transform(epsg4326,epsg900913);
        var lonlat2= new OpenLayers.LonLat(lon2,lat2).transform(epsg4326,epsg900913);
@@ -931,10 +931,10 @@ function runTransportSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1= new OpenLayers.LonLat(lon1,lat1).transform(epsg4326,epsg900913);
        var lonlat2= new OpenLayers.LonLat(lon2,lat2).transform(epsg4326,epsg900913);
@@ -979,8 +979,8 @@ function runBarrierSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat= new OpenLayers.LonLat(lon,lat).transform(epsg4326,epsg900913);
 
@@ -1021,12 +1021,12 @@ function runTurnsSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
-       var lat3=words[5];
-       var lon3=words[6];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
+       var lat3=Number(words[5]);
+       var lon3=Number(words[6]);
 
        var lonlat1= new OpenLayers.LonLat(lon1,lat1).transform(epsg4326,epsg900913);
        var lonlat2= new OpenLayers.LonLat(lon2,lat2).transform(epsg4326,epsg900913);
@@ -1080,8 +1080,8 @@ function runLimitSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
        var number=words[3];
 
        var lonlat= new OpenLayers.LonLat(lon,lat).transform(epsg4326,epsg900913);
@@ -1147,10 +1147,10 @@ function runPropertySuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat1=words[1];
-       var lon1=words[2];
-       var lat2=words[3];
-       var lon2=words[4];
+       var lat1=Number(words[1]);
+       var lon1=Number(words[2]);
+       var lat2=Number(words[3]);
+       var lon2=Number(words[4]);
 
        var lonlat1= new OpenLayers.LonLat(lon1,lat1).transform(epsg4326,epsg900913);
        var lonlat2= new OpenLayers.LonLat(lon2,lat2).transform(epsg4326,epsg900913);
@@ -1195,8 +1195,8 @@ function runErrorlogSuccess(response)
     else if(words[0] !== "")
       {
        var dump=words[0];
-       var lat=words[1];
-       var lon=words[2];
+       var lat=Number(words[1]);
+       var lon=Number(words[2]);
 
        var lonlat = new OpenLayers.LonLat(lon,lat).transform(epsg4326,epsg900913);
 
