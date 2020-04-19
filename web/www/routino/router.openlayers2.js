@@ -1800,7 +1800,7 @@ function highlight(type,line,action)
 
     highlights[type].move(lonlat);
 
-     if(highlights[type].style.display == "none")
+    if(highlights[type].style.display == "none")
        highlights[type].style.display = "";
 
     // Popup
