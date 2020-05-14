@@ -259,6 +259,12 @@ if args.list_text_all: routing_options |= routino.ROUTE_LIST_TEXT_ALL
 if args.reverse: routing_options |= routino.ROUTE_REVERSE
 if args.loop   : routing_options |= routino.ROUTE_LOOP
 
+#def progress(fraction):
+#    print("Progress: {:.0f}%".format(fraction*100.0))
+#    return 1
+#
+#route = routino.CalculateRoute(database, profile, translation, waypoints, routing_options, progress)
+
 route = routino.CalculateRoute(database, profile, translation, waypoints, routing_options)
 
 if routino.errno >= routino.ERROR_NO_ROUTE_1:

@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2018 Andrew M. Bishop
+ This file Copyright 2018, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -70,6 +70,13 @@
 }
 
 
+/* Handle the Routino_ProgressFunc pointer function */
+
+%typemap(in) Routino_ProgressFunc {
+    $1 = (Routino_ProgressFunc)PyLong_AsVoidPtr($input);
+}
+
+
 /* Rename variables and functions by stripping 'Routino_' or 'ROUTINO_' prefixes */
 
 %rename("%(regex:/R[Oo][Uu][Tt][Ii][Nn][Oo]_(.*)/\\1/)s") "";
@@ -87,6 +94,8 @@
 
 %pythoncode %{
 
+import ctypes
+
 # Set up a replacement function for a macro in the original
 
 def CheckAPIVersion():
@@ -95,6 +104,10 @@ def CheckAPIVersion():
 # Set up a replacement function so that we do not need to pass the size of the list
 
 def CalculateRoute(database, profile, translation, waypoints, options, progress=None):
+    if progress is not None:
+        # typedef int (*Routino_ProgressFunc)(double complete);
+        callback_type = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_double)
+        progress = ctypes.cast(callback_type(progress), ctypes.c_void_p).value
     return _router._CalculateRoute(database, profile, translation, waypoints, len(waypoints), options, progress)
 
 # Set up a replacement function to make the second argument optional
