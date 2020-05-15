@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2015-2017, 2019 Andrew M. Bishop
+ This file Copyright 2015-2017, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -366,6 +366,13 @@ DLL_PUBLIC Routino_Profile *Routino_CreateProfileFromUserProfile(Routino_UserPro
 
  Routino_errno=ROUTINO_ERROR_NONE;
 
+ if(!profile)
+   {
+    Routino_errno=ROUTINO_ERROR_NO_PROFILE;
+    free(rprofile);
+    return(NULL);
+   }
+
  if(profile->transport<=0 || profile->transport>=Transport_Count)
     Routino_errno=ROUTINO_ERROR_BAD_USER_PROFILE;
  else
@@ -435,6 +442,13 @@ DLL_PUBLIC Routino_UserProfile *Routino_CreateUserProfileFromProfile(Routino_Pro
 
  Routino_errno=ROUTINO_ERROR_NONE;
 
+ if(!profile)
+   {
+    Routino_errno=ROUTINO_ERROR_NO_PROFILE;
+    free(uprofile);
+    return(NULL);
+   }
+
  uprofile->transport=profile->transport;
 
  for(i=1;i<Highway_Count;i++)
@@ -472,6 +486,18 @@ DLL_PUBLIC Routino_UserProfile *Routino_CreateUserProfileFromProfile(Routino_Pro
 DLL_PUBLIC int Routino_ValidateProfile(Routino_Database *database,Routino_Profile *profile)
 {
  Routino_errno=ROUTINO_ERROR_NONE;
+
+ if(!database)
+   {
+    Routino_errno=ROUTINO_ERROR_NO_DATABASE;
+    return Routino_errno;
+   }
+
+ if(!profile)
+   {
+    Routino_errno=ROUTINO_ERROR_NO_PROFILE;
+    return Routino_errno;
+   }
 
  if(UpdateProfile(profile,database->ways))
     Routino_errno=ROUTINO_ERROR_PROFILE_DATABASE_ERR;
