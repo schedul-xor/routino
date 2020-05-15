@@ -73,7 +73,8 @@
 /* Handle the Routino_ProgressFunc pointer function */
 
 %typemap(in) Routino_ProgressFunc {
-    $1 = (Routino_ProgressFunc)PyLong_AsVoidPtr($input);
+    if($input != Py_None)
+       $1 = (Routino_ProgressFunc)PyLong_AsVoidPtr($input);
 }
 
 
