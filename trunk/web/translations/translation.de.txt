@@ -260,6 +260,9 @@ Jeder Abschnitt der ausgewählten Wegart ist gezeichnet.
 $$HIGHWAY-INFO$$
 
 @@TRANSPORT-BUTTON@@	Transport-Segmente anzeigen
+$$TRANSPORT-INFO$$
+Jedes für die gewählte Transportart erlaubte Segment wird gezeichnet.
+$$TRANSPORT-INFO$$
 
 $$BARRIER-INFO$$
 Jedes Hindernis welches den gewählten Transporttyp blockiert ist dargestellt.
