@@ -72,9 +72,9 @@ planetsplitter
    --tagging=<filename>
           Sets the filename containing the list of tagging rules in XML
           format for the parsing the input files. If the file doesn't
-          exist then dirname, prefix and "profiles.xml" will be combined
+          exist then dirname, prefix and "tagging.xml" will be combined
           and used, if that doesn't exist then the file
-          '/usr/local/share/routino/profiles.xml' (or custom installation
+          '/usr/local/share/routino/tagging.xml' (or custom installation
           location) will be used.
 
    --loggable
