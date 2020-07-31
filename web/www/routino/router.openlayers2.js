@@ -166,6 +166,11 @@ function form_init()            // called from router.html
 
  vismarkers=0;
 
+ minlat=90;
+ maxlat=-90;
+ minlon=180;
+ maxlon=-180;
+
  for(var marker=mapprops.maxmarkers;marker>=1;marker--)
    {
     var lon=args["lon" + marker];
@@ -179,6 +184,12 @@ function form_init()            // called from router.html
        formSetSearch(marker,search);
        formSetCoords(marker,lon,lat);
 
+       if(lat<minlat) minlat=lat;
+       if(lat>maxlat) maxlat=lat;
+
+       if(lon<minlon) minlon=lon;
+       if(lon>maxlon) maxlon=lon;
+
        markerAddMap(marker);
 
        markerSearch(marker);
@@ -190,6 +201,12 @@ function form_init()            // called from router.html
        markerAddForm(marker);
 
        formSetCoords(marker,lon,lat);
+
+       if(lat<minlat) minlat=lat;
+       if(lat>maxlat) maxlat=lat;
+
+       if(lon<minlon) minlon=lon;
+       if(lon>maxlon) maxlon=lon;
 
        markerAddMap(marker);
 
@@ -233,6 +250,22 @@ function form_init()            // called from router.html
     formSetLoopReverse("reverse",args["reverse"]);
  else
     formSetLoopReverse("reverse",false);
+
+ // Zoom the map
+
+ if(vismarkers)
+   {
+    var lon =args["lon"];
+    var lat =args["lat"];
+    var zoom=args["zoom"];
+
+    if(lon === undefined || lat === undefined || zoom === undefined)
+      {
+       var markerextent=new OpenLayers.Bounds(minlon,minlat,maxlon,maxlat).transform(epsg4326,epsg900913);
+
+       map.setCenter(markerextent.getCenterLonLat(), map.getZoomForExtent(markerextent,true));
+      }
+   }
 
  // Update the transport type with the URL settings which updates all HTML forms to defaults.
 
