@@ -165,6 +165,7 @@ function form_init()            // called from router.html
  // Fill in the waypoints
 
  vismarkers=0;
+ urlmarkers=0;
 
  minlat=90;
  maxlat=-90;
@@ -195,6 +196,7 @@ function form_init()            // called from router.html
        markerSearch(marker);
 
        vismarkers++;
+       urlmarkers++;
       }
     else if(lon !== undefined && lat !== undefined && lon !== "" && lat !== "")
       {
@@ -213,6 +215,7 @@ function form_init()            // called from router.html
        markerCoords(marker);
 
        vismarkers++;
+       urlmarkers++;
       }
     else if(search !== undefined && search !== "")
       {
@@ -253,7 +256,7 @@ function form_init()            // called from router.html
 
  // Zoom the map
 
- if(vismarkers)
+ if(urlmarkers>1)
    {
     var lon =args["lon"];
     var lat =args["lat"];
