@@ -792,7 +792,10 @@ function updateURLs()
        element.href=location.pathname + "?" + urlargs1 + ";" + mapargs;
 
     if(element.id == "visualiser_url")
-       element.href="visualiser.html" + "?" + mapargs;
+       if(location.pathname.match(/router\.html\.([a-zA-Z-]+)$/))
+          element.href="visualiser.html." + RegExp.$1 + "?" + mapargs;
+       else
+          element.href="visualiser.html" + "?" + mapargs;
 
     if(element.id == "edit_url")
        element.href=mapprops.editurl + "?" + mapargs;
