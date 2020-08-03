@@ -315,7 +315,7 @@ function form_init()            // called from router.html
  var cookies=document.cookie.split("; ");
 
  for(var cookie=0;cookie<cookies.length;cookie++)
-    if(cookies[cookie].substr(0,"Routino-home".length)=="Routino-home")
+    if(cookies[cookie].startsWith("Routino-home"))
       {
        var data=cookies[cookie].split(/[=:;]/);
 
@@ -1545,14 +1545,14 @@ function markerSetClearHome(marker,home)
     homelat=null;
     homelon=null;
 
-    cookie="Routino-home=unset";
+    cookie="Routino-home=";
 
     date.setUTCFullYear(date.getUTCFullYear()-1);
 
     routino.point[marker].home=false;
    }
 
- document.cookie=cookie + ";expires=" + date.toGMTString();
+ document.cookie=cookie + ";Expires=" + date.toGMTString() + ";SameSite=Strict";
 
  updateIcon(marker);
 
