@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2019 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -178,7 +178,7 @@ void FreeNodeList(NodesX *nodesx,int keep)
 
 void AppendNodeList(NodesX *nodesx,node_t id,double latitude,double longitude,transports_t allow,nodeflags_t flags)
 {
- NodeX nodex;
+ NodeX nodex={0};
 
  nodex.id=id;
  nodex.latitude =radians_to_latlong(latitude);
