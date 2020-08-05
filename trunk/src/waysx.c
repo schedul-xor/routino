@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2018, 2019 Andrew M. Bishop
+ This file Copyright 2008-2015, 2018, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -188,7 +188,7 @@ void FreeWayList(WaysX *waysx,int keep)
 
 void AppendWayList(WaysX *waysx,way_t id,Way *way,node_t *nodes,int nnodes,const char *name)
 {
- WayX wayx;
+ WayX wayx={0};
  uint64_t longsize;
  FILESORT_VARINT size;
  node_t nonode=NO_NODE_ID;
