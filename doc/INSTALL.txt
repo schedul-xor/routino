@@ -147,6 +147,14 @@ Compilation
    make SANITIZE=1
           Compile with gcc (or clang) sanitizer (default is SANITIZER=0).
 
+   make COVERAGE=1
+          Compile with gcc so that 'gcov' can be run to check code
+          coverage (default is COVERAGE=0).
+
+   make PROFILE=1
+          Compile with gcc so that 'gprof' can be run to profile execution
+          time (default is PROFILE=0).
+
    This program has been written to run on Linux, no cross-platform
    compatibility has been specifically included but on the other hand
    other platforms have not knowingly been excluded either.
@@ -330,4 +338,4 @@ Configuration of Web Server
 
 --------
 
-Copyright 2008-2019 Andrew M. Bishop.
+Copyright 2008-2020 Andrew M. Bishop.
