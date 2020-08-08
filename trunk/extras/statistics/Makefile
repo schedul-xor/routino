@@ -2,7 +2,7 @@
 #
 # Part of the Routino routing software.
 #
-# This file Copyright 2008-2018 Andrew M. Bishop
+# This file Copyright 2008-2018, 2020 Andrew M. Bishop
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -96,6 +96,7 @@ clean:
 	rm -f $(D)
 	rm -fr $(DEPDIR)
 	rm -f core
+	rm -f *.gcda *.gcno *.gcov gmon.out
 	rm -f *.png
 
 ########

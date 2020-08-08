@@ -12,7 +12,7 @@
 
  Part of the Routino routing software.
 
- This file Copyright 2008-2019 Andrew M. Bishop
+ This file Copyright 2008-2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -231,6 +231,10 @@ change the compilation options:
   <dd>Compile without fast maths option (default is <tt>FASTMATHS=1</tt>).
   <dt><tt>make SANITIZE=1</tt>
   <dd>Compile with gcc (or clang) sanitizer (default is <tt>SANITIZER=0</tt>).
+  <dt><tt>make COVERAGE=1</tt>
+  <dd>Compile with gcc so that 'gcov' can be run to check code coverage (default is <tt>COVERAGE=0</tt>).
+  <dt><tt>make PROFILE=1</tt>
+  <dd>Compile with gcc so that 'gprof' can be run to profile execution time (default is <tt>PROFILE=0</tt>).
 </dl>
 
 <p>
