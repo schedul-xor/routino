@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2017 Andrew M. Bishop
+ This file Copyright 2008-2017, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -42,6 +42,8 @@ static void print_nodes(const char *filename);
 static void print_ways(const char *filename);
 static void print_route_relations(const char *filename);
 static void print_turn_relations(const char *filename);
+
+static const char *TurnRestrictionName(TurnRestriction restriction);
 
 static void print_usage(int detail,const char *argerr,const char *err);
 
@@ -139,9 +141,13 @@ static void print_nodes(const char *filename)
  while(!ReadFileBuffered(fd,&nodex,sizeof(NodeX)))
    {
     printf("Node %"Pnode_t"\n",nodex.id);
-    printf("  lat=%d lon=%d\n",nodex.latitude,nodex.longitude);
-    printf("  allow=%02x\n",nodex.allow);
-    printf("  flags=%02x\n",nodex.flags);
+    printf("  lat=%d lon=%d (latitude=%.6f longitude=%.6f)\n",nodex.latitude,nodex.longitude,radians_to_degrees(latlong_to_radians(nodex.latitude)),radians_to_degrees(latlong_to_radians(nodex.longitude)));
+    if(nodex.allow)
+       printf("  allow=%03x (%s)\n",nodex.allow,TransportsNameList(nodex.allow));
+    printf("  flags=%02x",nodex.flags);
+    if(nodex.flags & NODE_MINIRNDBT)
+       printf(" (Mini-roundabout)");
+    printf("\n");
    }
 
  CloseFileBuffered(fd);
@@ -199,20 +205,25 @@ static void print_ways(const char *filename)
 
     if(*name)
        printf("  name=%s\n",name);
-    printf("  type=%02x\n",wayx.way.type);
-    printf("  allow=%02x\n",wayx.way.allow);
+    printf("  type=%03x (%s%s%s%s)\n",wayx.way.type,
+                                      HighwayName(HIGHWAY(wayx.way.type)),
+                                      wayx.way.type&Highway_OneWay?",One-Way":"",
+                                      wayx.way.type&Highway_CycleBothWays?",Cycle-Both-Ways":"",
+                                      wayx.way.type&Highway_Roundabout?",Roundabout":"");
+    if(wayx.way.allow)
+       printf("  allow=%03x (%s)\n",wayx.way.allow,TransportsNameList(wayx.way.allow));
     if(wayx.way.props)
-       printf("  props=%02x\n",wayx.way.props);
+       printf("  props=%02x (%s)\n",wayx.way.props,PropertiesNameList(wayx.way.props));
     if(wayx.way.speed)
-       printf("  speed=%d\n",wayx.way.speed);
+       printf("  speed=%d (%d km/hr)\n",wayx.way.speed,speed_to_kph(wayx.way.speed));
     if(wayx.way.weight)
-       printf("  weight=%d\n",wayx.way.weight);
+       printf("  weight=%d (%.1f tonnes)\n",wayx.way.weight,weight_to_tonnes(wayx.way.weight));
     if(wayx.way.height)
-       printf("  height=%d\n",wayx.way.height);
+       printf("  height=%d (%.1f m)\n",wayx.way.height,height_to_metres(wayx.way.height));
     if(wayx.way.width)
-       printf("  width=%d\n",wayx.way.width);
+       printf("  width=%d (%.1f m)\n",wayx.way.width,width_to_metres(wayx.way.width));
     if(wayx.way.length)
-       printf("  length=%d\n",wayx.way.length);
+       printf("  length=%d (%.1f m)\n",wayx.way.length,length_to_metres(wayx.way.length));
    }
 
  CloseFileBuffered(fd);
@@ -242,7 +253,8 @@ static void print_route_relations(const char *filename)
     ReadFileBuffered(fd,&relationx,sizeof(RouteRelX));
 
     printf("Relation %"Prelation_t"\n",relationx.id);
-    printf("  routes=%02x\n",relationx.routes);
+    if(relationx.routes)
+       printf("  routes=%03x (%s)\n",relationx.routes,TransportsNameList(relationx.routes));
 
     while(!ReadFileBuffered(fd,&nodeid,sizeof(node_t)) && nodeid!=NO_NODE_ID)
        printf("  node=%"Pnode_t"\n",nodeid);
@@ -277,12 +289,47 @@ static void print_turn_relations(const char *filename)
     printf("  from=%"Pway_t"\n",relationx.from);
     printf("  via=%"Pnode_t"\n",relationx.via);
     printf("  to=%"Pway_t"\n",relationx.to);
-    printf("  type=%d\n",relationx.restriction);
+    printf("  type=%d (%s)\n",relationx.restriction,TurnRestrictionName(relationx.restriction));
     if(relationx.except)
-       printf("  except=%02x\n",relationx.except);
+       printf("  except=%03x (%s)\n",relationx.except,TransportsNameList(relationx.except));
    }
 
  CloseFileBuffered(fd);
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++
+  A string containing the name of a type of turn restriction.
+
+  const char *TurnRelationName Returns the name.
+
+  TurnRestriction restriction The turn restriction type.
+  ++++++++++++++++++++++++++++++++++++++*/
+
+static const char *TurnRestrictionName(TurnRestriction restriction)
+{
+ switch(restriction)
+   {
+   case TurnRestrict_None:
+    return("NONE");
+
+   case TurnRestrict_no_right_turn:
+    return("No right turn");
+   case TurnRestrict_no_left_turn:
+    return("No left turn");
+   case TurnRestrict_no_u_turn:
+    return("No U turn");
+   case TurnRestrict_no_straight_on:
+    return("No straight on");
+   case TurnRestrict_only_right_turn:
+    return("Only right turn");
+   case TurnRestrict_only_left_turn:
+    return("Only left turn");
+   case TurnRestrict_only_straight_on:
+    return("Only straight on");
+   }
+
+ return(NULL);
 }
 
 

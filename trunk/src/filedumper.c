@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2018, 2019 Andrew M. Bishop
+ This file Copyright 2008-2015, 2018, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -508,7 +508,7 @@ static void print_node(Nodes *nodes,index_t item)
  printf("Node %"Pindex_t"\n",item);
  printf("  firstseg=%"Pindex_t"\n",nodep->firstseg);
  printf("  latoffset=%d lonoffset=%d (latitude=%.6f longitude=%.6f)\n",nodep->latoffset,nodep->lonoffset,radians_to_degrees(latitude),radians_to_degrees(longitude));
- printf("  allow=%02x (%s)\n",nodep->allow,TransportsNameList(nodep->allow));
+ printf("  allow=%03x (%s)\n",nodep->allow,TransportsNameList(nodep->allow));
  if(IsSuperNode(nodep))
     printf("  Super-Node\n");
  if(nodep->flags & NODE_MINIRNDBT)
@@ -560,12 +560,12 @@ static void print_way(Ways *ways,index_t item)
  printf("Way %"Pindex_t"\n",item);
  if(*name)
     printf("  name=%s\n",name);
- printf("  type=%02x (%s%s%s%s)\n",wayp->type,
+ printf("  type=%03x (%s%s%s%s)\n",wayp->type,
                                    HighwayName(HIGHWAY(wayp->type)),
                                    wayp->type&Highway_OneWay?",One-Way":"",
                                    wayp->type&Highway_CycleBothWays?",Cycle-Both-Ways":"",
                                    wayp->type&Highway_Roundabout?",Roundabout":"");
- printf("  allow=%02x (%s)\n",wayp->allow,TransportsNameList(wayp->allow));
+ printf("  allow=%03x (%s)\n",wayp->allow,TransportsNameList(wayp->allow));
  if(wayp->props)
     printf("  props=%02x (%s)\n",wayp->props,PropertiesNameList(wayp->props));
  if(wayp->speed)
@@ -628,7 +628,7 @@ static void print_turn_relation(Relations *relations,index_t item,Segments *segm
  printf("  via=%"Pindex_t" (node)\n",relationp->via);
  printf("  to=%"Pindex_t" (segment) = %"Pindex_t" (way) = %"Pindex_t" (node)\n",relationp->to,to_way,to_node);
  if(relationp->except)
-    printf("  except=%02x (%s)\n",relationp->except,TransportsNameList(relationp->except));
+    printf("  except=%03x (%s)\n",relationp->except,TransportsNameList(relationp->except));
 }
 
 

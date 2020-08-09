@@ -2,7 +2,7 @@
 #
 # Part of the Routino routing software.
 #
-# This file Copyright 2008-2015, 2017, 2018 Andrew M. Bishop
+# This file Copyright 2008-2015, 2017, 2018, 2020 Andrew M. Bishop
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -137,7 +137,7 @@ router-slim$(.EXE) : $(ROUTER_SLIM_OBJ)
 ########
 
 FILEDUMPERX_OBJ=filedumperx.o \
-	        files.o logging.o
+	        files.o logging.o types.o
 
 ifeq ($(HOST),MINGW)
   FILEDUMPERX_OBJ+=mman-win32.o
