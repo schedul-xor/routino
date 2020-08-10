@@ -185,6 +185,9 @@ function form_init()            // called from router.html
        formSetSearch(marker,search);
        formSetCoords(marker,lon,lat);
 
+       lat=Number(lat);
+       lon=Number(lon);
+
        if(lat<minlat) minlat=lat;
        if(lat>maxlat) maxlat=lat;
 
@@ -203,6 +206,9 @@ function form_init()            // called from router.html
        markerAddForm(marker);
 
        formSetCoords(marker,lon,lat);
+
+       lat=Number(lat);
+       lon=Number(lon);
 
        if(lat<minlat) minlat=lat;
        if(lat>maxlat) maxlat=lat;

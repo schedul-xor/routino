@@ -222,7 +222,7 @@ function map_init()             // called from fixme.html
    }
  else
    {
-    map.setCenter(map.restrictedExtent.getCenterLonLat(), map.getZoomForExtent(map.restrictedExtent,true));
+    map.setCenter(map.restrictedExtent.getCenterLonLat(), map.getZoomForExtent(map.restrictedExtent,false));
     map.maxResolution = map.getResolution();
    }
 
