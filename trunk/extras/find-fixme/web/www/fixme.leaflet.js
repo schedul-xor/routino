@@ -236,6 +236,10 @@ function buildMapArguments()
 function updateURLs()
 {
  var mapargs=buildMapArguments();
+ var libargs=";library=" + mapprops.library;
+
+ if(!mapprops.libraries)
+    libargs="";
 
  var links=document.getElementsByTagName("a");
 
@@ -244,7 +248,7 @@ function updateURLs()
     var element=links[i];
 
     if(element.id == "permalink_url")
-       element.href=location.pathname + "?" + mapargs;
+       element.href=location.pathname + "?" + mapargs + libargs;
 
     if(element.id == "edit_url")
        element.href=mapprops.editurl + "?" + mapargs;

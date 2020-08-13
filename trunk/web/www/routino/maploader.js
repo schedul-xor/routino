@@ -8,6 +8,20 @@ function map_load(callbacks)
  var pending = 1;
  var head = document.getElementsByTagName("head")[0];
 
+ /* Allow selecting between libraries at run-time if an array is provided */
+
+ mapprops.libraries=Array.isArray(mapprops.library);
+
+ if(mapprops.libraries)
+   {
+    if(location.search.length>1 &&
+       location.search.match(/library=(leaflet|openlayers2|openlayers)/) &&
+       mapprops.library.indexOf(RegExp.$1)!=-1)
+       mapprops.library=RegExp.$1;
+    else
+       mapprops.library=mapprops.library[0];
+   }
+
  /* Call the callbacks when everything is loaded. */
 
  function call_callbacks()
