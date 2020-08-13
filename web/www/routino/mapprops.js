@@ -10,6 +10,8 @@ var mapprops={ // contains all properties for the map to be displayed.
   //library: "openlayers",
   library: "leaflet",
 
+ //library: ["leaflet", "openlayers", "openlayers2"], // Using a list allows selection via URL argument
+
  // EDIT THIS above to change the map library (either 'openlayers2', 'openlayers' or 'leaflet').
 
 

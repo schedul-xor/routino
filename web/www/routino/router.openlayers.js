@@ -788,9 +788,13 @@ function buildMapArguments()
 
 function updateURLs()
 {
- var urlargs1=buildURLArguments(true);
- var urlargs2=buildURLArguments(false);
- var mapargs=buildMapArguments();
+ var urlargs =buildURLArguments(false);
+ var mapargs =buildMapArguments();
+ var langargs="language=" + routino.language;
+ var libargs =";library=" + mapprops.library;
+
+ if(!mapprops.libraries)
+    libargs="";
 
  var links=document.getElementsByTagName("a");
 
@@ -799,19 +803,19 @@ function updateURLs()
     var element=links[i];
 
     if(element.id == "permalink_url")
-       element.href=location.pathname + "?" + urlargs1 + ";" + mapargs;
+       element.href=location.pathname + "?" + urlargs + ";" + langargs + ";" + mapargs + libargs;
 
     if(element.id == "visualiser_url")
        if(location.pathname.match(/router\.html\.([a-zA-Z-]+)$/))
-          element.href="visualiser.html." + RegExp.$1 + "?" + mapargs;
+          element.href="visualiser.html." + RegExp.$1 + "?" + mapargs + libargs;
        else
-          element.href="visualiser.html" + "?" + mapargs;
+          element.href="visualiser.html" + "?" + mapargs + libargs;
 
     if(element.id == "edit_url")
        element.href=mapprops.editurl + "?" + mapargs;
 
     if(element.id.match(/^lang_([a-zA-Z-]+)_url$/))
-       element.href="router.html" + "." + RegExp.$1 + "?" + urlargs2 + ";" + mapargs;
+       element.href="router.html" + "." + RegExp.$1 + "?" + urlargs + ";" + mapargs + libargs;
    }
 }
 
