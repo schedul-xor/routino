@@ -133,7 +133,7 @@ DLL_PUBLIC Routino_Database *Routino_LoadDatabase(const char *dirname,const char
  ways_filename     =FileName(dirname,prefix,"ways.mem");
  relations_filename=FileName(dirname,prefix,"relations.mem");
 
- if(!ExistsFile(nodes_filename) || !ExistsFile(nodes_filename) || !ExistsFile(nodes_filename) || !ExistsFile(nodes_filename))
+ if(!ExistsFile(nodes_filename) || !ExistsFile(segments_filename) || !ExistsFile(ways_filename) || !ExistsFile(relations_filename))
    {
     Routino_errno=ROUTINO_ERROR_NO_DATABASE_FILES;
     return(NULL);
