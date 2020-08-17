@@ -177,7 +177,7 @@ function map_init()             // called from visualiser.html
 
  // Move the map
 
- map.on("moveend", updateURLs);
+ map.on("moveend", (function() { updateURLs(false);}));
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -209,7 +209,7 @@ function map_init()             // called from visualiser.html
     edit_url.href=mapprops.editurl;
    }
 
- updateURLs();
+ updateURLs(false);
 }
 
 
@@ -255,7 +255,7 @@ function buildMapArguments()
 // Update the URLs
 //
 
-function updateURLs()
+function updateURLs(addhistory)
 {
  var mapargs=buildMapArguments();
  var libargs=";library=" + mapprops.library;
@@ -284,6 +284,9 @@ function updateURLs()
     if(element.id.match(/^lang_([a-zA-Z-]+)_url$/))
        element.href="visualiser.html" + "." + RegExp.$1 + "?" + mapargs + libargs;
    }
+
+ if(addhistory)
+    history.replaceState(null, null, location.pathname + "?" + mapargs + libargs);
 }
 
 
