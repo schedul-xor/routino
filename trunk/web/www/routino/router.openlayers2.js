@@ -342,7 +342,7 @@ function form_init()            // called from router.html
        markerMoveHome(1);
    }
 
- updateURLs();
+ updateURLs(true);
 
  updateSearchButtons();
 }
@@ -386,7 +386,7 @@ function formSetLanguage(value) // called from router.html (with no arguments)
     routino.language=value;
    }
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -420,7 +420,7 @@ function formSetTransport(value) // called from router.html
 
  paramschanged=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -453,7 +453,7 @@ function formSetHighway(type,value) // called from router.html (with one argumen
 
  paramschanged=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -490,7 +490,7 @@ function formSetSpeed(type,value) // called from router.html (with one argument)
 
  paramschanged=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -525,7 +525,7 @@ function formSetProperty(type,value) // called from router.html (with one argume
 
  paramschanged=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -580,7 +580,7 @@ function formSetRestriction(type,value) // called from router.html (with one arg
 
  paramschanged=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -606,7 +606,7 @@ function formSetCoords(marker,lon,lat) // called from router.html (with one argu
     routino.point[marker].lon="";
     routino.point[marker].lat="";
 
-    updateURLs();
+    updateURLs(true);
    }
  else
    {
@@ -696,7 +696,7 @@ function formSetLoopReverse(type,value) // called from router.html (with one arg
  else
     routino.reverse=value;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -789,7 +789,7 @@ function buildMapArguments()
 // Update the URLs
 //
 
-function updateURLs()
+function updateURLs(addhistory)
 {
  var urlargs =buildURLArguments(false);
  var mapargs =buildMapArguments();
@@ -820,6 +820,9 @@ function updateURLs()
     if(element.id.match(/^lang_([a-zA-Z-]+)_url$/))
        element.href="router.html" + "." + RegExp.$1 + "?" + urlargs + ";" + mapargs + libargs;
    }
+
+ if(addhistory)
+    history.replaceState(null, null, location.pathname + "?" + urlargs + ";" + langargs + libargs);
 }
 
 
@@ -998,7 +1001,7 @@ function map_init()             // called from router.html
 
  // Move the map
 
- map.events.register("moveend", map, updateURLs);
+ map.events.register("moveend", map, (function() { updateURLs(false);}));
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -1036,7 +1039,7 @@ function map_init()             // called from router.html
     edit_url.href=mapprops.editurl;
    }
 
- updateURLs();
+ updateURLs(false);
 }
 
 
@@ -1062,7 +1065,7 @@ function dragMarkerComplete(feature,pixel)
     if(feature==markers[marker])
        dragMarkerSetForm(marker);
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -1301,7 +1304,7 @@ function markerAddMap(marker)
 
  markersmoved=true;
 
- updateURLs();
+ updateURLs(true);
 
  updateSearchButtons();
 }
@@ -1322,7 +1325,7 @@ function markerRemoveMap(marker)
 
  markersmoved=true;
 
- updateURLs();
+ updateURLs(true);
 
  updateSearchButtons();
 }
@@ -1729,7 +1732,7 @@ function markersReverse()       // called from router.html
 
  markersmoved=true;
 
- updateURLs();
+ updateURLs(true);
 }
 
 
@@ -1760,7 +1763,7 @@ function markersLoop()          // called from router.html
 
  markersmoved=true;
 
- updateURLs();
+ updateURLs(true);
 
  updateSearchButtons();
 }
