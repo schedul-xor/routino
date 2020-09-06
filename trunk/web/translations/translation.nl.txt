@@ -6,8 +6,8 @@
 # Router output XML definition
 #
 
-%%copyright_creator_string%%	Creator
-%%copyright_source_string%%	Source
+%%copyright_creator_string%%	Maker
+%%copyright_source_string%%	Bron
 %%copyright_source_text%%	Gebouwd op OpenStreetMap data van http://www.openstreetmap.org/
 %%copyright_license_string%%	License
 
@@ -42,13 +42,13 @@
 %%ordinal_9%%	Negende
 %%ordinal_10%%	Tiende
 
-%%highway_motorway%%	Autostrade
+%%highway_motorway%%	Autosnelweg
 %%highway_trunk%%	Autoweg
-%%highway_primary%%	Provinciale weg
-%%highway_secondary%%	Nationale weg
-%%highway_tertiary%%	Doorgangsweg
-%%highway_unclassified%%	Niet geclassificeerd
-%%highway_residential%%	Woongebied
+%%highway_primary%%	Primaire weg
+%%highway_secondary%%	Secundaire weg
+%%highway_tertiary%%	Tertiaire weg
+%%highway_unclassified%%	Niet geclassificeerde weg
+%%highway_residential%%	Woonstraat
 %%highway_service%%	Toegangsweg
 %%highway_track%%	Veldweg
 %%highway_cycleway%%	Fietspad
@@ -59,20 +59,23 @@
 %%route_shortest%%	Kortste
 %%route_quickest%%	Snelste
 
-%%output-html_waypoint_waypoint%%	Punt
-%%output-html_waypoint_junction%%	de splitsing
-%%output-html_waypoint_roundabout%%	rotonde
+%%output-html_waypoint_waypoint%%	Routepunt
+%%output-html_waypoint_junction%%	Splitsing
+%%output-html_waypoint_roundabout%%	Rotonde
 %%output-html_title%%	%s Route
-%%output-html_start%%	Start bij %s neemt u de richting %s
-%%output-html_node%%	Bij %s gaat u %s richting %s
-%%output-html_rbnode%%	Leave aan de %s, neem de %s afslag richting %s
-%%output-html_segment%%	Volg u de %s voor %.3f km %.1f min
-%%output-html_stop%%	Stop U bent bij %s aangekomen
+%%output-html_start%%	Start bij %s neem de richting %s
+%%output-html_node%%	Bij %s, ga %s richting %s
+%%output-html_rbnode%%	Verlaat %s, neem de %s afslag richting %s
+%%output-html_segment%%	Volg de %s voor %.3f km %.1f min
+%%output-html_stop%%	Stop bij %s
 %%output-html_total%%	Totaal %.1f km, %.0f minuten
 %%output-html_subtotal%%	%.1f km, %.0f minuten
 
-%%output-gpx_desc%%	%s Route tussen 'Start' und 'Finish'
-%%output-gpx_name%%	%s Route
+%%output-gpx_waypoint_waypt%%	WAYPT
+%%output-gpx_waypoint_trip%%	TRIP
+
+%%output-gpx_desc%%	%s route tussen 'start' and 'eind' routepunten
+%%output-gpx_name%%	%s route
 %%output-gpx_step%%	%s op '%s' voor %.3f km, %.1f min
 %%output-gpx_final%%	Totaal trip %.1f km, %.0f minuten
 
@@ -83,20 +86,29 @@
 @@LANGUAGE@@	Nederlands
 @@LANGUAGE-WEBPAGE@@	Nederlandse web pagina
 
+@@ROUTER-TITLE@@	Routeplanner voor OpenStreetMap gegevens
+
 @@OPTION-TAB@@	Opties
+@@OPTION-TAB-HELP@@	Kies opties voor routering
 
 @@RESULTS-TAB@@	Resultaten
+@@RESULTS-TAB-HELP@@	Bekijk routeringsresultaten
 
-@@DATA-TAB@@	Data
+@@DATA-TAB@@	Gegevens
+@@DATA-TAB-HELP@@	Bekijk de informatie in de database
+
+@@ROUTINO-ROUTER@@	Routino OpenStreetMap routering
+@@ROUTINO-WEBSITE@@	Routino Website
+@@DOCUMENTATION@@	Documentatie
 
 @@LANGUAGE-BOX@@	Taal
-@@WAYPOINTS-BOX@@	Coordinaten
-@@TRANSPORT-TYPE-BOX@@	Transport Type
+@@WAYPOINTS-BOX@@	Routepunten
+@@TRANSPORT-TYPE-BOX@@	Transporttype
 @@HIGHWAY-PREFERENCES-BOX@@	Voorkeur Wegtype
 @@SPEED-LIMITS-BOX@@	Snelheidslimieten
-@@PROPERTY-PREFERENCES-BOX@@	Weg Eigenschappen
+@@PROPERTY-PREFERENCES-BOX@@	Voorkeur Eigenschappen
 @@OTHER-RESTRICTIONS-BOX@@	Andere Beperkingen
-@@FIND-BOX@@	Zoek Route
+@@FIND-BOX@@	Vind
 @@LINKS-BOX@@	Links
 @@HELP-BOX@@	Help
 
@@ -104,15 +116,27 @@
 @@SHORTEST-ROUTE@@	Kortste Route
 @@QUICKEST-ROUTE@@	Snelste Route
 
-@@WAYPOINT-POSITION@@	Waypoint XXX Position
-@@WAYPOINT-UP@@	Beweeg dit punt naar boven
-@@WAYPOINT-ADD@@	Voeg hierna punt toe
-@@WAYPOINT-HOME@@	Toggle als thuis locatie
-@@WAYPOINT-CENTRE2@@	Centreer dit punt op map
-@@WAYPOINT-DOWN@@	Beweeg dit punt naar beneden
-@@WAYPOINT-REMOVE@@	Verwijder dit punt
-@@WAYPOINT-REVERSE@@	Keer volgorde punten om
-@@WAYPOINT-REVERSE-BUTTON@@	Keer volgorde punten om
+@@STATISTICS-BOX@@	Routino statistieken
+@@VISUALISER-BOX@@	Routino Visualisering
+
+@@WAYPOINT-POSITION@@	Routepunt XXX Positie
+@@WAYPOINT-LONGITUDE@@	Routepunt XXX Lengtegraad
+@@WAYPOINT-LATITUDE@@	Routepunt XXX Breedtegraad
+@@WAYPOINT-LOCATION@@	Routepunt XXX Plaats
+@@WAYPOINT-SEARCH@@	Zoek plaats
+@@WAYPOINT-GET@@	Vind huidige plaats
+@@WAYPOINT-CENTRE1@@	Centreer kaart op dit routepunt
+@@WAYPOINT-UP@@	Beweeg dit routepunt naar boven
+@@WAYPOINT-ADD@@	Voeg hierna routepunt toe
+@@WAYPOINT-COORDS@@	Coördinaten van de plaats
+@@WAYPOINT-HOME@@	Toggle als basisplaats ('thuis')
+@@WAYPOINT-CENTRE2@@	Centreer dit routepunt op de kaart
+@@WAYPOINT-DOWN@@	Beweeg dit routepunt naar beneden
+@@WAYPOINT-REMOVE@@	Verwijder dit routepunt
+@@WAYPOINT-REVERSE@@	Keer volgorde van de routepunten om
+@@WAYPOINT-REVERSE-BUTTON@@	Keer volgorde om
+@@WAYPOINT-LOOP@@	Voeg routepunt toe om lus te maken
+@@WAYPOINT-LOOP-BUTTON@@	Sluit de lus
 
 @@TRANSPORT-FOOT@@	Te voet
 @@TRANSPORT-HORSE@@	Paard
@@ -125,11 +149,11 @@
 @@TRANSPORT-HGV@@	Zwaar transport
 @@TRANSPORT-PSV@@	Publiek transport
 
-@@HIGHWAY-MOTORWAY@@	Autostrade
+@@HIGHWAY-MOTORWAY@@	Autosnelweg
 @@HIGHWAY-TRUNK@@	Autoweg
-@@HIGHWAY-PRIMARY@@	Provinciale wegen
-@@HIGHWAY-SECONDARY@@	Nationale wegen
-@@HIGHWAY-TERTIARY@@	Doorgangsweg
+@@HIGHWAY-PRIMARY@@	Primair
+@@HIGHWAY-SECONDARY@@	Secundair
+@@HIGHWAY-TERTIARY@@	Tertiair
 @@HIGHWAY-UNCLASSIFIED@@	Niet geclassificeerd
 @@HIGHWAY-RESIDENTIAL@@	Woongebied
 @@HIGHWAY-SERVICE@@	Toegangsweg
@@ -140,11 +164,14 @@
 @@HIGHWAY-FERRY@@	Ferry
 
 @@PROPERTY-PAVED@@	Verhard
-@@PROPERTY-MULTILANE@@	Meerdere Stroken
+@@PROPERTY-MULTILANE@@	Meerdere Rijstroken
 @@PROPERTY-BRIDGE@@	Brug
 @@PROPERTY-TUNNEL@@	Tunnel
+@@PROPERTY-WALKINGROUTE@@	Wandelroute
+@@PROPERTY-BICYCLEROUTE@@	Fietsroute
 
 @@RESTRICT-ONEWAY@@	Volg Eenrichtingsverkeer
+@@RESTRICT-TURNS@@	Respecteer verboden afslagen
 @@RESTRICT-WEIGHT@@	Gewicht
 @@RESTRICT-HEIGHT@@	Hoogte
 @@RESTRICT-WIDTH@@	Breedte
@@ -153,137 +180,231 @@
 @@FIND-SHORTEST-ROUTE@@	Zoek de kortste route
 @@FIND-QUICKEST-ROUTE@@	Zoek de snelste route
 
-@@EDIT-OSM-DATA@@	Lees hoe je OSM data kan inbrengen
+@@MAP-VIEW-LINK@@	Link naar dit kaartbeeld
+@@EDIT-OSM-DATA@@	Bewerk deze OSM gegevens
 
 @@ROUTER-NOT-RUN@@	Router niet in gebruik
 @@ROUTER-RUNNING@@	Router werkt...
-@@ROUTER-COMPLETED@@	Routing voltooid
-@@ROUTER-ERROR@@	Router error
+@@ROUTER-COMPLETED@@	Routering voltooid
+@@ROUTER-ERROR@@	Routeringsfout
 @@ROUTER-FAILED@@	Router werkt niet
+@@VIEW-DETAILS@@	Bekijk Details
 
-@@HTML-ROUTE@@	HTML directions
-@@GPX-TRACK-ROUTE@@	GPX track bestand
-@@GPX-ROUTE@@	GPX route bestand
-@@FULL-TEXT-ROUTE@@	Volledig tekst bestand
-@@TEXT-ROUTE@@	Tekst bestand
+@@NO-INFORMATION@@	Geen Informatie
+@@HTML-ROUTE@@	HTML aanwijzingen
+@@GPX-TRACK-ROUTE@@	GPX trackbestand
+@@GPX-ROUTE@@	GPX routebestand
+@@FULL-TEXT-ROUTE@@	Volledig tekstbestand
+@@TEXT-ROUTE@@	Tekstbestand
+@@OPEN-POPUP@@	Open Popup
+
+@@DISPLAY-STATISTICS@@	Toon statistieken
+
+@@JAVASCRIPT-REQUIRED@@	Javascript is <em>noodzakelijk</em> om deze webpagina te gebruiken omwille van de interactieve kaart
+@@ROUTER@@	Router
+@@GEO-DATA@@	Geo Data
+@@TILES@@	Tiles
 
 #
 # Visualiser specific translations
 #
 
+@@VISUALISER-TITLE@@	Visualisering van routeringsgegevens
+
 @@INSTRUCTIONS-BOX@@	Instructies
+@@ROUTER-BOX@@	Routino Router
 
 @@NO-DATA-DISPLAYED@@	Geen data getoond
 
+@@VISUALISER-FAILED@@	Geen data gevonden om te tonen
+@@VISUALISER-NUM-JUNCTIONS@@	# splitsingen behandeld
+@@VISUALISER-NUM-SUPER@@	# super-nodes/segmenten behandeld
+@@VISUALISER-NUM-WAYTYPE@@	# wegtype segmenten behandeld
+@@VISUALISER-NUM-SEGMENTS@@	# segmenten behandeld
+@@VISUALISER-NUM-NODES@@	# knooppunten behandeld
+@@VISUALISER-NUM-TURNS@@	# afslagbeperkingen behandeld
+@@VISUALISER-NUM-ERRORS@@	# foutmeldingen behandeld
+
+@@JUNCTIONS-BUTTON@@	Toon Splitsingen
+$$JUNCTIONS-INFO$$
+Ieder knooppunt dat doodloopt, een kruispunt vormt van wegen van een verschillend type (of met verschillende eigenschappen) of kruispunten waar meer dan twee segmenten samenkomen worden met kleur gecodeerd.
+$$JUNCTIONS-INFO$$
+@@JUNCTIONS-1@@	Slechts één weg - een doodlopend punt
+@@JUNCTIONS-2@@	kruispunt van twee wegen van een verschillend type
+@@JUNCTIONS-3@@	kruispunt van drie wegen
+@@JUNCTIONS-4@@	kruispunt van vier wegen
+@@JUNCTIONS-5@@	kruispunt van vijf wegen
+@@JUNCTIONS-6@@	kruispunt van zes wegen
+@@JUNCTIONS-MORE@@	kruispunt van zeven (of meer) wegen
+
+@@SUPER-BUTTON@@	Toon Super Segmenten
+$$SUPER-INFO$$
+Ieder super-knooppunt en de daarmee verbonden supersegmenten worden getoond (zie de pagina met beschrijving van het algoritme)
+$$SUPER-INFO$$
+
+@@WAYTYPE-BUTTON@@	Toon wegtype Segmenten
+$$WAYTYPE-INFO$$
+Elk wegsegment van een speciaal type (enkele richting, fiets-beide-richtingen en rotonde) wordt getoond. Voor segmenten met enkele richting toont een gekleurde driehoek de toegestane richting. De kleur van de driehoek hangt af van de 'bearing' van het wegsegment
+$$WAYTYPE-INFO$$
+
+@@WAYTYPE-ONEWAY@@	Segment met enkele richting
+@@WAYTYPE-CYCLE-BOTH-WAYS@@	Fiets-in-beide-richtingen segment
+@@WAYTYPE-ROUNDABOUT@@	Rotondesegment
+
+@@HIGHWAY-BUTTON@@	Toon Wegsegmenten
+$$HIGHWAY-INFO$$
+Ieder segment van het gekozen type weg wordt getekend
+$$HIGHWAY-INFO$$
+
+@@TRANSPORT-BUTTON@@	Toon Transportsegmenten
+$$TRANSPORT-INFO$$
+Ieder segment waar het gekozen type van transport is toegelaten, wordt getekend
+$$TRANSPORT-INFO$$
+
+@@BARRIER-BUTTON@@	Toon barrière-knooppunten
+$$BARRIER-INFO$$
+Ieder barrière die het gekozen type van transport blokkeert wordt getekend
+$$BARRIER-INFO$$
+
+@@TURNS-BUTTON@@	Toon afslagbeperkingen
+$$TURNS-INFO$$
+Iedere afslagbeperking wordt getoond met een lijn die aanduidt welke afslag verboden is
+$$TURNS-INFO$$
+
 @@SPEED-BUTTON@@	Toon snelheidslimieten
+$$SPEED-INFO$$
+Ieder knooppunt dat segmenten verbindt met verschillende snelheidslimieten wordt getoond, samen met de snelheidslimiet op de relevante segmenten
+$$SPEED-INFO$$
 
-@@WEIGHT-BUTTON@@	Toon massa limieten
+@@LIMIT-CHANGE@@	Verandering van de snelheidslimiet
+@@LIMIT-NONE@@	Geen snelheidslimiet bekend
+@@SPEED-LIMIT-80@@	Snelheidslimiet 80 km/h
 
-@@WEIGHT-LIMIT-8@@	8.0 ton massa limiet
+@@WEIGHT-BUTTON@@	Toon gewichtslimieten
+$$WEIGHT-INFO$$
+Ieder knooppunt dat segmenten verbindt met verschillende gewichtslimieten wordt getoond, samen met de gewichtslimieten van de relevante segmenten
+$$WEIGHT-INFO$$
 
-@@HEIGHT-BUTTON@@	Toon hoogte limieten
+@@WEIGHT-LIMIT-8@@	8.0 ton gewichtslimiet
 
-@@HEIGHT-LIMIT-4@@	4.0 m hoogte limiet
+@@HEIGHT-BUTTON@@	Toon hoogtelimieten
+$$HEIGHT-INFO$$
+Ieder knooppunt dat segmenten verbindt met verschillende hoogtelimieten wordt getoond, samen met de hoogtelimieten van de relevante segmenten
+$$HEIGHT-INFO$$
 
-@@WIDTH-BUTTON@@	Toon breedte limieten
+@@HEIGHT-LIMIT-4@@	4.0 m hoogtelimiet
 
-@@WIDTH-LIMIT-3@@	3.0 m breedte limiet
+@@WIDTH-BUTTON@@	Toon breedtelimieten
+$$WIDTH-INFO$$
+Ieder knooppunt dat segmenten verbindt met verschillende breedtelimieten wordt getoond, samen met de breedtelimieten van de relevante segmenten
+$$WIDTH-INFO$$
+
+@@WIDTH-LIMIT-3@@	3.0 m breedtelimiet
+
+@@LENGTH-BUTTON@@	Toon Lengtelimieten
+$$LENGTH-INFO$$
+Ieder knooppunt dat segmenten verbindt met verschillende lengtelimieten wordt getoond, samen met de lengtelimieten van de relevante segmenten
+$$LENGTH-INFO$$
+
+@@LENGTH-LIMIT-9@@	9.0 m lengtelimiet
+
+@@PROPERTY-BUTTON@@	Toon Wegeigenschappen
+$$PROPERTY-INFO$$
+Ieder segment van de wegen met een bepaalde eigenschap wordt getekend
+$$PROPERTY-INFO$$
+
+@@ERROR-LOG-BUTTON@@	Toon Foutmeldingen
+$$ERROR-LOG-INFO$$
+Routino ontdekte mogelijke problemen bij het verwerken van de invoergegevens
+$$ERROR-LOG-INFO$$
+
+@@CLEAR-DATA-BUTTON@@	Wis gegevens
 
 #
 # Multi-line descriptive translations (router)
 #
 
 $$ROUTER-INFO$$
-Zoom naar straatniveau.
-Selecteer start- and eindpunten onder Coordinaten. (click op het marker
-icoon links, schuif het op map naar gewenste positie).
+Deze webpagina laat je een route plannen op basis van gegevens van OpenStreetMap.
+Selecteer start- and eindpunten (klik op het markericoon hieronder), kies routevoorkeuren en vind een route
 $$ROUTER-INFO$$
 
 $$ROUTER-OPTIONS-HELP$$
-<b>Quick Start</b>
+<b>Snelle Start</b>
 <br>
-Click op marker-icoontje (Waypoints) om ze op de map te plaatsen (rechts).
+Klik op markericoontje (boven) om ze op de kaart te plaatsen (rechts).
 Sleep ze vervolgens naar de gewenste positie.
-Het is best om eerst naar straat niveau te zoomen op de kaart.
-Selecteer het transport type, toegestane weg-types,
+Het is best om eerst naar straat niveau te zoomen op de kaart. Een atlternatief is om lengte- en breedtegraad in te voeren in de invoervelden hierboven.
+<p>
+Selecteer het transport type, toegestane wegtypes,
 snelheidslimieten, wegeigenschappen en andere restricties uit de
 opties.
-Selecteer "Kortste" of "Snelste" om de route te berekenen en te tekenen op de map.
+Selecteer "Kortste" of "Snelste" om de route te berekenen en te tekenen op de kaar.
 <p>
-<b>Coordinaten (Waypoints)</b>
+<b>Routepunten (Waypoints)</b>
 <br>
-Click op het marker icoontje, nog eens clicken voor aan/uit.
-Wanneer de route berekend wordt, zal dit nauwkeurig aansluiten bij de volgorde van deze punten. (rekening houdend met transport type)
+Klik op het marker icoontje, nog eens klikken voor aan/uit.
+Wanneer de route berekend wordt, zal ze zo nauwkeurig mogelijk (voor het gegeven transporttype) aansluiten bij deze punten, in de gegeven volgorde. 
 <p>
-<b>Transport Type</b>
+<b>Transporttype</b>
 <br>
-Wanneer je een bepaald transport type kiest wordt bij berekenen
-route hiermede rekening gehouden.
-Het transport type bestaat uit een lijst met default waarden voor
-ieder wegtype.
-Deze percentages kunnen ook nog eens manueel aangepast worden.
+Bij selectie van een transporttype wordt de berekende route beperkt tot segmenten waar dit transport toegelaten is, terwijl standaardwaarden worden gebruikt voor de andere parameters.
 <p>
 <b>Voorkeur Wegtype</b>
 <br>
-De voorkeur voor een bepaald type weg wordt uitgedrukt in een percentage.
+De voorkeur voor een bepaald type weg wordt uitgedrukt in een percentage. De gekozen routes proberen de voorkeurswegen te volgen.
 Bijvoorbeeld wanneer u het Transport Type "Fiets" kiest, dan zal er
-voor Autostrade 0% staan, en voor Fietspad 100%.
+voor Autosnelweg 0% staan, en voor Fietspad 100%.
 Wanneer u Autowegen, Nationale wegen wil vermijden of beperken bij
 het maken van een fietsroute, kan u percentage naar beneden
 aanpassen.
 <p>
-<b>Snelheid limieten</b>
+<b>Snelheidslimieten</b>
 <br>
 De snelheidslimieten worden afgeleid van het type weg. Het is
 mogelijk dat er voor een bepaalde weg andere beperkingen gelden. In
-dat geval worden die gekoezen. (het geval dat deze lager zijn dan de
-default)
+dat geval worden die gekozen, tenminste als ze lager zijn dan de standaardwaarden.
 <p>
-<b>Weg Eigenschappen</b>
+<b>Wegeigenschappen</b>
 <br>
-Voor het berekenen van de route, kan de de voorkeur gegeven worden
-aan een bepaalde wegeigenschap.
-Wanneer u kiest voor 25% verhard, zal er automatisch de voorkeur aan
-75% onverhard worden gegeven.
-Ook al is het onverharde stuk 3 X langer, toch kan er dan de
-voorkeur aan gegeven worden.
+De voorkeur voor een eigenschap wordt gegeven als een percentage. De berekende route volgt bij voorkeur wegen met de gekozen eigenschap.
+Wanneer u bijvoorbeeld verharde wegen een voorkeur van 75% geeft, dan zal een onverharde weg automatisch een voorkeur van 25 % krijgen. Een route over verharde weg die driemaal langer is dan een route over onverharde weg, zal toch nog de voorkeur krijgen bij de berekening.
 <p>
 <b>Andere Beperkingen</b>
 <br>
 Deze zullen toelaten dat er een route berekend wordt die rekening
 houdt met gewicht, hoogte, breedte of lengte.
 Het is ook mogelijk geen rekening te houden met eenrichtingsverkeer
-(bijvoorbeeld als voetganger of fietser)
+(bijvoorbeeld als voetganger)
 $$ROUTER-OPTIONS-HELP$$
 
 $$ROUTER-RESULTS-HELP$$
 <b>Quick Start</b>
 <br>
-Na het berekenen van een route, kan het GPX bestand, of de beschrijving als tekstbestand downloaden.
-Door met muis over de beschrijving te bewegen, ziet u die ook op de kaart gesitueerd.
+Na het berekenen van een route, kan u de route downloaden als GPX bestand, of als tekstbestand met routebeschrijving (samenvatting of gedetailleerde versie).
+Door met de muis over de beschrijving te bewegen, ziet u die ook op de kaart gesitueerd.
 <p>
-<b>Problem Solving</b>
+<b>Problemen oplossen</b>
 <br>
 Als de router eindigt met een fout, dan is de meest waarschijnlijke
 oorzaak, dat er geen route mogelijk is tussen de gekozen punten.
 Het verplaatsen van de punten, of het aanpassen van weg-eigenschappen
 of voertuigtype kan een oplossing bieden.
 <p>
-<b>Output Formats</b>
+<b>Types Uitvoer</b>
 <br>
 <dl>
   <dt>HTML instructies
   <dd>Een beschrijving van de route, met de te nemen afslag aan iedere splitsing.
   <dt>GPX track bestand
   <dd>Dezelfde informatie die op de kaart wordt weergegeven. Met
-    coordinaten voor ieder knooppunt, en een track voor ieder segment.
+    coordinaten voor ieder knooppunt, en een lijn voor ieder segment.
   <dt>GPX route bestand
-  <dd>Dezelfde informatie dat is opgenomen in de tekst van de route,
-    met een coordinaat voor iedere belangrijke splitsing.
-  <dt>Full text bestand
-  <dd>Een lijst met alle coordinaten, met de afstand hier tussen. En
-    een cumulatieve afstand voor iedere stap op de route.
-  <dt>Text bestand
+  <dd>Dezelfde informatie die is opgenomen in de tekst van de route,
+    met een knooppunt voor iedere belangrijke splitsing.
+  <dt>Volledig tekstbestand
+  <dd>Een lijst met alle knooppunten die de route aandoet, de afstand tussen deze knooppunten en de cumulatieve afstand voor iedere stap op de route.
+  <dt>Tekstbestand
   <dd>Dezelfde informatie als wordt weergegeven in de tekst voor de route.
 </dl>
 $$ROUTER-RESULTS-HELP$$
@@ -297,3 +418,26 @@ $$ROUTER-VISUALISER-INFO$$
 # Multi-line descriptive translations (visualiser)
 #
 
+$$VISUALISER-INFO$$
+Op deze webpagina kunnen de gegevens gevisualiseerd worden, die door Routino worden gebruikt bij de routeplanning. Alleen de gegevens die relevant zijn voor de routeberekening worden getoond, en sommige informatie wordt dus uitgesloten
+$$VISUALISER-INFO$$
+
+$$VISUALISER-INSTRUCTIONS$$
+Zoom in en gebruik dan de knoppen om de gegevens te downloaden. De server zal alleen gegevens aanleveren als het geselecteerde gebied klein genoeg is
+$$VISUALISER-INSTRUCTIONS$$
+
+$$VISUALISER-HELP$$
+<b>Snelle Start</b>
+<br>
+Zoom in op een gebied en kies één van de knoppen om dat type gegevens weer te geven
+<br>
+Meer gegevensopties kunnen getoond worden door de details achter iedere knop op te vragen
+<p>
+<b>Mislukte Visualisatie</b>
+<br> 
+Als het gekozen gebied te groot is (hangt af van het type gegevens) dan volgt er een bericht "Failed to get visualiser data" - zoom in en probeer opnieuw.
+$$VISUALISER-HELP$$
+
+$$VISUALISER-ROUTER-INFO$$
+Om een route te berekenen op de kaart, volg de link hieronder
+$$VISUALISER-ROUTER-INFO$$

@@ -5,7 +5,7 @@
 
      Part of the Routino routing software.
      ============================================================
-     This file Copyright 2010-2017 Andrew M. Bishop
+     This file Copyright 2010-2017, 2020 Andrew M. Bishop
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU Affero General Public License as published by
@@ -664,8 +664,8 @@
 
     <!-- Copyright of the data being routed, not of this file  -->
     <copyright>
-      <creator string="Creator" text="Routino - http://www.routino.org/" />
-      <source  string="Source" text="Gebouwd op OpenStreetMap data van http://www.openstreetmap.org/" />
+      <creator string="Maker" text="Routino - http://www.routino.org/" />
+      <source  string="Bron" text="Gebouwd op OpenStreetMap data van http://www.openstreetmap.org/" />
       <license string="License" text="http://www.openstreetmap.org/copyright" />
     </copyright>
 
@@ -704,13 +704,13 @@
     <ordinal number="10" string="Tiende" />
 
     <!-- Highway names -->
-    <highway type="motorway"     string="Autostrade" />
+    <highway type="motorway"     string="Autosnelweg" />
     <highway type="trunk"        string="Autoweg" />
-    <highway type="primary"      string="Provinciale weg" />
-    <highway type="secondary"    string="Nationale weg" />
-    <highway type="tertiary"     string="Doorgangsweg" />
-    <highway type="unclassified" string="Niet geclassificeerd" />
-    <highway type="residential"  string="Woongebied" />
+    <highway type="primary"      string="Primaire weg" />
+    <highway type="secondary"    string="Secundaire weg" />
+    <highway type="tertiary"     string="Tertiaire weg" />
+    <highway type="unclassified" string="Niet geclassificeerde weg" />
+    <highway type="residential"  string="Woonstraat" />
     <highway type="service"      string="Toegangsweg" />
     <highway type="track"        string="Veldweg" />
     <highway type="cycleway"     string="Fietspad" />
@@ -724,28 +724,28 @@
 
     <!-- HTML output -->
     <output-html>
-      <waypoint type="waypoint"   string="Punt" /> <!-- For the chosen waypoints -->
-      <waypoint type="junction"   string="de splitsing" /> <!-- For the interesting junctions -->
-      <waypoint type="roundabout" string="rotonde" /> <!-- For roundabouts -->
+      <waypoint type="waypoint"   string="Routepunt" /> <!-- For the chosen waypoints -->
+      <waypoint type="junction"   string="Splitsing" /> <!-- For the interesting junctions -->
+      <waypoint type="roundabout" string="Rotonde" /> <!-- For roundabouts -->
 
       <title text="%s Route" /> <!-- %s = [shortest|quickest] -->
 
-      <start    text="Start bij %s neemt u de richting %s" /> <!-- 1st %s = [waypoint|junction], 2nd %s = [heading] -->
-      <node     text="Bij %s gaat u %s richting %s" /> <!-- 1st %s = [waypoint|junction], 2nd %s = [turn], 3rd %s = [heading] -->
-      <rbnode   text="Leave aan de %s, neem de %s afslag richting %s" /> <!-- 1st %s = [roundabout], 2nd %s = [first|second|...], 3rd %s = [heading] -->
-      <segment  text="Volg u de %s voor %.3f km %.1f min" /> <!-- 1st %s = street name -->
-      <stop     text="Stop U bent bij %s aangekomen" /> <!-- 1st %s = [waypoint|junction] -->
+      <start    text="Start bij %s neem de richting %s" /> <!-- 1st %s = [waypoint|junction], 2nd %s = [heading] -->
+      <node     text="Bij %s, ga %s richting %s" /> <!-- 1st %s = [waypoint|junction], 2nd %s = [turn], 3rd %s = [heading] -->
+      <rbnode   text="Verlaat %s, neem de %s afslag richting %s" /> <!-- 1st %s = [roundabout], 2nd %s = [first|second|...], 3rd %s = [heading] -->
+      <segment  text="Volg de %s voor %.3f km %.1f min" /> <!-- 1st %s = street name -->
+      <stop     text="Stop bij %s" /> <!-- 1st %s = [waypoint|junction] -->
       <total    text="Totaal %.1f km, %.0f minuten" />
       <subtotal text="%.1f km, %.0f minuten" />
     </output-html>
 
     <!-- GPX output -->
     <output-gpx>
-      <!-- TRANSLATION REQUIRED: waypoint type="waypt" string="WAYPT" / --> <!-- For the route waypoints -->
-      <!-- TRANSLATION REQUIRED: waypoint type="trip" string="TRIP" / --> <!-- For the other route points -->
+      <waypoint type="waypt" string="WAYPT" /> <!-- For the route waypoints -->
+      <waypoint type="trip" string="TRIP" /> <!-- For the other route points -->
 
-      <desc  text="%s Route tussen 'Start' und 'Finish'" /> <!-- %s = [shortest|quickest] -->
-      <name  text="%s Route" /> <!-- %s = [shortest|quickest] -->
+      <desc  text="%s route tussen 'start' and 'eind' routepunten" /> <!-- %s = [shortest|quickest] -->
+      <name  text="%s route" /> <!-- %s = [shortest|quickest] -->
       <step  text="%s op '%s' voor %.3f km, %.1f min" /> <!-- 1st %s = [turn], 2nd %s = street name -->
       <final text="Totaal trip %.1f km, %.0f minuten" />
     </output-gpx>
