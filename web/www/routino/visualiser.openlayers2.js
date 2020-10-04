@@ -48,9 +48,11 @@ var data_types=[
 
 // Process the URL query string and extract the arguments
 
-var legal={"^lon"  : "^[-0-9.]+$",
-           "^lat"  : "^[-0-9.]+$",
-           "^zoom" : "^[0-9]+$"};
+var legal={"^lon"     : "^[-0-9.]+$",
+           "^lat"     : "^[-0-9.]+$",
+           "^zoom"    : "^[0-9]+$",
+           "^data"    : "^.+$",
+           "^subdata" : "^.+$"};
 
 var args={};
 
@@ -87,6 +89,7 @@ var layerMap=[], layerHighlights, layerVectors, layerBoxes;
 var epsg4326, epsg900913;
 var box;
 var select;
+var displaytype="", displaysubtype="";
 
 //
 // Initialise the 'map' object
@@ -258,6 +261,16 @@ function map_init()             // called from visualiser.html
     edit_url.href=mapprops.editurl;
    }
 
+ // Select the data view if selected
+
+ var datatype=args["data"];
+ var datasubtype=args["subdata"];
+
+ if(datatype !== undefined)
+    displayData(datatype, datasubtype);
+
+ // Update the URL
+
  updateURLs(false);
 }
 
@@ -308,7 +321,13 @@ function buildMapArguments()
 function updateURLs(addhistory)
 {
  var mapargs=buildMapArguments();
+ var dataargs=";data=" + displaytype;
  var libargs=";library=" + mapprops.library;
+
+ if(displaytype === "")
+    dataargs="";
+ else if(displaysubtype !== "")
+    dataargs+=";subdata=" + displaysubtype;
 
  if(!mapprops.libraries)
     libargs="";
@@ -320,7 +339,7 @@ function updateURLs(addhistory)
     var element=links[i];
 
     if(element.id == "permalink_url")
-       element.href=location.pathname + "?" + mapargs + libargs;
+       element.href=location.pathname + "?" + mapargs + dataargs + libargs;
 
     if(element.id == "router_url")
        if(location.pathname.match(/visualiser\.html\.([a-zA-Z-]+)$/))
@@ -332,11 +351,11 @@ function updateURLs(addhistory)
        element.href=mapprops.editurl + "?" + mapargs;
 
     if(element.id.match(/^lang_([a-zA-Z-]+)_url$/))
-       element.href="visualiser.html" + "." + RegExp.$1 + "?" + mapargs + libargs;
+       element.href="visualiser.html" + "." + RegExp.$1 + "?" + mapargs + dataargs + libargs;
    }
 
  if(addhistory)
-    history.replaceState(null, null, location.pathname + "?" + mapargs + libargs);
+    history.replaceState(null, null, location.pathname + "?" + mapargs + dataargs + libargs);
 }
 
 
@@ -556,13 +575,18 @@ function runStatisticsSuccess(response)
 // Get the requested data
 //
 
-function displayData(datatype)  // called from visualiser.html
+function displayData(datatype, datasubtype)  // called from visualiser.html
 {
+ // Display the form entry
+
  for(var data in data_types)
     hideshow_hide(data_types[data]);
 
  if(datatype !== "")
     hideshow_show(datatype);
+
+ if(datasubtype === undefined)
+    datasubtype="";
 
  // Delete the old data
 
@@ -584,7 +608,12 @@ function displayData(datatype)  // called from visualiser.html
  // Return if just here to clear the data
 
  if(datatype === "")
+   {
+    displaytpe = "";
+    displaysubtype = "";
+    updateURLs(true);
     return;
+   }
 
  // Get the new data
 
@@ -610,39 +639,43 @@ function displayData(datatype)  // called from visualiser.html
     ajaxGET(url, runSuperSuccess, runFailure);
     break;
    case "waytype":
-    var waytype;
     var waytypes=document.forms["waytypes"].elements["waytype"];
-    for(var h in waytypes)
-       if(waytypes[h].checked)
-          waytype=waytypes[h].value;
-    url+="-" + waytype;
+    for(var w in waytypes)
+       if(datasubtype == waytypes[w].value)
+          waytypes[w].checked=true;
+       else if(waytypes[w].checked)
+          datasubtype=waytypes[w].value;
+    url+="-" + datasubtype;
     ajaxGET(url, runWaytypeSuccess, runFailure);
     break;
    case "highway":
-    var highway;
     var highways=document.forms["highways"].elements["highway"];
     for(var h in highways)
-       if(highways[h].checked)
-          highway=highways[h].value;
-    url+="-" + highway;
+       if(datasubtype == highways[h].value)
+          highways[h].checked=true;
+       else if(highways[h].checked)
+          datasubtype=highways[h].value;
+    url+="-" + datasubtype;
     ajaxGET(url, runHighwaySuccess, runFailure);
     break;
    case "transport":
-    var transport;
     var transports=document.forms["transports"].elements["transport"];
     for(var t in transports)
-       if(transports[t].checked)
-          transport=transports[t].value;
-    url+="-" + transport;
+       if(datasubtype == transports[t].value)
+          transports[t].checked=true;
+       else if(transports[t].checked)
+          datasubtype=transports[t].value;
+    url+="-" + datasubtype;
     ajaxGET(url, runTransportSuccess, runFailure);
     break;
    case "barrier":
-    var transport;
     var transports=document.forms["barriers"].elements["barrier"];
     for(var t in transports)
-       if(transports[t].checked)
-          transport=transports[t].value;
-    url+="-" + transport;
+       if(datasubtype == transports[t].value)
+          transports[t].checked=true;
+       else if(transports[t].checked)
+          datasubtype=transports[t].value;
+    url+="-" + datasubtype;
     ajaxGET(url, runBarrierSuccess, runFailure);
     break;
    case "turns":
@@ -656,18 +689,26 @@ function displayData(datatype)  // called from visualiser.html
     ajaxGET(url, runLimitSuccess, runFailure);
     break;
    case "property":
-    var property;
     var properties=document.forms["properties"].elements["property"];
     for(var p in properties)
-       if(properties[p].checked)
-          property=properties[p].value;
-    url+="-" + property;
+       if(datasubtype == properties[p].value)
+          properties[p].checked=true;
+       else if(properties[p].checked)
+          datasubtype=properties[p].value;
+    url+="-" + datasubtype;
     ajaxGET(url, runPropertySuccess, runFailure);
     break;
    case "errorlogs":
     ajaxGET(url, runErrorlogSuccess, runFailure);
     break;
    }
+
+ // Update the URLs
+
+ displaytype = datatype;
+ displaysubtype = datasubtype;
+
+ updateURLs(true);
 }
 
 
