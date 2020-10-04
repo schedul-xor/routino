@@ -273,7 +273,7 @@ function form_init()            // called from router.html
        var markerextent=ol.extent.boundingExtent([ol.proj.fromLonLat([minlon,minlat]),
                                                   ol.proj.fromLonLat([maxlon,maxlat])]);
 
-       map.getView().fit(markerextent);
+       map.getView().fit(markerextent,map.getSize());
       }
    }
 
