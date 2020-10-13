@@ -43,9 +43,13 @@
 %%ordinal_10%%	Desátá
 
 %%highway_motorway%%	dálnice
+%%highway_trunk%%	hlavní silnice
 %%highway_primary%%	silnice I. třídy
 %%highway_secondary%%	silnice II. třídy
 %%highway_tertiary%%	silnice III. třídy
+%%highway_unclassified%%	nekategorizovaná silnice
+%%highway_residential%%	silnice v obytné čtvrti
+%%highway_service%%	obslužná silnice
 %%highway_cycleway%%	cyklostezka
 %%highway_steps%%	schody
 %%highway_ferry%%	převoz
@@ -61,7 +65,7 @@
 #
 
 @@LANGUAGE@@	Česky
-@@LANGUAGE-WEBPAGE@@	Česky webpage
+@@LANGUAGE-WEBPAGE@@	Stránka v češtině
 
 @@ROUTER-TITLE@@	Plánovač tras pro OpenStreetMap Data
 
@@ -100,6 +104,13 @@
 @@WAYPOINT-UP@@	Posunout tento bod výše
 @@WAYPOINT-ADD@@	Po tomto bodu přidat další
 @@WAYPOINT-HOME@@	Přepnout jako domovské umístění
+@@WAYPOINT-CENTRE2@@	Vycentrovat tento bod na mapě
+@@WAYPOINT-DOWN@@	Posunout tento bod níže
+@@WAYPOINT-REMOVE@@	Odstranit tento bod
+@@WAYPOINT-REVERSE@@	Opačné pořadí bodů
+@@WAYPOINT-REVERSE-BUTTON@@	Opačné pořadí
+@@WAYPOINT-LOOP@@	Přidat bod pro vytvoření okruhu
+@@WAYPOINT-LOOP-BUTTON@@	Uzavřít okruh
 
 @@TRANSPORT-FOOT@@	Pěší
 @@TRANSPORT-HORSE@@	Koňmo
@@ -107,14 +118,25 @@
 @@TRANSPORT-BICYCLE@@	Kolo
 @@TRANSPORT-MOPED@@	Moped
 @@TRANSPORT-MOTORCYCLE@@	Motocykl
+@@TRANSPORT-GOODS@@	Zboží
 
 @@HIGHWAY-PRIMARY@@	První třída
 @@HIGHWAY-SECONDARY@@	Druhá třída
 @@HIGHWAY-TERTIARY@@	Třetí třída
 @@HIGHWAY-UNCLASSIFIED@@	Neoznačená
+@@HIGHWAY-STEPS@@	Schody
+@@HIGHWAY-FERRY@@	Převoz
 
 @@PROPERTY-BRIDGE@@	Most
 @@PROPERTY-TUNNEL@@	Tunel
+@@PROPERTY-WALKINGROUTE@@	Pěší trasa
+@@PROPERTY-BICYCLEROUTE@@	Cyklotrasa
+
+@@RESTRICT-ONEWAY@@	Dodržovat jednosměrky
+@@RESTRICT-WEIGHT@@	Hmotnost
+@@RESTRICT-HEIGHT@@	Výška
+@@RESTRICT-WIDTH@@	Šířka
+@@RESTRICT-LENGTH@@	Délka
 
 @@FIND-SHORTEST-ROUTE@@	Nalézt nejkratší cestu
 @@FIND-QUICKEST-ROUTE@@	Nalézt nejrychlejší cestu
@@ -129,6 +151,10 @@
 @@VIEW-DETAILS@@	Zobrazit detaily
 
 @@NO-INFORMATION@@	Žádné informace
+@@TEXT-ROUTE@@	Textový soubor
+@@OPEN-POPUP@@	Otevřít popup
+
+@@DISPLAY-STATISTICS@@	Zobrazit statistická data
 
 #
 # Visualiser specific translations

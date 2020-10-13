@@ -153,13 +153,13 @@
 
     <!-- Highway names -->
     <highway type="motorway"     string="dálnice" />
-    <!-- TRANSLATION REQUIRED: highway type="trunk"        string="trunk road" / -->
+    <highway type="trunk"        string="hlavní silnice" />
     <highway type="primary"      string="silnice I. třídy" />
     <highway type="secondary"    string="silnice II. třídy" />
     <highway type="tertiary"     string="silnice III. třídy" />
-    <!-- TRANSLATION REQUIRED: highway type="unclassified" string="unclassified road" / -->
-    <!-- TRANSLATION REQUIRED: highway type="residential"  string="residential road" / -->
-    <!-- TRANSLATION REQUIRED: highway type="service"      string="service road" / -->
+    <highway type="unclassified" string="nekategorizovaná silnice" />
+    <highway type="residential"  string="silnice v obytné čtvrti" />
+    <highway type="service"      string="obslužná silnice" />
     <!-- TRANSLATION REQUIRED: highway type="track"        string="track" / -->
     <highway type="cycleway"     string="cyklostezka" />
     <!-- TRANSLATION REQUIRED: highway type="path"         string="path" / -->
