@@ -61,8 +61,8 @@ if(location.search.length>1)
 ////////////////////////////////////////////////////////////////////////////////
 
 var map;
-var layerMap=[], layerHighlights, layerVectors, layerBoxes;
-var box;
+var layerMap=[], layerHighlights, layerVectors;
+var vectorData=[];
 
 //
 // Initialise the 'map' object
@@ -144,18 +144,9 @@ function map_init()             // called from fixme.html
 
  createPopup();
 
- // Add a boxes layer
-
- layerBoxes = L.rectangle(map.options.maxBounds,{stroke: false, color: "#f00", weight: 1, opacity: 1.0,
-                                                 fill: false});
-
- map.addLayer(layerBoxes);
-
- box=false;
-
  // Move the map
 
- map.on("moveend", (function() { updateURLs(false);}));
+ map.on("moveend", (function() { displayMoreData();}));
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -475,13 +466,11 @@ function displayData(datatype)  // called from fixme.html
 {
  // Delete the old data
 
+ vectorData=[];
+
  unselectFeature();
 
  layerVectors.clearLayers();
- layerHighlights.clearLayers();
-
- layerBoxes.setStyle({stroke:false});
- box=false;
 
  // Print the status
 
@@ -492,6 +481,12 @@ function displayData(datatype)  // called from fixme.html
  if(datatype === "")
     return;
 
+ displayMoreData();
+}
+
+
+function displayMoreData()
+{
  // Get the new data
 
  var mapbounds=map.getBounds();
@@ -502,31 +497,13 @@ function displayData(datatype)  // called from fixme.html
  url=url + ";latmin=" + format5f(mapbounds.getSouth());
  url=url + ";lonmax=" + format5f(mapbounds.getEast());
  url=url + ";latmax=" + format5f(mapbounds.getNorth());
- url=url + ";data=" + datatype;
+ url=url + ";data=fixmes";
 
  // Use AJAX to get the data
 
  ajaxGET(url, runFixmeSuccess, runFailure);
-}
 
-
-//
-// Add a bounding box
-//
-
-function addBox(words)
-{
- var lat1=Number(words[0]);
- var lon1=Number(words[1]);
- var lat2=Number(words[2]);
- var lon2=Number(words[3]);
-
- var bounds = L.latLngBounds(L.latLng(lat1,lon1),L.latLng(lat2,lon2));
-
- layerBoxes.setBounds(bounds);
-
- layerBoxes.setStyle({stroke: true});
- box=true;
+ updateURLs(true);
 }
 
 
@@ -543,10 +520,16 @@ function runFixmeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -561,7 +544,7 @@ function runFixmeSuccess(response)
       }
    }
 
- displayStatus("data","fixme",lines.length-2);
+ displayStatus("data","fixme",Object.keys(vectorData).length);
 }
 
 

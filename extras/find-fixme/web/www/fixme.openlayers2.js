@@ -61,9 +61,9 @@ if(location.search.length>1)
 ////////////////////////////////////////////////////////////////////////////////
 
 var map;
-var layerMap=[], layerHighlights, layerVectors, layerBoxes;
+var layerMap=[], layerHighlights, layerVectors;
+var vectorData=[];
 var epsg4326, epsg900913;
-var box;
 var select;
 
 //
@@ -189,16 +189,9 @@ function map_init()             // called from fixme.html
 
  createPopup();
 
- // Add a boxes layer
-
- layerBoxes = new OpenLayers.Layer.Boxes("Boundary",{displayInLayerSwitcher: false});
- map.addLayer(layerBoxes);
-
- box=null;
-
  // Move the map
 
- map.events.register("moveend", map, (function() { updateURLs(false);}));
+ map.events.register("moveend", map, (function() { displayMoreData();}));
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -525,16 +518,13 @@ function displayData(datatype)  // called from fixme.html
 {
  // Delete the old data
 
+ vectorData=[];
+
  unselectFeature();
 
  select.deactivate();
 
  layerVectors.destroyFeatures();
- layerHighlights.destroyFeatures();
-
- if(box !== null)
-    layerBoxes.removeMarker(box);
- box=null;
 
  // Print the status
 
@@ -545,6 +535,12 @@ function displayData(datatype)  // called from fixme.html
  if(datatype === "")
     return;
 
+ displayMoreData();
+}
+
+
+function displayMoreData()
+{
  // Get the new data
 
  var mapbounds=map.getExtent().clone();
@@ -556,30 +552,13 @@ function displayData(datatype)  // called from fixme.html
  url=url + ";latmin=" + format5f(mapbounds.bottom);
  url=url + ";lonmax=" + format5f(mapbounds.right);
  url=url + ";latmax=" + format5f(mapbounds.top);
- url=url + ";data=" + datatype;
+ url=url + ";data=fixmes";
 
  // Use AJAX to get the data
 
  ajaxGET(url, runFixmeSuccess, runFailure);
-}
 
-
-//
-// Add a bounding box
-//
-
-function addBox(words)
-{
- var lat1=Number(words[0]);
- var lon1=Number(words[1]);
- var lat2=Number(words[2]);
- var lon2=Number(words[3]);
-
- var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
- box = new OpenLayers.Marker.Box(bounds);
-
- layerBoxes.addMarker(box);
+ updateURLs(true);
 }
 
 
@@ -602,10 +581,16 @@ function runFixmeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -621,7 +606,7 @@ function runFixmeSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","fixme",lines.length-2);
+ displayStatus("data","fixme",Object.keys(vectorData).length);
 }
 
 

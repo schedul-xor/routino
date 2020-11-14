@@ -85,9 +85,9 @@ if(location.search.length>1)
 ////////////////////////////////////////////////////////////////////////////////
 
 var map;
-var layerMap=[], layerHighlights, layerVectors, layerBoxes;
+var layerMap=[], layerHighlights, layerVectors;
+var vectorData=[];
 var epsg4326, epsg900913;
-var box;
 var select;
 var displaytype="", displaysubtype="";
 
@@ -214,16 +214,9 @@ function map_init()             // called from visualiser.html
 
  createPopup();
 
- // Add a boxes layer
-
- layerBoxes = new OpenLayers.Layer.Boxes("Boundary",{displayInLayerSwitcher: false});
- map.addLayer(layerBoxes);
-
- box=null;
-
  // Move the map
 
- map.events.register("moveend", map, (function() { updateURLs(false);}));
+ map.events.register("moveend", map, (function() { displayMoreData(); updateURLs(false);}));
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -590,16 +583,13 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
 
  // Delete the old data
 
+ vectorData=[];
+
  unselectFeature();
 
  select.deactivate();
 
  layerVectors.destroyFeatures();
- layerHighlights.destroyFeatures();
-
- if(box !== null)
-    layerBoxes.removeMarker(box);
- box=null;
 
  // Print the status
 
@@ -609,12 +599,83 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
 
  if(datatype === "")
    {
-    displaytpe = "";
+    displaytype = "";
     displaysubtype = "";
     updateURLs(true);
     return;
    }
 
+ // Determine the type of data
+
+ switch(datatype)
+   {
+   case "junctions":
+    break;
+   case "super":
+    break;
+   case "waytype":
+    var waytypes=document.forms["waytypes"].elements["waytype"];
+    for(var w in waytypes)
+       if(datasubtype == waytypes[w].value)
+          waytypes[w].checked=true;
+       else if(waytypes[w].checked)
+          datasubtype=waytypes[w].value;
+    break;
+   case "highway":
+    var highways=document.forms["highways"].elements["highway"];
+    for(var h in highways)
+       if(datasubtype == highways[h].value)
+          highways[h].checked=true;
+       else if(highways[h].checked)
+          datasubtype=highways[h].value;
+    break;
+   case "transport":
+    var transports=document.forms["transports"].elements["transport"];
+    for(var t in transports)
+       if(datasubtype == transports[t].value)
+          transports[t].checked=true;
+       else if(transports[t].checked)
+          datasubtype=transports[t].value;
+    break;
+   case "barrier":
+    var transports=document.forms["barriers"].elements["barrier"];
+    for(var t in transports)
+       if(datasubtype == transports[t].value)
+          transports[t].checked=true;
+       else if(transports[t].checked)
+          datasubtype=transports[t].value;
+    break;
+   case "turns":
+    break;
+   case "speed":
+   case "weight":
+   case "height":
+   case "width":
+   case "length":
+    break;
+   case "property":
+    var properties=document.forms["properties"].elements["property"];
+    for(var p in properties)
+       if(datasubtype == properties[p].value)
+          properties[p].checked=true;
+       else if(properties[p].checked)
+          datasubtype=properties[p].value;
+    break;
+   case "errorlogs":
+    break;
+   }
+
+ // Update the URLs
+
+ displaytype = datatype;
+ displaysubtype = datasubtype;
+
+ displayMoreData();
+}
+
+
+function displayMoreData()
+{
  // Get the new data
 
  var mapbounds=map.getExtent().clone();
@@ -626,11 +687,11 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
  url=url + ";latmin=" + format5f(mapbounds.bottom);
  url=url + ";lonmax=" + format5f(mapbounds.right);
  url=url + ";latmax=" + format5f(mapbounds.top);
- url=url + ";data=" + datatype;
+ url=url + ";data=" + displaytype;
 
  // Use AJAX to get the data
 
- switch(datatype)
+ switch(displaytype)
    {
    case "junctions":
     ajaxGET(url, runJunctionsSuccess, runFailure);
@@ -639,43 +700,19 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
     ajaxGET(url, runSuperSuccess, runFailure);
     break;
    case "waytype":
-    var waytypes=document.forms["waytypes"].elements["waytype"];
-    for(var w in waytypes)
-       if(datasubtype == waytypes[w].value)
-          waytypes[w].checked=true;
-       else if(waytypes[w].checked)
-          datasubtype=waytypes[w].value;
-    url+="-" + datasubtype;
+    url+="-" + displaysubtype;
     ajaxGET(url, runWaytypeSuccess, runFailure);
     break;
    case "highway":
-    var highways=document.forms["highways"].elements["highway"];
-    for(var h in highways)
-       if(datasubtype == highways[h].value)
-          highways[h].checked=true;
-       else if(highways[h].checked)
-          datasubtype=highways[h].value;
-    url+="-" + datasubtype;
+    url+="-" + displaysubtype;
     ajaxGET(url, runHighwaySuccess, runFailure);
     break;
    case "transport":
-    var transports=document.forms["transports"].elements["transport"];
-    for(var t in transports)
-       if(datasubtype == transports[t].value)
-          transports[t].checked=true;
-       else if(transports[t].checked)
-          datasubtype=transports[t].value;
-    url+="-" + datasubtype;
+    url+="-" + displaysubtype;
     ajaxGET(url, runTransportSuccess, runFailure);
     break;
    case "barrier":
-    var transports=document.forms["barriers"].elements["barrier"];
-    for(var t in transports)
-       if(datasubtype == transports[t].value)
-          transports[t].checked=true;
-       else if(transports[t].checked)
-          datasubtype=transports[t].value;
-    url+="-" + datasubtype;
+    url+="-" + displaysubtype;
     ajaxGET(url, runBarrierSuccess, runFailure);
     break;
    case "turns":
@@ -689,13 +726,7 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
     ajaxGET(url, runLimitSuccess, runFailure);
     break;
    case "property":
-    var properties=document.forms["properties"].elements["property"];
-    for(var p in properties)
-       if(datasubtype == properties[p].value)
-          properties[p].checked=true;
-       else if(properties[p].checked)
-          datasubtype=properties[p].value;
-    url+="-" + datasubtype;
+    url+="-" + displaysubtype;
     ajaxGET(url, runPropertySuccess, runFailure);
     break;
    case "errorlogs":
@@ -703,31 +734,7 @@ function displayData(datatype, datasubtype)  // called from visualiser.html
     break;
    }
 
- // Update the URLs
-
- displaytype = datatype;
- displaysubtype = datasubtype;
-
  updateURLs(true);
-}
-
-
-//
-// Add a bounding box
-//
-
-function addBox(words)
-{
- var lat1=Number(words[0]);
- var lon1=Number(words[1]);
- var lat2=Number(words[2]);
- var lon2=Number(words[3]);
-
- var bounds = new OpenLayers.Bounds(lon1,lat1,lon2,lat2).transform(epsg4326,epsg900913);
-
- box = new OpenLayers.Marker.Box(bounds);
-
- layerBoxes.addMarker(box);
 }
 
 
@@ -766,10 +773,16 @@ function runJunctionsSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
        var count=words[3];
@@ -786,7 +799,7 @@ function runJunctionsSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","junctions",lines.length-2);
+ displayStatus("data","junctions",Object.keys(vectorData).length);
 }
 
 
@@ -815,10 +828,16 @@ function runSuperSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -845,7 +864,7 @@ function runSuperSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","super",lines.length-2);
+ displayStatus("data","super",Object.keys(vectorData).length);
 }
 
 
@@ -867,10 +886,16 @@ function runWaytypeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat1=Number(words[1]);
        var lon1=Number(words[2]);
        var lat2=Number(words[3]);
@@ -907,7 +932,7 @@ function runWaytypeSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","waytype",lines.length-2);
+ displayStatus("data","waytype",Object.keys(vectorData).length);
 }
 
 
@@ -930,10 +955,16 @@ function runHighwaySuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat1=Number(words[1]);
        var lon1=Number(words[2]);
        var lat2=Number(words[3]);
@@ -955,7 +986,7 @@ function runHighwaySuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","highway",lines.length-2);
+ displayStatus("data","highway",Object.keys(vectorData).length);
 }
 
 
@@ -978,10 +1009,16 @@ function runTransportSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat1=Number(words[1]);
        var lon1=Number(words[2]);
        var lat2=Number(words[3]);
@@ -1003,7 +1040,7 @@ function runTransportSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","transport",lines.length-2);
+ displayStatus("data","transport",Object.keys(vectorData).length);
 }
 
 
@@ -1026,10 +1063,16 @@ function runBarrierSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -1045,7 +1088,7 @@ function runBarrierSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","barrier",lines.length-2);
+ displayStatus("data","barrier",Object.keys(vectorData).length);
 }
 
 
@@ -1068,10 +1111,16 @@ function runTurnsSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat1=Number(words[1]);
        var lon1=Number(words[2]);
        var lat2=Number(words[3]);
@@ -1097,7 +1146,7 @@ function runTurnsSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","turns",lines.length-2);
+ displayStatus("data","turns",Object.keys(vectorData).length);
 }
 
 
@@ -1127,10 +1176,16 @@ function runLimitSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
        var number=words[3];
@@ -1171,7 +1226,7 @@ function runLimitSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","limit",lines.length-2);
+ displayStatus("data","limit",Object.keys(vectorData).length);
 }
 
 
@@ -1194,10 +1249,16 @@ function runPropertySuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat1=Number(words[1]);
        var lon1=Number(words[2]);
        var lat2=Number(words[3]);
@@ -1219,7 +1280,7 @@ function runPropertySuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","property",lines.length-2);
+ displayStatus("data","property",Object.keys(vectorData).length);
 }
 
 
@@ -1242,10 +1303,16 @@ function runErrorlogSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -1261,7 +1328,7 @@ function runErrorlogSuccess(response)
 
  layerVectors.addFeatures(features);
 
- displayStatus("data","errorlogs",lines.length-2);
+ displayStatus("data","errorlogs",Object.keys(vectorData).length);
 }
 
 
