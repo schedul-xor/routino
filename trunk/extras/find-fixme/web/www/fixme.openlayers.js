@@ -61,8 +61,8 @@ if(location.search.length>1)
 ////////////////////////////////////////////////////////////////////////////////
 
 var map;
-var layerMap=[], layerHighlights, layerVectors, layerBoxes;
-
+var layerMap=[], layerHighlights, layerVectors;
+var vectorData=[];
 
 //
 // Initialise the 'map' object
@@ -153,15 +153,9 @@ function map_init()             // called from fixme.html
 
  createPopup();
 
- // Add a boxes layer
-
- layerBoxes = new ol.layer.Vector({source: new ol.source.Vector()});
-
- map.addLayer(layerBoxes);
-
  // Move the map
 
- map.on("moveend", (function() { updateURLs(false);}), map);
+ map.on("moveend", (function() { displayMoreData();}), map);
 
  var lon =args["lon"];
  var lat =args["lat"];
@@ -485,12 +479,11 @@ function displayData(datatype)  // called from fixme.html
 {
  // Delete the old data
 
+ vectorData=[];
+
  unselectFeature();
 
  layerVectors.getSource().clear();
- layerHighlights.getSource().clear();
-
- layerBoxes.getSource().clear();
 
  // Print the status
 
@@ -501,6 +494,12 @@ function displayData(datatype)  // called from fixme.html
  if(datatype === "")
     return;
 
+ displayMoreData();
+}
+
+
+function displayMoreData()
+{
  // Get the new data
 
  var mapbounds=map.getView().calculateExtent(map.getSize());
@@ -511,40 +510,13 @@ function displayData(datatype)  // called from fixme.html
  url=url + ";latmin=" + format5f(ol.proj.toLonLat([mapbounds[0],mapbounds[1]])[1]);
  url=url + ";lonmax=" + format5f(ol.proj.toLonLat([mapbounds[2],mapbounds[3]])[0]);
  url=url + ";latmax=" + format5f(ol.proj.toLonLat([mapbounds[2],mapbounds[3]])[1]);
- url=url + ";data=" + datatype;
+ url=url + ";data=fixmes";
 
  // Use AJAX to get the data
 
  ajaxGET(url, runFixmeSuccess, runFailure);
-}
 
-
-//
-// Add a bounding box
-//
-
-function addBox(words)
-{
- var lat1=Number(words[0]);
- var lon1=Number(words[1]);
- var lat2=Number(words[2]);
- var lon2=Number(words[3]);
-
- var box = new ol.Feature();
-
- var geometry = new ol.geom.LineString([ol.proj.fromLonLat([lon1,lat1]),
-                                        ol.proj.fromLonLat([lon1,lat2]),
-                                        ol.proj.fromLonLat([lon2,lat2]),
-                                        ol.proj.fromLonLat([lon2,lat1]),
-                                        ol.proj.fromLonLat([lon1,lat1])]);
-
- var style = new ol.style.Style({stroke: new ol.style.Stroke({width: 2, color: "red"})});
-
- box.setGeometry(geometry);
-
- box.setStyle(style);
-
- layerBoxes.getSource().addFeature(box);
+ updateURLs(true);
 }
 
 
@@ -566,10 +538,16 @@ function runFixmeSuccess(response)
     var words=lines[line].split(" ");
 
     if(line === 0)
-       addBox(words);
+       continue;
     else if(words[0] !== "")
       {
        var dump=words[0];
+
+       if(vectorData[dump])
+          continue;
+       else
+          vectorData[dump]=1;
+
        var lat=Number(words[1]);
        var lon=Number(words[2]);
 
@@ -585,7 +563,7 @@ function runFixmeSuccess(response)
 
  layerVectors.getSource().addFeatures(features);
 
- displayStatus("data","fixme",lines.length-2);
+ displayStatus("data","fixme",Object.keys(vectorData).length);
 }
 
 
