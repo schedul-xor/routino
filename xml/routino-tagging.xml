@@ -5,7 +5,7 @@
 
      Part of the Routino routing software.
      ============================================================
-     This file Copyright 2010-2015, 2018, 2019 Andrew M. Bishop
+     This file Copyright 2010-2015, 2018, 2019, 2020 Andrew M. Bishop
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +30,7 @@
       <if k="barrier" v="gate"      > <unset/> </if>
       <if k="barrier" v="lift_gate" > <unset/> </if>
       <if k="barrier" v="block"     > <unset/> </if>
+      <if k="barrier" v="chicane"   > <unset/> </if>
 
       <!-- Not useful barrier types (generic entrances through barrier ways) -->
 
@@ -120,6 +121,11 @@
         <unset k="barrier"/>
       </if>
 
+      <if k="barrier" v="cycle_barrier">
+        <output k="bicycle" v="no"/>
+        <set v="no_motorised"/>
+      </if>
+
       <if k="barrier" v="motorcycle_barrier">
         <set v="no_motorised"/>
       </if>
@@ -136,6 +142,10 @@
       </if>
 
       <if k="barrier" v="bollard">
+        <set v="not_2plus_wheels"/>
+      </if>
+
+      <if k="barrier" v="post">
         <set v="not_2plus_wheels"/>
       </if>
 
@@ -184,6 +194,7 @@
     <if v="official"    > <set v="yes"/> </if>
 
     <if v="destination" > <set v="no"/> </if>
+    <if v="permit"      > <set v="no"/> </if>
     <if v="customer"    > <set v="no"/> </if>
     <if v="customers"   > <set v="no"/> </if>
     <if v="delivery"    > <set v="no"/> </if>
@@ -694,6 +705,7 @@
       <if v="official"    > <set v="yes"/> </if>
 
       <if v="destination" > <set v="no"/> </if>
+      <if v="permit"      > <set v="no"/> </if>
       <if v="customer"    > <set v="no"/> </if>
       <if v="customers"   > <set v="no"/> </if>
       <if v="delivery"    > <set v="no"/> </if>
@@ -776,6 +788,10 @@
           <unset k="designation"/>
         </if>
 
+        <if k="designation" v="public_highway">
+          <set v="byway_open_to_all_traffic"/>
+        </if>
+
         <if k="designation" v="public_byway">
           <set v="byway_open_to_all_traffic"/>
         </if>
@@ -854,33 +870,38 @@
 
       <if k="footway">
 
-        <!-- Tags from http://taginfo.openstreetmap.org/keys/footway#values on 2013-02-09 -->
+        <!-- Tags from http://taginfo.openstreetmap.org/keys/footway#values on 2020-11-15 -->
 
         <if k="footway" v="sidewalk"> <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
         <if k="footway" v="both">     <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
         <if k="footway" v="left">     <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
         <if k="footway" v="right">    <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
         <if k="footway" v="yes">      <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+
+        <if k="footway" v="crossing"> <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
       </if>
 
       <if k="sidewalk">
 
-        <!-- Tags from http://taginfo.openstreetmap.org/keys/sidewalk#values on 2013-02-09 -->
+        <!-- Tags from http://taginfo.openstreetmap.org/keys/sidewalk#values on 2020-11-15 -->
 
-        <if k="sidewalk" v="both">    <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
-        <if k="sidewalk" v="left">    <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
-        <if k="sidewalk" v="right">   <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
-        <if k="sidewalk" v="yes">     <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+        <if k="sidewalk" v="both">     <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+        <if k="sidewalk" v="left">     <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+        <if k="sidewalk" v="right">    <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+        <if k="sidewalk" v="yes">      <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
+        <if k="sidewalk" v="separate"> <output k="foot" v="yes"/> <output k="wheelchair" v="yes"/> </if>
       </if>
 
       <if k="cycleway">
 
-        <!-- Tags from http://taginfo.openstreetmap.org/keys/cycleway#values on 2013-02-09 -->
+        <!-- Tags from http://taginfo.openstreetmap.org/keys/cycleway#values on 2020-11-15 -->
 
-        <if k="cycleway" v="lane">   <output k="bicycle" v="yes"/> </if>
-        <if k="cycleway" v="track">  <output k="bicycle" v="yes"/> </if>
-        <if k="cycleway" v="shared"> <output k="bicycle" v="yes"/> </if>
-        <if k="cycleway" v="yes">    <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="lane">        <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="track">       <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="shared_lane"> <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="opposite">    <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="crossing">    <output k="bicycle" v="yes"/> </if>
+        <if k="cycleway" v="yes">         <output k="bicycle" v="yes"/> </if>
 
         <if k="cycleway" v="opposite_lane">
           <output k="bicycle" v="yes"/>
@@ -957,32 +978,36 @@
 
       <if k="surface">
 
-        <!-- Tags from http://wiki.openstreetmap.org/wiki/Key:surface on 2012-11-21 -->
+        <!-- Tags from http://wiki.openstreetmap.org/wiki/Key:surface on 2020-11-15 -->
 
+        <if k="surface" v="paved">                 <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="asphalt">               <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="cobblestone">           <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="cobblestone:flattened"> <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="compacted">             <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="concrete">              <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="concrete:lanes">        <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="concrete:plates">       <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="paving_stones">         <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="sett">                  <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="unhewn_cobblestone">    <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="cobblestone">           <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="metal">                 <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="wood">                  <set k="paved" v="yes"/> <unset k="surface"/> </if>
+
+        <if k="surface" v="unpaved">               <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="compacted">             <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="fine_gravel">           <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="gravel">                <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="pebblestone">           <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="ground">                <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="dirt">                  <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="earth">                 <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="fine_gravel">           <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="grass">                 <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="grass_paver">           <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="gravel">                <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="ground">                <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="metal">                 <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="mud">                   <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="paved">                 <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="paving_stones">         <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="paving_stones:20">      <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="paving_stones:30">      <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="pebblestone">           <set k="paved" v="no"/>  <unset k="surface"/> </if>
         <if k="surface" v="sand">                  <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="unpaved">               <set k="paved" v="no"/>  <unset k="surface"/> </if>
-        <if k="surface" v="wood">                  <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="woodchips">             <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="snow">                  <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="ice">                   <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="salt">                  <set k="paved" v="no"/>  <unset k="surface"/> </if>
 
         <!-- Other tags -->
 
@@ -991,19 +1016,19 @@
         <if k="surface" v="tarmac">       <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="tar_and_chip"> <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="metalled">     <set k="paved" v="yes"/> <unset k="surface"/> </if>
+        <if k="surface" v="metaled">      <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="bricks">       <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="brick">        <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="brick_weave">  <set k="paved" v="yes"/> <unset k="surface"/> </if>
         <if k="surface" v="setts">        <set k="paved" v="yes"/> <unset k="surface"/> </if>
-        <if k="surface" v="sett">         <set k="paved" v="yes"/> <unset k="surface"/> </if>
 
-        <if k="surface" v="unsealed">     <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="soil">         <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="stones">       <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="stone">        <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="pebbles">      <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="hardcore">     <set k="paved" v="no"/> <unset k="surface"/> </if>
-        <if k="surface" v="bark">         <set k="paved" v="no"/> <unset k="surface"/> </if>
+        <if k="surface" v="unsealed">     <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="soil">         <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="stones">       <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="stone">        <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="pebbles">      <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="hardcore">     <set k="paved" v="no"/>  <unset k="surface"/> </if>
+        <if k="surface" v="bark">         <set k="paved" v="no"/>  <unset k="surface"/> </if>
 
         <if k="surface">
           <logerror message="ignoring it"/>
