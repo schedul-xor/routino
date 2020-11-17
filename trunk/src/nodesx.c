@@ -226,35 +226,28 @@ index_t IndexNodeX(NodesX *nodesx,node_t id)
  if(nodesx->number==0)          /* No nodes */
     return(NO_NODE);
 
- if(id<nodesx->idata[start])    /* Key is before start */
-    return(NO_NODE);
-
- if(id>nodesx->idata[end])      /* Key is after end */
-    return(NO_NODE);
-
  /* Binary search - search key exact match only is required.
   *
-  *  # <- start  |  Check mid and move start or end if it doesn't match
+  *  # <- start  |  Check mid and exit if it matches else move start or end.
   *  #           |
   *  #           |  Since an exact match is wanted we can set end=mid-1
-  *  # <- mid    |  or start=mid+1 because we know that mid doesn't match.
+  *  # <- mid    |  or start=mid+1 if we find that mid doesn't match.
   *  #           |
   *  #           |  Eventually either end=start or end=start+1 and one of
-  *  # <- end    |  start or end is the wanted one.
+  *  # <- end    |  start or end is the wanted one or neither is.
   */
 
- do
+ while((end-start)>1)
    {
     mid=start+(end-start)/2;       /* Choose mid point (avoid overflow) */
 
     if(nodesx->idata[mid]<id)      /* Mid point is too low */
        start=mid+1;
     else if(nodesx->idata[mid]>id) /* Mid point is too high */
-       end=mid?(mid-1):mid;
+       end=mid-1;
     else                           /* Mid point is correct */
        return(mid);
    }
- while((end-start)>1);
 
  if(nodesx->idata[start]==id)      /* Start is correct */
     return(start);

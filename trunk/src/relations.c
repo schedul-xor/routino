@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2019 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -134,18 +134,18 @@ index_t FindFirstTurnRelation1(Relations *relations,index_t via)
  index_t mid;
  index_t match=NO_RELATION;
 
- /* Binary search - search key any exact match is required.
+ /* Binary search - search key any exact match (may be multiple) is required.
   *
-  *  # <- start  |  Check mid and move start or end if it doesn't match
+  *  # <- start  |  Check mid and exit if it matches else move start or end.
   *  #           |
   *  #           |  Since an exact match is wanted we can set end=mid-1
-  *  # <- mid    |  or start=mid+1 because we know that mid doesn't match.
+  *  # <- mid    |  or start=mid+1 if we find that mid doesn't match.
   *  #           |
   *  #           |  Eventually either end=start or end=start+1 and one of
-  *  # <- end    |  start or end matches (but may not be the first).
+  *  # <- end    |  start or end matches or neither does.
   */
 
- do
+ while((end-start)>1)
    {
     mid=start+(end-start)/2;        /* Choose mid point (avoid overflow) */
 
@@ -154,14 +154,13 @@ index_t FindFirstTurnRelation1(Relations *relations,index_t via)
     if(relation->via<via)           /* Mid point is too low for 'via' */
        start=mid+1;
     else if(relation->via>via)      /* Mid point is too high for 'via' */
-       end=mid?(mid-1):mid;
+       end=mid-1;
     else                            /* Mid point is correct for 'from' */
       {
        match=mid;
        break;
       }
    }
- while((end-start)>1);
 
  if(match==NO_RELATION)             /* Check if start matches */
    {
@@ -252,18 +251,18 @@ index_t FindFirstTurnRelation2(Relations *relations,index_t via,index_t from)
  if(IsFakeSegment(from))
     from=IndexRealSegment(from);
 
- /* Binary search - search key first match is required.
+ /* Binary search - search key any exact match (may be multiple) is required.
   *
-  *  # <- start  |  Check mid and move start or end if it doesn't match
+  *  # <- start  |  Check mid and exit if it matches else move start or end.
   *  #           |
   *  #           |  Since an exact match is wanted we can set end=mid-1
-  *  # <- mid    |  or start=mid+1 because we know that mid doesn't match.
+  *  # <- mid    |  or start=mid+1 if we find that mid doesn't match.
   *  #           |
   *  #           |  Eventually either end=start or end=start+1 and one of
-  *  # <- end    |  start or end matches (but may not be the first).
+  *  # <- end    |  start or end matches or neither does.
   */
 
- do
+ while((end-start)>1)
    {
     mid=start+(end-start)/2;        /* Choose mid point (avoid overflow) */
 
@@ -272,13 +271,13 @@ index_t FindFirstTurnRelation2(Relations *relations,index_t via,index_t from)
     if(relation->via<via)           /* Mid point is too low for 'via' */
        start=mid+1;
     else if(relation->via>via)      /* Mid point is too high for 'via' */
-       end=mid?(mid-1):mid;
+       end=mid-1;
     else                            /* Mid point is correct for 'via' */
       {
        if(relation->from<from)      /* Mid point is too low for 'from' */
           start=mid+1;
        else if(relation->from>from) /* Mid point is too high for 'from' */
-          end=mid?(mid-1):mid;
+          end=mid-1;
        else                         /* Mid point is correct for 'from' */
          {
           match=mid;
@@ -286,7 +285,6 @@ index_t FindFirstTurnRelation2(Relations *relations,index_t via,index_t from)
          }
       }
    }
- while((end-start)>1);
 
  if(match==NO_RELATION)             /* Check if start matches */
    {

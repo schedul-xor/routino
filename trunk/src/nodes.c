@@ -3,7 +3,7 @@
 
  Part of the Routino routing software.
  ******************/ /******************
- This file Copyright 2008-2015, 2019 Andrew M. Bishop
+ This file Copyright 2008-2015, 2019, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -566,23 +566,23 @@ void GetLatLong(Nodes *nodes,index_t index,Node *nodep,double *latitude,double *
  ll_bin2_t start,end,mid;
  index_t offset;
 
- /* Binary search - search key nearest match below is required.
-  *
-  *  # <- start  |  Check mid and move start or end if it doesn't match
-  *  #           |
-  *  #           |  A lower bound match is wanted we can set end=mid-1 or
-  *  # <- mid    |  start=mid because we know that mid doesn't match.
-  *  #           |
-  *  #           |  Eventually either end=start or end=start+1 and one of
-  *  # <- end    |  start or end is the wanted one.
-  */
-
  /* Search for offset */
 
  start=0;
  end=nodes->file.lonbins*nodes->file.latbins;
 
- do
+ /* Binary search - search key exact match is wanted else lower bound is acceptable.
+  *
+  *  # <- start  |  Check mid and exit if it matches else move start or end.
+  *  #           |
+  *  #           |  Since a lower bound match is wanted we can set end=mid-1 or
+  *  # <- mid    |  start=mid if mid doesn't exactly match.
+  *  #           |
+  *  #           |  Eventually either end=start or end=start+1 and one of
+  *  # <- end    |  start or end is an exact match or the lower bound.
+  */
+
+ while((end-start)>1)
    {
     mid=start+(end-start)/2;            /* Choose mid point (avoid overflow) */
 
@@ -591,11 +591,10 @@ void GetLatLong(Nodes *nodes,index_t index,Node *nodep,double *latitude,double *
     if(offset<index)                    /* Mid point is too low for an exact match but could be lower bound */
        start=mid;
     else if(offset>index)               /* Mid point is too high */
-       end=mid?(mid-1):mid;
+       end=mid-1;
     else                                /* Mid point is correct */
       {bin=mid;break;}
    }
- while((end-start)>1);
 
  if(bin==-1)
    {
