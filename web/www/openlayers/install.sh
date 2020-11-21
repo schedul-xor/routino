@@ -2,11 +2,11 @@
 
 # Openlayers version (https://openlayers.org/)
 
-version=5.3.0
+version=6.4.3
 
 # Layer switcher version (https://github.com/walkermatt/ol-layerswitcher/)
 
-layer_switcher_version=3.3.0
+layer_switcher_version=3.7.0
 
 
 # Download the file.

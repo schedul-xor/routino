@@ -282,12 +282,12 @@ Configuration of web files
    The directory www/openlayers is for the newer version of the OpenLayers
    Javascript library that can be downloaded from
    http://www.openlayers.org/. (This version of Routino has been tested
-   with OpenLayers library version 5.3.0). There is a script in the
+   with OpenLayers library version 6.4.3). There is a script in the
    www/openlayers directory that will automatically download the files.
 
    The directory www/leaflet is for the Leaflet Javascript library that
    can be downloaded from http://leafletjs.com/. (This version of Routino
-   has been tested with Leaflet library version 1.5.1). There is a script
+   has been tested with Leaflet library version 1.7.1). There is a script
    in the www/leaflet directory that will automatically download the
    files.
 

@@ -50,7 +50,7 @@ var data_types=[
 
 var legal={"^lon"     : "^[-0-9.]+$",
            "^lat"     : "^[-0-9.]+$",
-           "^zoom"    : "^[0-9]+$",
+           "^zoom"    : "^[-0-9.]+$",
            "^data"    : "^.+$",
            "^subdata" : "^.+$"};
 
@@ -179,6 +179,10 @@ function map_init()             // called from visualiser.html
 
  if(lon !== undefined && lat !== undefined && zoom !== undefined)
    {
+    lat  = Number(lat);
+    lon  = Number(lon);
+    zoom = Number.parseInt(Number(zoom)+0.5);
+
     if(lon<mapprops.westedge) lon=mapprops.westedge;
     if(lon>mapprops.eastedge) lon=mapprops.eastedge;
 
@@ -188,7 +192,7 @@ function map_init()             // called from visualiser.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    map.setView(L.latLng(Number(lat),Number(lon)),zoom);
+    map.setView(L.latLng(lat,lon),zoom);
    }
  else
     map.fitBounds(map.options.maxBounds);

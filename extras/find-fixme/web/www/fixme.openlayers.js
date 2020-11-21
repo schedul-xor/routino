@@ -28,7 +28,7 @@
 
 var legal={"^lon"  : "^[-0-9.]+$",
            "^lat"  : "^[-0-9.]+$",
-           "^zoom" : "^[0-9]+$"};
+           "^zoom" : "^[-0-9.]+$"};
 
 var args={};
 
@@ -84,7 +84,7 @@ function map_init()             // called from fixme.html
 
  // Add map tile layers
 
- for(var l=0; l<mapprops.mapdata.length; l++)
+ for(var l=mapprops.mapdata.length-1; l>=0; l--)
    {
     mapprops.mapdata[l].tiles.url=mapprops.mapdata[l].tiles.url.replace(/\$\{/g,"{");
     var urls;
@@ -163,6 +163,10 @@ function map_init()             // called from fixme.html
 
  if(lon !== undefined && lat !== undefined && zoom !== undefined)
    {
+    lat  = Number(lat);
+    lon  = Number(lon);
+    zoom = Number(zoom);
+
     if(lon<mapprops.westedge) lon=mapprops.westedge;
     if(lon>mapprops.eastedge) lon=mapprops.eastedge;
 
@@ -172,7 +176,7 @@ function map_init()             // called from fixme.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    map.getView().setCenter(ol.proj.fromLonLat([Number(lon),Number(lat)]));
+    map.getView().setCenter(ol.proj.fromLonLat([lon,lat]));
     map.getView().setZoom(zoom);
    }
  else
@@ -225,6 +229,9 @@ function buildMapArguments()
  var lonlat = ol.proj.toLonLat(map.getView().getCenter());
 
  var zoom = map.getView().getZoom();
+
+ if( ! Number.isInteger(zoom) )
+    zoom = format5f(zoom);
 
  return "lat=" + format5f(lonlat[1]) + ";lon=" + format5f(lonlat[0]) + ";zoom=" + zoom;
 }
