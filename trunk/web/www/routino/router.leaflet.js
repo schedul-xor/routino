@@ -67,7 +67,7 @@ for(var marker=1;marker<=mapprops.maxmarkers;marker++)
 
 var legal={"^lon"             : "^[-0-9.]+$",
            "^lat"             : "^[-0-9.]+$",
-           "^zoom"            : "^[0-9]+$",
+           "^zoom"            : "^[-0-9.]+$",
 
            "^lon[1-9]"        : "^[-0-9.]+$",
            "^lat[1-9]"        : "^[-0-9.]+$",
@@ -953,6 +953,10 @@ function map_init()             // called from router.html
 
  if(lon !== undefined && lat !== undefined && zoom !== undefined)
    {
+    lat  = Number(lat);
+    lon  = Number(lon);
+    zoom = Number.parseInt(Number(zoom)+0.5);
+
     if(lon<mapprops.westedge) lon=mapprops.westedge;
     if(lon>mapprops.eastedge) lon=mapprops.eastedge;
 
@@ -962,7 +966,7 @@ function map_init()             // called from router.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    map.setView(L.latLng(Number(lat),Number(lon)),zoom);
+    map.setView(L.latLng(lat,lon),zoom);
    }
  else
     map.fitBounds(map.options.maxBounds);

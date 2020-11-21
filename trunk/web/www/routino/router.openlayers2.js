@@ -67,7 +67,7 @@ for(var marker=1;marker<=mapprops.maxmarkers;marker++)
 
 var legal={"^lon"             : "^[-0-9.]+$",
            "^lat"             : "^[-0-9.]+$",
-           "^zoom"            : "^[0-9]+$",
+           "^zoom"            : "^[-0-9.]+$",
 
            "^lon[1-9]"        : "^[-0-9.]+$",
            "^lat[1-9]"        : "^[-0-9.]+$",
@@ -1009,6 +1009,10 @@ function map_init()             // called from router.html
 
  if(lon !== undefined && lat !== undefined && zoom !== undefined)
    {
+    lat  = Number(lat);
+    lon  = Number(lon);
+    zoom = Number.parseInt(Number(zoom)+0.5);
+
     if(lon<mapprops.westedge) lon=mapprops.westedge;
     if(lon>mapprops.eastedge) lon=mapprops.eastedge;
 
@@ -1018,7 +1022,7 @@ function map_init()             // called from router.html
     if(zoom<mapprops.zoomout) zoom=mapprops.zoomout;
     if(zoom>mapprops.zoomin)  zoom=mapprops.zoomin;
 
-    var lonlat = new OpenLayers.LonLat(Number(lon),Number(lat));
+    var lonlat = new OpenLayers.LonLat(lon,lat);
     lonlat.transform(epsg4326,epsg900913);
 
     map.moveTo(lonlat,zoom-map.minZoomLevel);
