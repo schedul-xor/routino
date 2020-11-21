@@ -12,7 +12,7 @@
 
  Part of the Routino routing software.
 
- This file Copyright 2008-2015 Andrew M. Bishop
+ This file Copyright 2008-2015, 2020 Andrew M. Bishop
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as published by
@@ -105,7 +105,7 @@ for motorway_link and motorway highway types.
       &lt;unset k="highway"/&gt;
     &lt;/if&gt;
 ...
-  &lt;way&gt;
+  &lt;/way&gt;
 
 &lt;/routino-tagging&gt;
 </pre>
@@ -163,7 +163,8 @@ The <em>set</em> and <em>unset</em> elements either create or delete a tag from
 the input data that was read from the file.  If the <em>set</em> element is used
 and the tag already exists then it is modified.  The <em>output</em> element
 adds a tag to the set that will be used by Routino to determine the data
-properties.
+properties.  If the <em>output</em> element is used and the tag already exists
+then it is modified.
 
 <p>
 
