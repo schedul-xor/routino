@@ -56,7 +56,7 @@ Tag Transformation Rules
       <unset k="highway"/>
     </if>
 ...
-  <way>
+  </way>
 
 </routino-tagging>
 
@@ -98,7 +98,8 @@ Tag Transformation Rules
    data that was read from the file. If the set element is used and the
    tag already exists then it is modified. The output element adds a tag
    to the set that will be used by Routino to determine the data
-   properties.
+   properties. If the output element is used and the tag already exists
+   then it is modified.
 
    The logerror element will cause an error message to be added to the
    error log file that reports that the key and attribute combination are
@@ -216,4 +217,4 @@ Output Translations
 
 --------
 
-Copyright 2010-2013 Andrew M. Bishop.
+Copyright 2010-2013,2020 Andrew M. Bishop.
