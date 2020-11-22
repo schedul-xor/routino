@@ -270,7 +270,10 @@ function form_init()            // called from router.html
 
     if(lon === undefined || lat === undefined || zoom === undefined)
       {
-       var markerextent=new OpenLayers.Bounds(minlon,minlat,maxlon,maxlat).transform(epsg4326,epsg900913);
+       var deltalon = 0.025 * ( maxlon - minlon );
+       var deltalat = 0.025 * ( maxlat - minlat );
+
+       var markerextent=new OpenLayers.Bounds(minlon-deltalon,minlat-deltalat,maxlon+deltalon,maxlat+deltalat).transform(epsg4326,epsg900913);
 
        map.setCenter(markerextent.getCenterLonLat(), map.getZoomForExtent(markerextent,false));
       }

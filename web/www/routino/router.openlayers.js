@@ -270,8 +270,11 @@ function form_init()            // called from router.html
 
     if(lon === undefined || lat === undefined || zoom === undefined)
       {
-       var markerextent=ol.extent.boundingExtent([ol.proj.fromLonLat([minlon,minlat]),
-                                                  ol.proj.fromLonLat([maxlon,maxlat])]);
+       var deltalon = 0.025 * ( maxlon - minlon );
+       var deltalat = 0.025 * ( maxlat - minlat );
+
+       var markerextent=ol.extent.boundingExtent([ol.proj.fromLonLat([minlon-deltalon,minlat-deltalat]),
+                                                  ol.proj.fromLonLat([maxlon+deltalon,maxlat+deltalat])]);
 
        map.getView().fit(markerextent,map.getSize());
       }
