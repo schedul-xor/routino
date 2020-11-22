@@ -270,7 +270,10 @@ function form_init()            // called from router.html
 
     if(lon === undefined || lat === undefined || zoom === undefined)
       {
-       var markerextent=L.latLngBounds(L.latLng(minlat,minlon),L.latLng(maxlat,maxlon));
+       var deltalon = 0.025 * ( maxlon - minlon );
+       var deltalat = 0.025 * ( maxlat - minlat );
+
+       var markerextent=L.latLngBounds(L.latLng(minlat-deltalat,minlon-deltalon),L.latLng(maxlat+deltalat,maxlon+deltalon));
 
        map.fitBounds(markerextent);
       }
