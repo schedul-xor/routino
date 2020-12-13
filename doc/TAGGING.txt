@@ -488,6 +488,9 @@ Specific Access Permissions
 Highway Properties
 - - - - - - - - -
 
+   By default the properties for all highways are not set; highways are
+   not paved, not a bridge, not a tunnel etc.
+
    If there is a surface tag then the highway is assumed to be unpaved
    unless the tag value matches one of the following: paved, asphalt,
    concrete or many other values listed in the configuration file.
@@ -554,4 +557,4 @@ Turn Restrictions
 
 --------
 
-Copyright 2008-2015 Andrew M. Bishop.
+Copyright 2008-2020 Andrew M. Bishop.
