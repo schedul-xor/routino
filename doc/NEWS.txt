@@ -1,3 +1,34 @@
+Version 3.3.3 of Routino released : Wed Dec 30 2020
+---------------------------------------------------
+
+Bug fixes:
+  More bug fixes for compiling python library (environment variables).
+  Ensure that we do not try memory mapping a zero length file.
+  Catch NULL pointers being passed into the library functions.
+  Fix some documentation errors.
+
+planetsplitter:
+  Reduce memory use by mapping more data from file rather than allocating it.
+
+Python:
+  Support the use of the progress callback function when calculating a route.
+
+Translations:
+  Updated Czech, Dutch, German and Russian translations.
+  Added a Finnish translation.
+
+Web pages:
+  Zoom to the visible markers from the URL if no lat/long/zoom in the URL.
+  Improve the setting / clearing of the cookie for the home location.
+  Update the URL when new waypoints are added etc.
+  Update the visualiser/fixme data as you move around the map.
+  Test with the latest version of Leaflet (1.7.1).
+  Add support for the latest version of OpenLayers (6.4.3).
+
+
+Note: This version is compatible with databases from versions 2.7.1 - 3.3.2.
+
+
 Version 3.3.2 of Routino released : Wed Sep 18 2019
 ---------------------------------------------------
 
