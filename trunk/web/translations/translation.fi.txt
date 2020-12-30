@@ -1,0 +1,161 @@
+#
+# Finnish language translation phrases
+#
+
+#
+# Router output XML definition
+#
+
+%%copyright_source_string%%	Lähde
+%%copyright_license_string%%	Lisenssi
+
+%%turn_-2%%	vasemmalle
+%%turn_0%%	suoraan
+%%turn_2%%	oikealle
+
+%%heading_-4%%	etelä
+%%heading_-3%%	lounas
+%%heading_-2%%	länsi
+%%heading_-1%%	luode
+%%heading_0%%	pohjoinen
+%%heading_1%%	koillinen
+%%heading_2%%	itä
+%%heading_3%%	kaakko
+%%heading_4%%	etelä
+
+%%ordinal_1%%	Ensimmäinen
+%%ordinal_2%%	Toinen
+%%ordinal_3%%	Kolmas
+%%ordinal_4%%	Neljäs
+%%ordinal_5%%	Viides
+%%ordinal_6%%	Kuudes
+%%ordinal_7%%	Seitsemäs
+%%ordinal_8%%	Kahdeksas
+%%ordinal_9%%	Yhdeksäs
+%%ordinal_10%%	Kymmenes
+
+%%highway_motorway%%	moottoritie
+%%highway_trunk%%	valtatie
+%%highway_primary%%	kantatie
+%%highway_secondary%%	seututie
+%%highway_tertiary%%	yhdystie
+%%highway_unclassified%%	tie
+%%highway_residential%%	asuinkatu
+%%highway_cycleway%%	pyörätie
+%%highway_path%%	polku
+%%highway_steps%%	portaat
+%%highway_ferry%%	lautta
+
+%%route_shortest%%	Lyhyin
+%%route_quickest%%	Nopein
+
+%%output-html_waypoint_waypoint%%	Reittipiste
+%%output-html_waypoint_junction%%	Liittymä
+%%output-html_waypoint_roundabout%%	Kiertoliittymä
+%%output-html_title%%	%s reitti
+%%output-html_total%%	Yhteensä %.1f km, %.0f minuuttia
+%%output-html_subtotal%%	%.1f km, %.0f minuuttia
+
+%%output-gpx_name%%	%s reitti
+
+#
+# Router (and some shared) translations
+#
+
+@@LANGUAGE@@	Suomi
+@@LANGUAGE-WEBPAGE@@	Suomi webpage
+
+@@OPTION-TAB@@	Asetukset
+
+@@RESULTS-TAB@@	Tulokset
+
+@@DATA-TAB@@	Tiedot
+
+@@ROUTINO-WEBSITE@@	Routino verkkosivusto
+@@DOCUMENTATION@@	Dokumentointi
+
+@@LANGUAGE-BOX@@	Kieli
+@@WAYPOINTS-BOX@@	Reittipisteet
+@@TRANSPORT-TYPE-BOX@@	Kuljetusmuoto
+@@SPEED-LIMITS-BOX@@	Nopeusrajoitukset
+@@OTHER-RESTRICTIONS-BOX@@	Muut rajoitukset
+@@FIND-BOX@@	Etsi
+@@LINKS-BOX@@	Linkit
+@@HELP-BOX@@	Ohje
+
+@@SHORTEST-ROUTE@@	Lyhyin reitti
+@@QUICKEST-ROUTE@@	Nopein reitti
+
+@@STATISTICS-BOX@@	Routino tilastot
+
+@@WAYPOINT-LONGITUDE@@	Reittipisteen XXX pituusaste
+@@WAYPOINT-LATITUDE@@	Reittipisteen XXX leveysaste
+@@WAYPOINT-GET@@	Hae nykyinen sijainti
+@@WAYPOINT-UP@@	Siirrä tämä reittipiste ylöspäin
+@@WAYPOINT-DOWN@@	Siirrä tämä reittipiste alaspäin
+@@WAYPOINT-REMOVE@@	Poista tämä reittipiste
+
+@@TRANSPORT-FOOT@@	Jalankulku
+@@TRANSPORT-HORSE@@	Hevonen
+@@TRANSPORT-WHEELCHAIR@@	Pyörätuoli
+@@TRANSPORT-BICYCLE@@	Polkupyörä
+@@TRANSPORT-MOPED@@	Mopo
+@@TRANSPORT-MOTORCYCLE@@	Moottoripyörä
+@@TRANSPORT-MOTORCAR@@	Auto
+@@TRANSPORT-GOODS@@	Pakettiauto
+@@TRANSPORT-HGV@@	Raskaat ajoneuvot
+@@TRANSPORT-PSV@@	Julkinen liikenne
+
+@@HIGHWAY-MOTORWAY@@	Moottoritie
+@@HIGHWAY-TRUNK@@	Valtatie
+@@HIGHWAY-PRIMARY@@	Kantatie
+@@HIGHWAY-SECONDARY@@	Seututie
+@@HIGHWAY-TERTIARY@@	Yhdystie
+@@HIGHWAY-UNCLASSIFIED@@	Tie
+@@HIGHWAY-RESIDENTIAL@@	Asuinkatu
+@@HIGHWAY-CYCLEWAY@@	Pyörätie
+@@HIGHWAY-PATH@@	Polku
+@@HIGHWAY-STEPS@@	Portaat
+@@HIGHWAY-FERRY@@	Lautta
+
+@@PROPERTY-PAVED@@	Päällystetty
+@@PROPERTY-BRIDGE@@	Silta
+@@PROPERTY-TUNNEL@@	Tunneli
+@@PROPERTY-WALKINGROUTE@@	Kävelyreitti
+@@PROPERTY-BICYCLEROUTE@@	Polkupyöräreitti
+
+@@RESTRICT-WEIGHT@@	Paino
+@@RESTRICT-HEIGHT@@	Korkeus
+@@RESTRICT-WIDTH@@	Leveys
+@@RESTRICT-LENGTH@@	Pituus
+
+@@FIND-SHORTEST-ROUTE@@	Etsi lyhin reitti
+@@FIND-QUICKEST-ROUTE@@	Etsi nopein reitti
+
+@@NO-INFORMATION@@	Ei tietoja
+@@GPX-TRACK-ROUTE@@	GPX-jälkitiedosto
+@@GPX-ROUTE@@	GPX-reittitiedosto
+@@TEXT-ROUTE@@	Tekstitiedosto
+
+@@ROUTER@@	Reititin
+@@GEO-DATA@@	Paikkatieto
+@@TILES@@	Tiilit
+
+#
+# Visualiser specific translations
+#
+
+@@ROUTER-BOX@@	Routino reititin
+
+@@ERROR-LOG-BUTTON@@	Näytä virheloki
+
+@@CLEAR-DATA-BUTTON@@	Tyhjennä tiedot
+
+#
+# Multi-line descriptive translations (router)
+#
+
+#
+# Multi-line descriptive translations (visualiser)
+#
+
