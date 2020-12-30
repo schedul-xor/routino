@@ -5,7 +5,7 @@
 
      Part of the Routino routing software.
      ============================================================
-     This file Copyright 2010-2017, 2020 Andrew M. Bishop
+     This file Copyright 2010-2017 Andrew M. Bishop
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU Affero General Public License as published by
@@ -380,6 +380,98 @@
       <name  text="Itinerario %s" /> <!-- %s = [shortest|quickest] -->
       <step  text="%s en '%s' durante %.3f km, %.1f min" /> <!-- 1st %s = [turn], 2nd %s = street name -->
       <final text="Trayecto total %.1f km, %.0f minutes" />
+    </output-gpx>
+
+  </language>
+
+  <language lang="fi" language="Suomi">
+
+    <!-- Copyright of the data being routed, not of this file  -->
+    <copyright>
+      <!-- TRANSLATION REQUIRED: creator string="Creator" text="Routino - http://www.routino.org/" / -->
+      <!-- TRANSLATION REQUIRED: source  string="Lähde" text="Based on OpenStreetMap data from http://www.openstreetmap.org/" / -->
+      <license string="Lisenssi" text="http://www.openstreetmap.org/copyright" />
+    </copyright>
+
+    <!-- Turn directions, 0 = ahead, -2 = left, +/-4 = behind, +2 = right -->
+    <!-- TRANSLATION REQUIRED: turn direction="-4" string="Very sharp left" / -->
+    <!-- TRANSLATION REQUIRED: turn direction="-3" string="Sharp left" / -->
+    <turn direction="-2" string="vasemmalle" />
+    <!-- TRANSLATION REQUIRED: turn direction="-1" string="Slight left" / -->
+    <turn direction="0"  string="suoraan" />
+    <!-- TRANSLATION REQUIRED: turn direction="1"  string="Slight right" / -->
+    <turn direction="2"  string="oikealle" />
+    <!-- TRANSLATION REQUIRED: turn direction="3"  string="Sharp right" / -->
+    <!-- TRANSLATION REQUIRED: turn direction="4"  string="Very sharp right" / -->
+
+    <!-- Heading directions, 0 = North, -2 = West, +/-4 = South, +2 = East -->
+    <heading direction="-4" string="etelä" />
+    <heading direction="-3" string="lounas" />
+    <heading direction="-2" string="länsi" />
+    <heading direction="-1" string="luode" />
+    <heading direction="0"  string="pohjoinen" />
+    <heading direction="1"  string="koillinen" />
+    <heading direction="2"  string="itä" />
+    <heading direction="3"  string="kaakko" />
+    <heading direction="4"  string="etelä" />
+
+    <!-- Ordinals, 1 = first, 2 = second ... -->
+    <ordinal number="1"  string="Ensimmäinen" />
+    <ordinal number="2"  string="Toinen" />
+    <ordinal number="3"  string="Kolmas" />
+    <ordinal number="4"  string="Neljäs" />
+    <ordinal number="5"  string="Viides" />
+    <ordinal number="6"  string="Kuudes" />
+    <ordinal number="7"  string="Seitsemäs" />
+    <ordinal number="8"  string="Kahdeksas" />
+    <ordinal number="9"  string="Yhdeksäs" />
+    <ordinal number="10" string="Kymmenes" />
+
+    <!-- Highway names -->
+    <highway type="motorway"     string="moottoritie" />
+    <highway type="trunk"        string="valtatie" />
+    <highway type="primary"      string="kantatie" />
+    <highway type="secondary"    string="seututie" />
+    <highway type="tertiary"     string="yhdystie" />
+    <highway type="unclassified" string="tie" />
+    <highway type="residential"  string="asuinkatu" />
+    <!-- TRANSLATION REQUIRED: highway type="service"      string="service road" / -->
+    <!-- TRANSLATION REQUIRED: highway type="track"        string="track" / -->
+    <highway type="cycleway"     string="pyörätie" />
+    <highway type="path"         string="polku" />
+    <highway type="steps"        string="portaat" />
+    <highway type="ferry"        string="lautta" />
+
+    <!-- The type of route -->
+    <route type="shortest" string="Lyhyin" /> <!-- For the description and route name -->
+    <route type="quickest" string="Nopein" /> <!-- For the description and route name -->
+
+    <!-- HTML output -->
+    <output-html>
+      <waypoint type="waypoint"   string="Reittipiste" /> <!-- For the chosen waypoints -->
+      <waypoint type="junction"   string="Liittymä" /> <!-- For the interesting junctions -->
+      <waypoint type="roundabout" string="Kiertoliittymä" /> <!-- For roundabouts -->
+
+      <title text="%s reitti" /> <!-- %s = [shortest|quickest] -->
+
+      <!-- TRANSLATION REQUIRED: start    text="Start at %s, head %s" / --> <!-- 1st %s = [waypoint|junction], 2nd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: node     text="At %s, go %s heading %s" / --> <!-- 1st %s = [waypoint|junction], 2nd %s = [turn], 3rd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: rbnode   text="Leave %s, take the %s exit heading %s" / --> <!-- 1st %s = [roundabout], 2nd %s = [first|second|...], 3rd %s = [heading] -->
+      <!-- TRANSLATION REQUIRED: segment  text="Follow %s for %.3f km, %.1f min" / --> <!-- 1st %s = street name -->
+      <!-- TRANSLATION REQUIRED: stop     text="Stop at %s" / --> <!-- 1st %s = [waypoint|junction] -->
+      <total    text="Yhteensä %.1f km, %.0f minuuttia" />
+      <subtotal text="%.1f km, %.0f minuuttia" />
+    </output-html>
+
+    <!-- GPX output -->
+    <output-gpx>
+      <!-- TRANSLATION REQUIRED: waypoint type="waypt" string="WAYPT" / --> <!-- For the route waypoints -->
+      <!-- TRANSLATION REQUIRED: waypoint type="trip" string="TRIP" / --> <!-- For the other route points -->
+
+      <!-- TRANSLATION REQUIRED: desc  text="%s route between 'start' and 'finish' waypoints" / --> <!-- %s = [shortest|quickest] -->
+      <name  text="%s reitti" /> <!-- %s = [shortest|quickest] -->
+      <!-- TRANSLATION REQUIRED: step  text="%s on '%s' for %.3f km, %.1f min" / --> <!-- 1st %s = [turn], 2nd %s = street name -->
+      <!-- TRANSLATION REQUIRED: final text="Total Journey %.1f km, %.0f minutes" / -->
     </output-gpx>
 
   </language>
