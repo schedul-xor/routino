@@ -226,6 +226,17 @@
 @@VISUALISER-NUM-ERRORS@@	# erreurs de log traitées
 
 @@JUNCTIONS-BUTTON@@	Afficher les intersections
+@@JUNCTIONS-1@@	Chaussée simple - Sans issue
+@@JUNCTIONS-2@@	Carrefour de deux routes de différents types
+@@JUNCTIONS-3@@	Carrefour à trois intersections
+@@JUNCTIONS-4@@	Carrefour à quatre intersections
+@@JUNCTIONS-5@@	Carrefour à cinq intersections
+@@JUNCTIONS-6@@	Carrefour à six intersections
+@@JUNCTIONS-MORE@@	Carrefour en étoile
+
+@@SUPER-BUTTON@@	Afficher les Super Segments
+
+@@WAYTYPE-BUTTON@@	Afficher type de route du Segments
 
 @@WAYTYPE-ONEWAY@@	Segments à sens unique
 
@@ -236,6 +247,8 @@
 @@SPEED-LIMIT-80@@	Vitesse limitée à 80 km/h
 
 @@WEIGHT-BUTTON@@	Afficher les limites de poids
+
+@@WEIGHT-LIMIT-8@@	Interdit au plus de 8 tonnes
 
 @@HEIGHT-BUTTON@@	Afficher les limites de hauteur
 
@@ -249,7 +262,11 @@
 
 @@LENGTH-LIMIT-9@@	Longueur limitée à 9,0 m
 
+@@PROPERTY-BUTTON@@	Afficher propriétés route
+
 @@ERROR-LOG-BUTTON@@	Afficher le journal des erreurs
+
+@@CLEAR-DATA-BUTTON@@	Effacer données
 
 #
 # Multi-line descriptive translations (router)
