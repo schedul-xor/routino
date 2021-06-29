@@ -35,6 +35,11 @@ extern int option_quickest;
 extern int option_file_html,option_file_gpx_track,option_file_gpx_route,option_file_text,option_file_text_all,option_file_stdout;
 int option_file_none=0;
 
+
+/* Local functions */
+
+static void print_usage_fnn(int detail,const char *argerr,const char *err);
+
 int main(int argc,char** argv)
 {
  Nodes       *OSMNodes;
@@ -64,14 +69,14 @@ int main(int argc,char** argv)
  printf("Find nearest node\n");
 
  if(argc<2)
-    print_usage(0,NULL,NULL);
+    print_usage_fnn(0,NULL,NULL);
 
  for(arg=1;arg<argc;arg++)
    {
     if(!strcmp(argv[arg],"--version"))
-       print_usage(-1,NULL,NULL);
+       print_usage_fnn(-1,NULL,NULL);
     else if(!strcmp(argv[arg],"--help"))
-       print_usage(1,NULL,NULL);
+       print_usage_fnn(1,NULL,NULL);
     else if(!strcmp(argv[arg],"--help-profile"))
        help_profile=1;
     else if(!strcmp(argv[arg],"--help-profile-xml"))
@@ -141,11 +146,11 @@ int main(int argc,char** argv)
 
        while(isdigit(*p)) p++;
        if(*p++!='=')
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        point=atoi(&argv[arg][5]);
        if(point>NWAYPOINTS || point_used[point]&1)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        point_lon[point]=degrees_to_radians(atof(p));
        point_used[point]+=1;
@@ -162,11 +167,11 @@ int main(int argc,char** argv)
 
        while(isdigit(*p)) p++;
        if(*p++!='=')
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        point=atoi(&argv[arg][5]);
        if(point>NWAYPOINTS || point_used[point]&2)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        point_lat[point]=degrees_to_radians(atof(p));
        point_used[point]+=2;
@@ -192,7 +197,7 @@ int main(int argc,char** argv)
        transport=TransportType(&argv[arg][12]);
 
        if(transport==Transport_None)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
       }
     else
        continue;
@@ -275,7 +280,7 @@ int main(int argc,char** argv)
        double p;
 
        if(!equal)
-           print_usage(0,argv[arg],NULL);
+           print_usage_fnn(0,argv[arg],NULL);
 
        string=strcpy((char*)malloc(strlen(argv[arg])),argv[arg]+10);
        string[equal-argv[arg]-10]=0;
@@ -283,12 +288,12 @@ int main(int argc,char** argv)
        highway=HighwayType(string);
 
        if(highway==Highway_None)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        p=atof(equal+1);
 
        if(p<0 || p>100)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        profile->highway[highway]=(score_t)(p/100);
 
@@ -302,7 +307,7 @@ int main(int argc,char** argv)
        double s;
 
        if(!equal)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        string=strcpy((char*)malloc(strlen(argv[arg])),argv[arg]+8);
        string[equal-argv[arg]-8]=0;
@@ -310,12 +315,12 @@ int main(int argc,char** argv)
        highway=HighwayType(string);
 
        if(highway==Highway_None)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        s=atof(equal+1);
 
        if(s<0)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        profile->speed[highway]=kph_to_speed(s);
 
@@ -329,7 +334,7 @@ int main(int argc,char** argv)
        double p;
 
        if(!equal)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        string=strcpy((char*)malloc(strlen(argv[arg])),argv[arg]+11);
        string[equal-argv[arg]-11]=0;
@@ -337,12 +342,12 @@ int main(int argc,char** argv)
        property=PropertyType(string);
 
        if(property==Property_None)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        p=atof(equal+1);
 
        if(p<0 || p>100)
-          print_usage(0,argv[arg],NULL);
+          print_usage_fnn(0,argv[arg],NULL);
 
        profile->props[property]=(score_t)(p/100);
 
@@ -361,7 +366,7 @@ int main(int argc,char** argv)
     else if(!strncmp(argv[arg],"--length=",9))
        profile->length=metres_to_length(atof(&argv[arg][9]));
     else
-       print_usage(0,argv[arg],NULL);
+       print_usage_fnn(0,argv[arg],NULL);
    }
 
  /* Print one of the profiles if requested */
@@ -454,7 +459,7 @@ int main(int argc,char** argv)
 
  for(waypoint=1;waypoint<=NWAYPOINTS;waypoint++)
     if(point_used[waypoint]==1 || point_used[waypoint]==2)
-       print_usage(0,NULL,"All waypoints must have latitude and longitude.");
+       print_usage_fnn(0,NULL,"All waypoints must have latitude and longitude.");
 
  /* Load in the data - Note: No error checking because Load*List() will call exit() in case of an error. */
 
@@ -539,4 +544,142 @@ int main(int argc,char** argv)
    }
 
  return 0;
+}
+
+/*++++++++++++++++++++++++++++++++++++++
+  Print out the usage information.
+
+  int detail The level of detail to use: -1 = just version number, 0 = low detail, 1 = full details.
+
+  const char *argerr The argument that gave the error (if there is one).
+
+  const char *err Other error message (if there is one).
+  ++++++++++++++++++++++++++++++++++++++*/
+
+static void print_usage_fnn(int detail,const char *argerr,const char *err)
+{
+ if(detail<0)
+   {
+    fprintf(stderr,
+            "Routino version " ROUTINO_VERSION " " ROUTINO_URL ".\n"
+            );
+   }
+
+ if(detail>=0)
+   {
+    fprintf(stderr,
+            "Usage: find_nearest_node [--version]\n"
+            "              [--help | --help-profile | --help-profile-xml |\n"
+            "                        --help-profile-json | --help-profile-perl ]\n"
+            "              [--dir=<dirname>] [--prefix=<name>]\n"
+            "              [--profiles=<filename>] [--translations=<filename>]\n"
+            "              [--exact-nodes-only]\n"
+            "              [--quiet | [--loggable] [--logtime] [--logmemory]]\n"
+            "              [--language=<lang>]\n"
+            "              [--output-html]\n"
+            "              [--output-gpx-track] [--output-gpx-route]\n"
+            "              [--output-text] [--output-text-all]\n"
+            "              [--output-none] [--output-stdout]\n"
+            "              [--profile=<name>]\n"
+            "              [--transport=<transport>]\n"
+            "              [--shortest | --quickest]\n"
+            "              --lon1=<longitude> --lat1=<latitude>\n"
+            "              --lon2=<longitude> --lon2=<latitude>\n"
+            "              [ ... --lon99=<longitude> --lon99=<latitude>]\n"
+            "              [--reverse] [--loop]\n"
+            "              [--highway-<highway>=<preference> ...]\n"
+            "              [--speed-<highway>=<speed> ...]\n"
+            "              [--property-<property>=<preference> ...]\n"
+            "              [--oneway=(0|1)] [--turns=(0|1)]\n"
+            "              [--weight=<weight>]\n"
+            "              [--height=<height>] [--width=<width>] [--length=<length>]\n");
+
+    if(argerr)
+       fprintf(stderr,
+               "\n"
+               "Error with command line parameter: %s\n",argerr);
+
+    if(err)
+       fprintf(stderr,
+               "\n"
+               "Error: %s\n",err);
+   }
+
+ if(detail==1)
+    fprintf(stderr,
+            "\n"
+            "--version               Print the version of Routino.\n"
+            "\n"
+            "--help                  Prints this information.\n"
+            "--help-profile          Prints the information about the selected profile.\n"
+            "--help-profile-xml      Prints all loaded profiles in XML format.\n"
+            "--help-profile-json     Prints all loaded profiles in JSON format.\n"
+            "--help-profile-perl     Prints all loaded profiles in Perl format.\n"
+            "\n"
+            "--dir=<dirname>         The directory containing the routing database.\n"
+            "--prefix=<name>         The filename prefix for the routing database.\n"
+            "--profiles=<filename>   The name of the XML file containing the profiles\n"
+            "                        (defaults to 'profiles.xml' with '--dir' and\n"
+            "                         '--prefix' options or the file installed in\n"
+            "                         '" ROUTINO_DATADIR "').\n"
+            "--translations=<fname>  The name of the XML file containing the translations\n"
+            "                        (defaults to 'translations.xml' with '--dir' and\n"
+            "                         '--prefix' options or the file installed in\n"
+            "                         '" ROUTINO_DATADIR "').\n"
+            "\n"
+            "--exact-nodes-only      Only route between nodes (don't find closest segment).\n"
+            "\n"
+            "--quiet                 Don't print any screen output when running.\n"
+            "--loggable              Print progress messages suitable for logging to file.\n"
+            "--logtime               Print the elapsed time for each processing step.\n"
+            "--logmemory             Print the max allocated/mapped memory for each step.\n"
+            "\n"
+            "--language=<lang>       Use the translations for specified language.\n"
+            "--output-html           Write an HTML description of the route.\n"
+            "--output-gpx-track      Write a GPX track file with all route points.\n"
+            "--output-gpx-route      Write a GPX route file with interesting junctions.\n"
+            "--output-text           Write a plain text file with interesting junctions.\n"
+            "--output-text-all       Write a plain text file with all route points.\n"
+            "--output-none           Don't write any output files or read any translations.\n"
+            "                        (If no output option is given then all are written.)\n"
+            "--output-stdout         Write to stdout instead of a file (requires exactly\n"
+            "                        one output format option, implies '--quiet').\n"
+            "\n"
+            "--profile=<name>        Select the loaded profile with this name.\n"
+            "--transport=<transport> Select the transport to use (selects the profile\n"
+            "                        named after the transport if '--profile' is not used.)\n"
+            "\n"
+            "--shortest              Find the shortest route between the waypoints.\n"
+            "--quickest              Find the quickest route between the waypoints.\n"
+            "\n"
+            "--lon<n>=<longitude>    Specify the longitude of the n'th waypoint.\n"
+            "--lat<n>=<latitude>     Specify the latitude of the n'th waypoint.\n"
+            "\n"
+            "--reverse               Find a route between the waypoints in reverse order.\n"
+            "--loop                  Find a route that returns to the first waypoint.\n"
+            "\n"
+            "--heading=<bearing>     Initial compass bearing at lowest numbered waypoint.\n"
+            "\n"
+            "                                   Routing preference options\n"
+            "--highway-<highway>=<preference>   * preference for highway type (%%).\n"
+            "--speed-<highway>=<speed>          * speed for highway type (km/h).\n"
+            "--property-<property>=<preference> * preference for proprty type (%%).\n"
+            "--oneway=(0|1)                     * oneway restrictions are to be obeyed.\n"
+            "--turns=(0|1)                      * turn restrictions are to be obeyed.\n"
+            "--weight=<weight>                  * maximum weight limit (tonnes).\n"
+            "--height=<height>                  * maximum height limit (metres).\n"
+            "--width=<width>                    * maximum width limit (metres).\n"
+            "--length=<length>                  * maximum length limit (metres).\n"
+            "\n"
+            "<transport> defaults to motorcar but can be set to:\n"
+            "%s"
+            "\n"
+            "<highway> can be selected from:\n"
+            "%s"
+            "\n"
+            "<property> can be selected from:\n"
+            "%s",
+            TransportList(),HighwayList(),PropertyList());
+
+ exit(!detail);
 }

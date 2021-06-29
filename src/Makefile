@@ -106,7 +106,7 @@ planetsplitter-slim$(.EXE) : $(PLANETSPLITTER_SLIM_OBJ)
 
 ########
 
-FIND_NEAREST_NODE_OBJ=router.o \
+FIND_NEAREST_NODE_OBJ=find_nearest_node.o \
 	   nodes.o segments.o ways.o relations.o types.o fakes.o \
 	   optimiser.o output.o \
 	   files.o logging.o profiles.o xmlparse.o \
@@ -121,7 +121,7 @@ find_nearest_node$(.EXE) : $(FIND_NEAREST_NODE_OBJ)
 
 ########
 
-FIND_NEAREST_NODE_SLIM_OBJ=router-slim.o \
+FIND_NEAREST_NODE_SLIM_OBJ=find_nearest_node-slim.o \
 	        nodes-slim.o segments-slim.o ways-slim.o relations-slim.o types.o fakes-slim.o \
 	        optimiser-slim.o output-slim.o \
 	        files.o logging.o profiles.o xmlparse.o \
