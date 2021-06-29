@@ -454,9 +454,6 @@ int main(int argc,char** argv)
     if(point_used[waypoint]==1 || point_used[waypoint]==2)
        print_usage(0,NULL,"All waypoints must have latitude and longitude.");
 
- if(first_waypoint>=last_waypoint)
-    print_usage(0,NULL,"At least two waypoints must be specified.");
-
  /* Load in the data - Note: No error checking because Load*List() will call exit() in case of an error. */
 
  if(!option_quiet)
