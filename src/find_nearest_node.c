@@ -61,6 +61,8 @@ int main(int argc,char** argv)
  waypoint_t   first_waypoint=NWAYPOINTS,last_waypoint=1,waypoint;
  int          inc_dec_waypoint=1;
 
+ printf("Find nearest node\n")
+
  if(argc<2)
     print_usage(0,NULL,NULL);
 
