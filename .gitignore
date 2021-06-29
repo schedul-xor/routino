@@ -1,0 +1,7 @@
+src/.deps
+*.o
+*~
+src/libroutino*
+src/xml/.deps
+extras/find-fixme/.deps
+web/bin

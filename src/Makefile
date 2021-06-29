@@ -35,7 +35,7 @@ D=$(wildcard $(DEPDIR)/*.d)
 
 EXE=planetsplitter$(.EXE) planetsplitter-slim$(.EXE) router$(.EXE) router-slim$(.EXE) \
     filedumperx$(.EXE) filedumper$(.EXE) filedumper-slim$(.EXE) \
-    router+lib$(.EXE) router+lib-slim$(.EXE)
+    router+lib$(.EXE) router+lib-slim$(.EXE) find_nearest_node$(.EXE) find_nearest_node-slim$(.EXE)
 
 ifneq ($(HOST),MINGW)
   LIB =libroutino.so               libroutino-slim.so
@@ -102,6 +102,36 @@ ifeq ($(HOST),MINGW)
 endif
 
 planetsplitter-slim$(.EXE) : $(PLANETSPLITTER_SLIM_OBJ)
+	$(LD) $^ -o $@ $(LDFLAGS)
+
+########
+
+FIND_NEAREST_NODE_OBJ=router.o \
+	   nodes.o segments.o ways.o relations.o types.o fakes.o \
+	   optimiser.o output.o \
+	   files.o logging.o profiles.o xmlparse.o \
+	   results.o queue.o translations.o
+
+ifeq ($(HOST),MINGW)
+  FIND_NEAREST_NODE_OBJ+=mman-win32.o
+endif
+
+find_nearest_node$(.EXE) : $(FIND_NEAREST_NODE_OBJ)
+	$(LD) $^ -o $@ $(LDFLAGS)
+
+########
+
+FIND_NEAREST_NODE_SLIM_OBJ=router-slim.o \
+	        nodes-slim.o segments-slim.o ways-slim.o relations-slim.o types.o fakes-slim.o \
+	        optimiser-slim.o output-slim.o \
+	        files.o logging.o profiles.o xmlparse.o \
+	        results.o queue.o translations.o
+
+ifeq ($(HOST),MINGW)
+  FIND_NEAREST_NODE_SLIM_OBJ+=mman-win32.o
+endif
+
+find_nearest_node-slim$(.EXE) : $(FIND_NEAREST_NODE_SLIM_OBJ)
 	$(LD) $^ -o $@ $(LDFLAGS)
 
 ########
