@@ -950,23 +950,6 @@
 
       </if> <!-- k="vehicle" -->
 
-      <if k="motor_vehicle">
-
-        <ifnot k="motor_vehicle" v="yes">
-          <output k="moped"      v="no"/>
-          <output k="motorcycle" v="no"/>
-          <output k="motorcar"   v="no"/>
-          <output k="goods"      v="no"/>
-          <output k="hgv"        v="no"/>
-          <output k="psv"        v="no"/>
-
-          <ifnot k="motor_vehicle" v="no">
-            <logerror k="motor_vehicle" message="using 'no'"/>
-          </ifnot>
-        </ifnot>
-
-      </if> <!-- k="motor_vehicle" -->
-
       <!-- Specific access rules (to override the generic ones) -->
 
       <if k="foot"      > <output/> </if>
