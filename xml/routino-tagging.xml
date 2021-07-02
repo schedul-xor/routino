@@ -932,24 +932,6 @@
 
       <!-- Access restrictions for classes of transport types (to subtract from highway specific defaults and other access permissions) -->
 
-      <if k="vehicle">
-
-        <ifnot k="vehicle" v="yes">
-          <output k="bicycle"    v="no"/>
-          <output k="moped"      v="no"/>
-          <output k="motorcycle" v="no"/>
-          <output k="motorcar"   v="no"/>
-          <output k="goods"      v="no"/>
-          <output k="hgv"        v="no"/>
-          <output k="psv"        v="no"/>
-
-          <ifnot k="vehicle" v="no">
-            <logerror k="vehicle" message="using 'no'"/>
-          </ifnot>
-        </ifnot>
-
-      </if> <!-- k="vehicle" -->
-
       <!-- Specific access rules (to override the generic ones) -->
 
       <if k="foot"      > <output/> </if>
