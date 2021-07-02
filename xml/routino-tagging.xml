@@ -720,6 +720,12 @@
 
       <!-- Generic access restrictions for all transport types (to subtract from highway specific defaults) -->
 
+      <if k="service">
+        <if k="service" v="busservice">
+          <set k="access" v="yes"/>
+        </if>
+      </if>
+      
       <if k="access">
 
         <ifnot k="access" v="yes">
