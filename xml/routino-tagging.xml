@@ -677,10 +677,64 @@
 
       <if k="service">
         <if k="service" v="busservice">
-          <set k="access" v="yes"/>
+          <output k="psv"        v="yes"/>
         </if>
       </if>
       
+      <if k="access">
+
+        <ifnot k="access" v="yes">
+          <output k="foot"       v="no"/>
+          <output k="horse"      v="no"/>
+          <output k="wheelchair" v="no"/>
+          <output k="bicycle"    v="no"/>
+          <output k="moped"      v="no"/>
+          <output k="motorcycle" v="no"/>
+          <output k="motorcar"   v="no"/>
+          <output k="goods"      v="no"/>
+          <output k="hgv"        v="no"/>
+
+          <if k="access" v="foot">
+            <set k="foot" v="yes"/>
+            <logerror k="access" message="using 'access' = 'no' ; 'foot' = 'yes'"/>
+            <set k="access" v="no"/>
+          </if>
+
+          <if k="access" v="wheelchair">
+            <set k="wheelchair" v="yes"/>
+            <logerror k="access" message="using 'access' = 'no' ; 'wheelchair' = 'yes'"/>
+            <set k="access" v="no"/>
+          </if>
+
+          <if k="access" v="motor_vehicle">
+            <set k="motor_vehicle" v="yes"/>
+            <logerror k="access" message="using 'access' = 'no' ; 'motor_vehicle' = 'yes'"/>
+            <set k="access" v="no"/>
+          </if>
+
+          <if k="access" v="hgv">
+            <set k="hgv" v="yes"/>
+            <logerror k="access" message="using 'access' = 'no' ; 'hgv' = 'yes'"/>
+            <set k="access" v="no"/>
+          </if>
+
+          <if k="access" v="bus">
+            <set v="psv" />
+          </if>
+
+          <if k="access" v="psv">
+            <set k="psv" v="yes"/>
+            <logerror k="access" message="using 'access' = 'no' ; 'psv' = 'yes'"/>
+            <set k="access" v="no"/>
+          </if>
+
+          <ifnot k="access" v="no">
+            <logerror k="access" message="using 'no'"/>
+          </ifnot>
+        </ifnot>
+
+      </if> <!-- k="access" -->
+
       <!-- Other access permissions (to add to highway specific defaults with generic restrictions) -->
 
       <if k="designation">
@@ -831,6 +885,24 @@
       </if>
 
       <!-- Access restrictions for classes of transport types (to subtract from highway specific defaults and other access permissions) -->
+
+      <if k="vehicle">
+
+        <ifnot k="vehicle" v="yes">
+          <output k="bicycle"    v="no"/>
+          <output k="moped"      v="no"/>
+          <output k="motorcycle" v="no"/>
+          <output k="motorcar"   v="no"/>
+          <output k="goods"      v="no"/>
+          <output k="hgv"        v="no"/>
+<!--          <output k="psv"        v="no"/>-->
+
+          <ifnot k="vehicle" v="no">
+            <logerror k="vehicle" message="using 'no'"/>
+          </ifnot>
+        </ifnot>
+
+      </if> <!-- k="vehicle" -->
 
       <!-- Specific access rules (to override the generic ones) -->
 
