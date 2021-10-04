@@ -806,7 +806,7 @@ int UpdateProfile(Profile *profile,Ways *ways)
  profile->transports=TRANSPORTS(profile->transport);
 
  if(!(profile->transports & ways->file.transports)){
-   fprintf(stderr,"!(profile->transports & ways->file.transports)");
+   fprintf(stderr,"!(profile->transports & ways->file.transports) %d %d\n",profile->transports,ways->file.transports);
     return(1);
  }
 
@@ -827,7 +827,7 @@ int UpdateProfile(Profile *profile,Ways *ways)
    }
 
  if(profile->max_pref==0){
-   fprintf(stderr,"profile->max_pref==0");
+   fprintf(stderr,"profile->max_pref==0\n");
     return(1);
  }
 
@@ -867,7 +867,7 @@ int UpdateProfile(Profile *profile,Ways *ways)
        profile->max_speed=profile->speed[i];
 
  if(profile->max_speed==0){
-   fprintf(stderr,"profile->max_speed==0");
+   fprintf(stderr,"profile->max_speed==0\n");
    return(1);
  }
 
