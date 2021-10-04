@@ -805,8 +805,10 @@ int UpdateProfile(Profile *profile,Ways *ways)
 
  profile->transports=TRANSPORTS(profile->transport);
 
- if(!(profile->transports & ways->file.transports))
+ if(!(profile->transports & ways->file.transports)){
+   fprintf(stderr,"!(profile->transports & ways->file.transports)");
     return(1);
+ }
 
  /* Normalise the highway preferences into the range ~0 -> 1 */
 
@@ -824,8 +826,10 @@ int UpdateProfile(Profile *profile,Ways *ways)
        profile->max_pref=profile->highway[i];
    }
 
- if(profile->max_pref==0)
+ if(profile->max_pref==0){
+   fprintf(stderr,"profile->max_pref==0");
     return(1);
+ }
 
  /* Normalise the property preferences into the range ~0 -> 1 */
 
@@ -862,8 +866,10 @@ int UpdateProfile(Profile *profile,Ways *ways)
     if(profile->speed[i]>profile->max_speed)
        profile->max_speed=profile->speed[i];
 
- if(profile->max_speed==0)
-    return(1);
+ if(profile->max_speed==0){
+   fprintf(stderr,"profile->max_speed==0");
+   return(1);
+ }
 
  /* Find the most preferred property combination */
 
