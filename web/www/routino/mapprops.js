@@ -27,7 +27,7 @@ var mapprops={ // contains all properties for the map to be displayed.
   northedge:  45.802450,          // Maximum latitude (degrees)
 
   zoomout:       4,          // Minimum zoom
-  zoomin:       15,          // Maximum zoom
+  zoomin:       18,          // Maximum zoom
 
  // EDIT THIS above to change the visible map limits
 
