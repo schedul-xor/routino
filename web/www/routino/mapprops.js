@@ -17,11 +17,14 @@ var mapprops={ // contains all properties for the map to be displayed.
 
  // EDIT THIS below to change the visible map limits
 
-  westedge:  -11.0,          // Minimum longitude (degrees)
-  eastedge:    2.0,          // Maximum longitude (degrees)
+    // Japan area limits according to the following kml
+    // view-source:https://download.geofabrik.de/asia/japan.kml
+    
+  westedge:  122.560700,          // Minimum longitude (degrees)
+  eastedge:    45.802450,          // Maximum longitude (degrees)
 
-  southedge:  49.5,          // Minimum latitude (degrees)
-  northedge:  61.0,          // Maximum latitude (degrees)
+  southedge:  20.082280,          // Minimum latitude (degrees)
+  northedge:  45.802450,          // Maximum latitude (degrees)
 
   zoomout:       4,          // Minimum zoom
   zoomin:       15,          // Maximum zoom
