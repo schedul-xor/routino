@@ -25,9 +25,9 @@
 $root_dir="../..";
 
 # EDIT THIS to change the location of the individual directories.
-$bin_dir="$root_dir/bin";
-$data_dir="$root_dir/data";
-$results_dir="$root_dir/results";
+$bin_dir="/home/xor/routino/tmp";
+$data_dir="/home/xor/routino/data";
+$results_dir="/tmp/results";
 
 # EDIT THIS to set the filename prefix for the routing database files.
 $data_prefix="";
