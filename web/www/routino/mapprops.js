@@ -21,7 +21,7 @@ var mapprops={ // contains all properties for the map to be displayed.
     // view-source:https://download.geofabrik.de/asia/japan.kml
     
   westedge:  122.560700,          // Minimum longitude (degrees)
-  eastedge:    45.802450,          // Maximum longitude (degrees)
+  eastedge:    154.470900,          // Maximum longitude (degrees)
 
   southedge:  20.082280,          // Minimum latitude (degrees)
   northedge:  45.802450,          // Maximum latitude (degrees)
