@@ -139,20 +139,20 @@ typedef uint16_t waypoint_t;
 typedef uint32_t index_t;
 
 /*+ A printf formatting string for an index_t type (this should match the index_t definition above). +*/
-#define Pindex_t PRIu32         /* PRIu32 and PRIu64 are defined in intypes.h */
+#define Pindex_t PRIu64         /* PRIu32 and PRIu64 are defined in intypes.h */
 
 
 /*+ A node latitude or longitude (range: +/-pi*LAT_LONG_SCALE = +/-3.14*1024*65536 = ~29 bits). +*/
-typedef int32_t  latlong_t;
+typedef int64_t  latlong_t;
 
 /*+ A node latitude or longitude bin number (range: +/-pi*LAT_LONG_SCALE/LAT_LONG_BIN = +/-3.14*1024 = ~13 bits). +*/
-typedef int16_t  ll_bin_t;
+typedef int32_t  ll_bin_t;
 
 /*+ A node latitude and longitude bin number (range: +/-(pi*LAT_LONG_SCALE/LAT_LONG_BIN)^2 = +/-(3.14*1024)^2 = ~26 bits). +*/
-typedef int32_t  ll_bin2_t;
+typedef int64_t  ll_bin2_t;
 
 /*+ A node latitude or longitude offset (range: 0 -> LAT_LONG_BIN-1 = 0 -> 65535 = 16 bits). +*/
-typedef uint16_t ll_off_t;
+typedef uint32_t ll_off_t;
 
 
 /*+ Conversion from a latlong (integer latitude or longitude) to a bin number. +*/
