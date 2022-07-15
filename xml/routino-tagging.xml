@@ -265,6 +265,7 @@
 
     <if k="psv" v="private">
       <set k="access" v="yes"/>
+      <unset k="psv"/>
       <output k="psv" v="yes"/>
       <output k="motorcar"   v="yes"/>
       <output k="goods"      v="yes"/>
