@@ -264,11 +264,8 @@
       <set k="highway" v="ferry"/>
     </if>
 
-    <if k="bus" v="yes">
-      <if k="psv" v="private">
-        <output k="psv"    v="yes"/>
-        <unset k="access"/>
-      </if>
+    <if k="psv" v="private">
+      <output k="psv" v="yes"/>
     </if>
 
     <if k="highway">
