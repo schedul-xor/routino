@@ -266,6 +266,8 @@
 
     <if k="psv" v="private">
       <output k="psv" v="yes"/>
+<set k="access" v="yes"/>
+
     </if>
 
     <if k="highway">
