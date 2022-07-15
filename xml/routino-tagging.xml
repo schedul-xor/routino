@@ -264,6 +264,12 @@
       <set k="highway" v="ferry"/>
     </if>
 
+    <if k="bus" v="yes">
+      <if k="psv" v="private">
+        <output k="psv"    v="yes"/>
+      </if>
+    </if>
+
     <if k="highway">
 
       <!-- Not useful highway types (future highways) -->
