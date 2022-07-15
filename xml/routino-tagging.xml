@@ -267,6 +267,7 @@
     <if k="bus" v="yes">
       <if k="psv" v="private">
         <output k="psv"    v="yes"/>
+        <unset k="access"/>
       </if>
     </if>
 
