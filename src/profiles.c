@@ -805,10 +805,10 @@ int UpdateProfile(Profile *profile,Ways *ways)
 
  profile->transports=TRANSPORTS(profile->transport);
 
- if(!(profile->transports & ways->file.transports)){
-   fprintf(stderr,"!(profile->transports & ways->file.transports) %d %d\n",profile->transports,ways->file.transports);
-    return(1);
- }
+ // if(!(profile->transports & ways->file.transports)){
+ //   fprintf(stderr,"!(profile->transports & ways->file.transports) %d %d\n",profile->transports,ways->file.transports);
+ //    return(1);
+ // }
 
  /* Normalise the highway preferences into the range ~0 -> 1 */
 
