@@ -12,7 +12,7 @@ scp \
   xml/tagging-walk.xml \
   xor@${TILE0_HOST}:~/routino/tmp
 scp web/bin/*  xor@${TILE0_HOST}:~/Documents/routino/web/bin
-scp -P 20022 \
+scp \
   src/router \
   src/router-slim \
   src/find_nearest_node \
@@ -22,5 +22,4 @@ scp -P 20022 \
   xml/tagging-drive.xml \
   xml/tagging-walk.xml \
   xor@${TILE1_HOST}:~/routino/tmp
-scp -P 20022 web/bin/*  xor@${TILE1_HOST}:~/Documents/routino/web/bin
-
+scp web/bin/*  xor@${TILE1_HOST}:~/Documents/routino/web/bin
