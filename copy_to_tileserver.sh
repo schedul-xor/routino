@@ -1,6 +1,7 @@
 TILE0_HOST=tile0.ogiqvo.com
 TILE1_HOST=tile1.ogiqvo.com
 
+echo Copy to ${TILE0_HOST}
 scp \
   src/router \
   src/router-slim \
@@ -12,6 +13,8 @@ scp \
   xml/tagging-walk.xml \
   xor@${TILE0_HOST}:~/routino/tmp
 scp web/bin/*  xor@${TILE0_HOST}:~/Documents/routino/web/bin
+
+echo Copy to ${TILE1_HOST}
 scp \
   src/router \
   src/router-slim \
