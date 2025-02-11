@@ -13,7 +13,7 @@ scp \
   xml/tagging-walk.xml \
   xor@${TILE0_HOST}:~/routino/tmp
 scp web/bin/*  xor@${TILE0_HOST}:~/Documents/routino/web/bin
-scp xml/routino-custom-profiles.xml xml/routino-translations.xml xor@${TILE0_HOST}:~/Documents/routino/xml/
+scp xml/routino-custom-profiles.xml xml/routino-translations.xml xor@${TILE0_HOST}:~/routino/xml/
 
 echo Copy to ${TILE1_HOST}
 scp \
@@ -27,4 +27,4 @@ scp \
   xml/tagging-walk.xml \
   xor@${TILE1_HOST}:~/routino/tmp
 scp web/bin/*  xor@${TILE1_HOST}:~/Documents/routino/web/bin
-scp xml/routino-custom-profiles.xml xml/routino-translations.xml xor@${TILE1_HOST}:~/Documents/routino/xml/
+scp xml/routino-custom-profiles.xml xml/routino-translations.xml xor@${TILE1_HOST}:~/routino/xml/
