@@ -26,8 +26,8 @@
       <speed highway="residential"   kph="48" />
       <speed highway="service"       kph="32" />
       <speed highway="track"         kph="16" />
-      <speed highway="cycleway"      kph="0" />
-      <speed highway="path"          kph="0" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
       <speed highway="steps"         kph="0" />
       <speed highway="ferry"         kph="10" />
     </speeds>
@@ -40,9 +40,9 @@
       <preference highway="unclassified"  percent="20" />
       <preference highway="residential"   percent="20" />
       <preference highway="service"       percent="10" />
-      <preference highway="track"         percent="0" />
-      <preference highway="cycleway"      percent="0" />
-      <preference highway="path"          percent="0" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
       <preference highway="steps"         percent="0" />
       <preference highway="ferry"         percent="0" />
     </preferences>
@@ -57,10 +57,10 @@
     <restrictions>
       <oneway obey="1" /> 
       <turns  obey="1" /> 
-      <weight limit="15.0" />
-      <height limit="3.0" />
-      <width  limit="2.5" />
-      <length limit="6.0" />
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
     </restrictions>
   </profile>
   
@@ -75,8 +75,8 @@
       <speed highway="residential"   kph="48" />
       <speed highway="service"       kph="32" />
       <speed highway="track"         kph="16" />
-      <speed highway="cycleway"      kph="0" />
-      <speed highway="path"          kph="0" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
       <speed highway="steps"         kph="0" />
       <speed highway="ferry"         kph="10" />
     </speeds>
@@ -89,9 +89,9 @@
       <preference highway="unclassified"  percent="20" />
       <preference highway="residential"   percent="20" />
       <preference highway="service"       percent="10" />
-      <preference highway="track"         percent="0" />
-      <preference highway="cycleway"      percent="0" />
-      <preference highway="path"          percent="0" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
       <preference highway="steps"         percent="0" />
       <preference highway="ferry"         percent="0" />
     </preferences>
@@ -106,10 +106,10 @@
     <restrictions>
       <oneway obey="1" /> 
       <turns  obey="1" /> 
-      <weight limit="15.0" />
-      <height limit="3.0" />
-      <width  limit="2.5" />
-      <length limit="6.0" />
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
     </restrictions>
   </profile>
   
@@ -124,8 +124,8 @@
       <speed highway="residential"   kph="48" />
       <speed highway="service"       kph="32" />
       <speed highway="track"         kph="16" />
-      <speed highway="cycleway"      kph="0" />
-      <speed highway="path"          kph="0" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
       <speed highway="steps"         kph="0" />
       <speed highway="ferry"         kph="10" />
     </speeds>
@@ -138,9 +138,9 @@
       <preference highway="unclassified"  percent="20" />
       <preference highway="residential"   percent="20" />
       <preference highway="service"       percent="10" />
-      <preference highway="track"         percent="0" />
-      <preference highway="cycleway"      percent="0" />
-      <preference highway="path"          percent="0" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
       <preference highway="steps"         percent="0" />
       <preference highway="ferry"         percent="0" />
     </preferences>
@@ -155,10 +155,10 @@
     <restrictions>
       <oneway obey="1" /> 
       <turns  obey="1" /> 
-      <weight limit="15.0" />
-      <height limit="3.0" />
-      <width  limit="2.5" />
-      <length limit="6.0" />
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
     </restrictions>
   </profile>
 

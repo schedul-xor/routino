@@ -33,3 +33,5 @@ web/data/*.xml
 xml/tagging-drive.xml
 xml/tagging-ride.xml
 xml/tagging-walk.xml
+
+src/.idea

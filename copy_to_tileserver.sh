@@ -9,6 +9,8 @@ scp \
   src/find_nearest_node-slim \
   src/planetsplitter \
   src/planetsplitter-slim \
+  src/filedumper \
+  src/filedumper-slim \
   xml/tagging-drive.xml \
   xml/tagging-walk.xml \
   xor@${TILE0_HOST}:~/routino/tmp
@@ -21,6 +23,8 @@ scp \
   src/router-slim \
   src/find_nearest_node \
   src/find_nearest_node-slim \
+  src/filedumper \
+  src/filedumper-slim \
   src/planetsplitter \
   src/planetsplitter-slim \
   xml/tagging-drive.xml \
