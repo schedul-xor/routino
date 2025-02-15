@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- ============================================================
+     An XML format file containing Routino routing profiles
+
+     Part of the Routino routing software.
+     ============================================================
+     This file Copyright 2010-2015 Andrew M. Bishop
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU Affero General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     ============================================================ -->
+
+<routino-profiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="http://www.routino.org/xml/routino-profiles.xsd">
+  <profile name="psv_motorway0" transport="psv">
+    <speeds>
+      <speed highway="motorway"      kph="100" />
+      <speed highway="trunk"         kph="80" />
+      <speed highway="primary"       kph="80" />
+      <speed highway="secondary"     kph="80" />
+      <speed highway="tertiary"      kph="80" />
+      <speed highway="unclassified"  kph="64" />
+      <speed highway="residential"   kph="48" />
+      <speed highway="service"       kph="32" />
+      <speed highway="track"         kph="16" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
+      <speed highway="steps"         kph="0" />
+      <speed highway="ferry"         kph="10" />
+    </speeds>
+    <preferences>
+      <preference highway="motorway"      percent="0" />
+      <preference highway="trunk"         percent="100" />
+      <preference highway="primary"       percent="100" />
+      <preference highway="secondary"     percent="80" />
+      <preference highway="tertiary"      percent="70" />
+      <preference highway="unclassified"  percent="20" />
+      <preference highway="residential"   percent="20" />
+      <preference highway="service"       percent="10" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
+      <preference highway="steps"         percent="0" />
+      <preference highway="ferry"         percent="0" />
+    </preferences>
+    <properties>
+      <property type="paved"         percent="100" />
+      <property type="multilane"     percent="60" />
+      <property type="bridge"        percent="50" />
+      <property type="tunnel"        percent="50" />
+      <property type="footroute"     percent="45" />
+      <property type="bicycleroute"  percent="45" />
+    </properties>
+    <restrictions>
+      <oneway obey="1" /> 
+      <turns  obey="1" /> 
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
+    </restrictions>
+  </profile>
+  
+  <profile name="psv_motorway1" transport="psv">
+    <speeds>
+      <speed highway="motorway"      kph="100" />
+      <speed highway="trunk"         kph="80" />
+      <speed highway="primary"       kph="80" />
+      <speed highway="secondary"     kph="80" />
+      <speed highway="tertiary"      kph="80" />
+      <speed highway="unclassified"  kph="64" />
+      <speed highway="residential"   kph="48" />
+      <speed highway="service"       kph="32" />
+      <speed highway="track"         kph="16" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
+      <speed highway="steps"         kph="0" />
+      <speed highway="ferry"         kph="10" />
+    </speeds>
+    <preferences>
+      <preference highway="motorway"      percent="1" />
+      <preference highway="trunk"         percent="100" />
+      <preference highway="primary"       percent="100" />
+      <preference highway="secondary"     percent="80" />
+      <preference highway="tertiary"      percent="70" />
+      <preference highway="unclassified"  percent="20" />
+      <preference highway="residential"   percent="20" />
+      <preference highway="service"       percent="10" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
+      <preference highway="steps"         percent="0" />
+      <preference highway="ferry"         percent="0" />
+    </preferences>
+    <properties>
+      <property type="paved"         percent="100" />
+      <property type="multilane"     percent="60" />
+      <property type="bridge"        percent="50" />
+      <property type="tunnel"        percent="50" />
+      <property type="footroute"     percent="45" />
+      <property type="bicycleroute"  percent="45" />
+    </properties>
+    <restrictions>
+      <oneway obey="1" /> 
+      <turns  obey="1" /> 
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
+    </restrictions>
+  </profile>
+  
+  <profile name="psv_motorway100" transport="psv">
+    <speeds>
+      <speed highway="motorway"      kph="100" />
+      <speed highway="trunk"         kph="80" />
+      <speed highway="primary"       kph="80" />
+      <speed highway="secondary"     kph="80" />
+      <speed highway="tertiary"      kph="80" />
+      <speed highway="unclassified"  kph="64" />
+      <speed highway="residential"   kph="48" />
+      <speed highway="service"       kph="32" />
+      <speed highway="track"         kph="16" />
+      <speed highway="cycleway"      kph="1" />
+      <speed highway="path"          kph="1" />
+      <speed highway="steps"         kph="0" />
+      <speed highway="ferry"         kph="10" />
+    </speeds>
+    <preferences>
+      <preference highway="motorway"      percent="100" />
+      <preference highway="trunk"         percent="100" />
+      <preference highway="primary"       percent="100" />
+      <preference highway="secondary"     percent="80" />
+      <preference highway="tertiary"      percent="70" />
+      <preference highway="unclassified"  percent="20" />
+      <preference highway="residential"   percent="20" />
+      <preference highway="service"       percent="10" />
+      <preference highway="track"         percent="1" />
+      <preference highway="cycleway"      percent="1" />
+      <preference highway="path"          percent="1" />
+      <preference highway="steps"         percent="0" />
+      <preference highway="ferry"         percent="0" />
+    </preferences>
+    <properties>
+      <property type="paved"         percent="100" />
+      <property type="multilane"     percent="60" />
+      <property type="bridge"        percent="50" />
+      <property type="tunnel"        percent="50" />
+      <property type="footroute"     percent="45" />
+      <property type="bicycleroute"  percent="45" />
+    </properties>
+    <restrictions>
+      <oneway obey="1" /> 
+      <turns  obey="1" /> 
+      <weight limit="0" />
+      <height limit="0" />
+      <width  limit="0" />
+      <length limit="0" />
+    </restrictions>
+  </profile>
+
+</routino-profiles>
