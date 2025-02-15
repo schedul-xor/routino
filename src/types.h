@@ -36,7 +36,7 @@
 /* Constants and macros for handling them */
 
 /*+ The number of waypoints allowed to be specified. +*/
-#define NWAYPOINTS 99
+#define NWAYPOINTS 999
 
 
 /*+ An undefined waypoint index. +*/

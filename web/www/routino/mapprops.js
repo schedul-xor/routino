@@ -66,7 +66,7 @@ var mapprops={ // contains all properties for the map to be displayed.
 
  // EDIT THIS below to change the maximum number of markers to include in the HTML
 
-  maxmarkers: 9
+  maxmarkers: 99
 
  // EDIT THIS above to change the maximum number of markers to include in the HTML
 

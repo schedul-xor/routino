@@ -159,7 +159,7 @@ License
 Copyright
 ---------
 
-   Routino is copyright Andrew M. Bishop 2008-2020.
+   Routino is copyright Andrew M. Bishop 2008-2020, Izumi Kawashima 2024.
 
 
 Homepage
