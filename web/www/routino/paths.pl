@@ -22,7 +22,7 @@
 # Directory path parameters
 
 # EDIT THIS to set the root directory for the non-web data files.
-$root_dir="../..";
+$root_dir="home/xor/routino/";
 
 # EDIT THIS to change the location of the individual directories.
 $bin_dir="$root_dir/bin";
